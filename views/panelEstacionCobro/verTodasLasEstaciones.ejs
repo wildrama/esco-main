@@ -1,0 +1,63 @@
+<%- include('../partials/headerAdm.ejs'); %>
+
+<div class="container">
+    <div class="contenido-estaciones">
+        <h2 class="text-center">Estaciones de cobro</h2>
+        <p class="lead">Las estaciones de cobro identifican las cajas distrubuidas en ESCOSOSA.
+            Accediendo a cada estacion de cobro se podra visualizar la información relacionada al instante.
+        </p>
+        
+        
+    </div>
+    <a href="/administrador/estacionesdecobro/nuevaestacion" class="text-center d-block btn btn-outline-info  px-3">Nueva estación</a>
+
+    <div class="row justify-content-around">
+        <% for(let estacion of estacionesDeCobro){ %> 
+            <div class="col-4 ">
+                <div class="row border border-dark p-3">
+                    <div class="col-4 d-flex-row aling-items-center">
+                        <img class="img-fluid"  src="/imgs/estaciondecobro.png" alt="">
+                    </div>
+                    <div class="col-8">
+                        <div class="container">
+                            <p class="lead">Ubicación: <%= estacion.ubicacionDeEstacion %> </p>
+                              <% if (estacion.usuarioActual) { %>
+                                  <p class="lead">Cajera: <%= estacion.usuarioActual %>   </p>
+      
+                              <% } %>
+                              <% if(estacion.isActive == 'SI'){ %>
+                                  Estado: Activa 
+                                  <% } else {%>
+                                          Estado: Inactiva
+                                      <% } %> 
+                            <a href="/administrador/estaciondecobro/<%= estacion._id %>">Ingresar a la estación de cobro</a>
+                              </div>
+                    </div>
+                </div>
+      
+            </div>
+        <% } %>
+   
+
+      <div class="col-4 ">
+        <div class="row border border-dark p-3">
+            <div class="col-4">
+                <img class="img-fluid p-3"  src="/imgs/estaciondecobro.png" alt="">
+            </div>
+            <div class="col-8">
+                <div class="container">
+                    <p class="lead">Ubicación:</p>
+                    <p class="lead">Cajera: </p>
+                    <p class="lead text-muted">Activa: [O]----I</p>
+                      </div>
+            </div>
+        </div>
+
+    </div>
+
+    </div>
+
+</div>
+
+
+<%- include('../partials/footer.ejs'); %>

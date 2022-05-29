@@ -1,0 +1,39 @@
+<%- include('../partials/headerAdm.ejs'); %>
+<%- include('../partials/flash.ejs'); %>
+
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="estacionDeTrabajo p-3">
+                <div class="ACCIONES border border-dark">
+                    
+                    <ul>
+                    <li class="nav-item" >
+                        <a class="nav-link" href="/administrador/estacionesdecobro/<%= estacionDeCobroParaVisualizar_id %>/historial-ventas">Historial de ventas</a>
+
+                    </li>
+                    <li class="nav-item" >                
+                            <a class="nav-link" href="/administrador/estacionesdecobro/<%= estacionDeCobroParaVisualizar_id %>/ingreso-efectivo">Ingresos de efectivo</a>
+                    </li>
+                    <li class="nav-item" >      
+                                      <a class="nav-link" href="/administrador/estacionesdecobro/<%= estacionDeCobroParaVisualizar_id %>/egreso-efectivo">Egresos </a>
+                    </li>   
+                </ul>
+
+                    <a class="nav-link" href="/administrador/estacionesdecobro/<%= estacionDeCobroParaVisualizar._id%>/agregar-usuario">Agregar usuario a la caja</a>
+                   </div>
+                   <div class="ultimas-compras">
+                        <div class="row">
+                            nombre: <%= estacionDeCobroParaVisualizar.dineroEnEstacion %> 
+                        </div>
+                   </div>
+                </div>
+        </div>
+    </div>
+</div>
+
+
+
+<%- include('../partials/footer.ejs'); %>
