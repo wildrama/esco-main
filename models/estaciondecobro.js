@@ -40,12 +40,12 @@ EstacionDeCobroSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Usuario'
     },
-    // comprasRealizadasEnLaEstacion:[
-    //     {
-    //         type: Schema.Types.ObjectId,
-    //         ref: Venta
-    //     }
-    // ],
+    comprasRealizadasEnLaEstacion:[
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'Venta'
+        }
+    ],
     isActive:{
         type: String,
         enum:['SI', 'NO'],

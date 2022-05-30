@@ -1,17 +1,18 @@
 const express = require('express');
 const router = express.Router();
 const catchAsync = require('../utils/catchAsync');
-const {isLoggedIn,isAdmin} = require('../middleware');
+const {isLoggedIn,isAdmin,isCaja} = require('../middleware');
 const EstacionDeCobro = require('../models/estaciondecobro');
 
 
 
 
 const roleADM = 'ADMINISTRADOR';
+const roleCaja = 'CAJA';
 
 // isLoggedIn,isAdmin(roleADM),
 router.get('/', async(req, res) => {
-
+console.log(req.user.funcion)
   try {
     const estacionesDeCobro = await EstacionDeCobro.find({});
 
@@ -41,7 +42,7 @@ router.get('/nuevaestacion',  (req, res) => {
     await nuevaEstacion.save();
 
     req.flash('success', 'Estación de cobro creada');
-    res.redirect('/administrador/estacionesdecobro/')
+    res.redirect(`/administrador/estacionesdecobro/${nuevaEstacion._id}`)
  }))
 
 
@@ -51,11 +52,9 @@ router.get('/nuevaestacion',  (req, res) => {
 router.get('/:id', catchAsync(async (req,res)=>{
   try {
     const  {id}  = req.params;
-    console.log('asdasd')
   
     const estacionDeCobro = await EstacionDeCobro.findById(id);
-  
-  console.log({estacionDeCobro})
+    res.render('panelEstacionCobro/verEstacion', {estacionDeCobro})
   } catch (error) {
     res.render('errors', error)
 
@@ -65,5 +64,19 @@ router.get('/:id', catchAsync(async (req,res)=>{
 
 router.put('/:id', catchAsync(async(req,res)=>{
   // agregar datos a la estación
+}))
+
+
+// delete de estacion
+router.delete('/:id', catchAsync(async (req, res) => {
+  const { id } = req.params;
+  const eliminarEstacion = await EstacionDeCobro.findByIdAndDelete(id);
+  if (!eliminarEstacion) {
+    req.flash('error', 'No se puede eliminar la estación');
+    return res.redirect('/administrador/estacionesdecobro');
+}
+req.flash('sucess', 'Estación eliminada correctamente');
+
+  res.redirect('/administrador/estacionesdecobro');
 }))
 module.exports = router;

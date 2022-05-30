@@ -42,7 +42,6 @@ if(req.user.funcion){
           delete req.session.returnTo;
 
           return res.redirect(redirectUrl2);       
-                break;
 
   }
   

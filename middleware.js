@@ -14,7 +14,7 @@ module.exports.isLoggedIn = (req, res, next) => {
 module.exports.isAdmin = (role)=>{
    return (req, res, next) => {
         if ( req.user.funcion !== role) {
-            req.flash('error', 'Lugar equivocado');
+            req.flash('error', 'No se puede ingresar');
             return res.redirect(`/ingresar`);
         }
         next();
@@ -26,7 +26,7 @@ module.exports.isAdmin = (role)=>{
 module.exports.isCaja = (role1)=>{
     return (req, res, next) => {
          if ( req.user.funcion !== role1) {
-             req.flash('error', 'Tiene que ingresar como cajer@');
+             req.flash('error', 'No se puede ingresar');
              return res.redirect(`/ingresar`);
          }
          next();
