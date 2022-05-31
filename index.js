@@ -20,7 +20,6 @@ const LocalStrategy = require('passport-local');
 
 // require mongoose models
 const User = require('./models/usuario.js')
-const Producto = require('./models/productos.js');
 const ExpressError=require('./utils/ExpressError');
 
 
@@ -142,12 +141,11 @@ app.all('*', (req, res, next) => {
 app.use(function (err, req, res, next) {
   const { statusCode = 500 } = err;
   console.log(err);
-    let currentRole = req.user.funcion ;
      
   
 
     if (!err.message) err.message = 'Algo salio mal!'
-  res.status(statusCode).render('errors', { currentRole })
+  res.status(statusCode).render('errors',)
 }); 
 
 // endapp

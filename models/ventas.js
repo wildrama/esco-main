@@ -37,12 +37,12 @@ const ventasEfectuadasSchema = new Schema({
     cantidadDeProductosTotales: {
         type: Number
     },
-    estacionDeCobro: [
+    estacionDeCobro: 
         {
             type: Schema.Types.ObjectId,
             ref: 'EstacionDeCobro'
         }
-    ],
+    ,
 
 
 }, { timestamps: true });

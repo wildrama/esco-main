@@ -11,6 +11,8 @@ const roleADM = 'ADMINISTRADOR';
 const roleCaja = 'CAJA';
 
 // isLoggedIn,isAdmin(roleADM),
+
+// mostrar las estaciones
 router.get('/', async(req, res) => {
 console.log(req.user.funcion)
   try {
@@ -66,7 +68,19 @@ router.put('/:id', catchAsync(async(req,res)=>{
   // agregar datos a la estación
 }))
 
+// mostrar el historial de ventas
 
+router.get('/:id/historia-ventas', catchAsync(async(req,res)=>{
+  const id = req.params;
+
+  const historialVentasEstacion = await EstacionDeCobro.findById(id).populated("Venta","dineroIngresado productos").exec()
+  console.log({historialVentasEstacion});
+  console.log(historialVentasEstacion);
+
+  res.render('panelEstacion/estacion-historial',{ historialVentasEstacion})
+
+res.send('ok');
+}))
 // delete de estacion
 router.delete('/:id', catchAsync(async (req, res) => {
   const { id } = req.params;

@@ -28,7 +28,8 @@ EstacionDeCobroSchema = new Schema({
     ],
     egresoDeEfectivoManual: [
         {
-            type: Number
+            motivo: String,
+            cantidadDeEfectivoRetirado: Number
         }
     ],
     historialDeUsuarios:[
@@ -40,7 +41,7 @@ EstacionDeCobroSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Usuario'
     },
-    comprasRealizadasEnLaEstacion:[
+    ventasRealizadasEnLaEstacion:[
         {
             type: Schema.Types.ObjectId,
             ref: 'Venta'
