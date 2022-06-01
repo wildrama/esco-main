@@ -21,9 +21,6 @@ const ventasEfectuadasSchema = new Schema({
             {
                 type: Schema.Types.ObjectId,
                 ref: Producto
-            }, 
-            precioEnLaVenta:{
-                type: Number
             }
         }
     ]

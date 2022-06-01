@@ -8,11 +8,11 @@ EstacionDeCobroSchema = new Schema({
         type: String
     },
     dineroEnEstacion: {
+
         type: Number,
-        required: true,
-
+        required: true
     },
-
+    
     cantComprasRealizadas: {
         type: Number
     },

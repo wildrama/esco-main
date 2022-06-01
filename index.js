@@ -65,9 +65,10 @@ const administradorProductosRoutes =require('./routes/administradorProductos');
 const administradorBuscarRoutes =require('./routes/administradorBuscar');
 const administradorEstacionDeCobroRoutes  = require('./routes/administradorEstaciones');
 const administradorOfertasRoutes =require('./routes/administradorOfertas');
-const busquedaNombre = require('./routes/buscarProd')
-const codigoBarra = require('./routes/codigoBarra')
-
+const busquedaNombre = require('./routes/buscarProd');
+const codigoBarra = require('./routes/codigoBarra');
+ 
+const saveVentasRoutes = require('./routes/savesDeCaja')
 
 
 // const stockRoutes = require('./routes/stock')
@@ -120,6 +121,9 @@ app.use('/administrador/buscar',administradorBuscarRoutes);
 app.use('/administrador/ofertas',administradorOfertasRoutes)
 app.use('/buscanombre', busquedaNombre)
 app.use('/codigobarra', codigoBarra)
+
+app.use('/save', saveVentasRoutes);
+
 // RENDER HOME
 app.get('/', (req, res) => {
     res.redirect('/ingresar');
