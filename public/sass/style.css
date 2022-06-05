@@ -70,6 +70,13 @@ nav {
   border-left: 2px solid green;
 }
 
+.caja-on {
+  width: 14px;
+  height: 14px;
+  background-color: #018501;
+  border-radius: 100%;
+}
+
 @media print {
   head {
     display: none;

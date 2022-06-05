@@ -14,13 +14,14 @@ const roleADM = 'ADMINISTRADOR';
 
 router.get('/', (req,res)=>{
 
-    res.render('stock/ofertaInicio')
+    res.render('panelOfertas/ofertaInicio')
 })
-router.get('/:id', (req,res)=>{
-    const {id} =req.params.id;
-    const producto = Producto.findById(id);
+router.get('/:id', async(req,res)=>{
 
-    res.render('stock/ofertaTest',{producto});
+    const {id} =req.params;
+    const producto = await Producto.findById(id);
+
+    res.render('panelOfertas/ofertaTest',{producto});
 })
 
 router.post('/', (req,res)=>{
@@ -28,6 +29,11 @@ router.post('/', (req,res)=>{
     res.send('oferta cargada');
 })
 
+// agregar-oferta-conjunto
+
+router.get('/agregar-oferta-conjunto', (req,res)=>{
+    res.render('panelOfertas/crearOfertaConjunto')
+})
 
 
 

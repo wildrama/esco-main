@@ -58,7 +58,7 @@ if(req.user.funcion){
 router.get('/cerrar-sesion', (req,res)=>{
   req.logOut();
   req.flash('success','Sesión cerrada correctamente')
-  res.redirect('/ingresar')
+  res.redirect('/')
 })
 
 
@@ -66,9 +66,9 @@ router.get('/cerrar-sesion', (req,res)=>{
 router.get('/crearAdmin1', async( req, res)=>{
   const usuario = new User({funcion:'ADMINISTRADOR', username:'escososa'});
   const nuevoUsuario = await User.register(usuario,'admescososa2022');
-  req.flash('success','Usuario creado correctamente')
-
-  res.redirect('/ingresar')
+  req.flash('success','Usuario creado correctamente');
+  
+  res.redirect('/');
 })
 
 

@@ -77,6 +77,12 @@ body{
     }
 }
 
+.caja-on{
+    width: 14px;
+    height: 14px;
+    background-color: rgb(1, 133, 1);
+    border-radius: 100%;
+}
 @media print {
     head{
         display: none;

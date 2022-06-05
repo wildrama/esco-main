@@ -4,8 +4,9 @@ const catchAsync =require('../utils/catchAsync');
 // const {isLoggedIn} = require('../middleware');
 const Producto = require('../models/productos');
 const Venta = require('../models/ventas');
-
+const Oferta = require('../models/ofertas');
 const {isLoggedIn,isCaja} = require('../middleware');
+const EstacionDeCobro = require('../models/estaciondecobro');
 
 const rolecAJA= 'CAJA';
 
@@ -15,19 +16,33 @@ const rolecAJA= 'CAJA';
 // isCaja(rolecAJA)
 
 // READ PRODUCT {
+  // isLoggedIn,
 
+// inicio de la estacion
+router.get('/:id/inicio',isLoggedIn, catchAsync( async (req, res) => {
+  const estacionDeCobroId = req.params.id;
+  const usuario = req.user
+  const estacionDeCobro = await EstacionDeCobro.findById(estacionDeCobroId);
 
-// RENDER VER TABLA DE STOCK
-router.get('/', isLoggedIn,async (req, res) => {
+  res.render('caja/cajainicio',{estacionDeCobro,usuario});
 
-  res.render('caja/cajainicio');
+}));
 
-})
-router.get('/cajacobro', isLoggedIn,async (req, res) => {
+// ir a la caja y llevar las ofertas
+router.get('/:id/cajaActiva', isLoggedIn,catchAsync( async (req, res) => {
+  const estacionDeCobroId = req.params.id;
+  const usuarioID = req.user.id;
+  try {
+    const estacionDeCobro = await EstacionDeCobro.findById(estacionDeCobroId);
+    const ofertasParaEstacion = await Oferta.find({estacionDeCobroParaLaOferta:estacionDeCobroId})
+    console.log(ofertasParaEstacion);
+    res.render('caja/cajacobro',{ofertasParaEstacion,usuarioID,estacionDeCobro});
+  } catch (error) {
+    req.flash('error','Intenta de nuevo');
+    res.redirect(`/caja/${estacionDeCobroId}/inicio`)
+  }
 
-  res.render('caja/cajacobro');
-
-})
+}));
 
 
 

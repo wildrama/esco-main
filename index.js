@@ -57,6 +57,7 @@ const sessionConfig = {
 // sessionMiddleware
 app.use(session(sessionConfig)); 
 
+const ingresos = require('./routes/ingresos')
 const cajaRoutes= require('./routes/cajaRegular')
 const admCaja = require('./routes/cajaAdministrador')
 const loginRoutes = require('./routes/usuarios')
@@ -121,20 +122,14 @@ app.use('/administrador/buscar',administradorBuscarRoutes);
 app.use('/administrador/ofertas',administradorOfertasRoutes)
 app.use('/buscanombre', busquedaNombre)
 app.use('/codigobarra', codigoBarra)
+app.use('/', ingresos)
 
 app.use('/save', saveVentasRoutes);
 
 // RENDER HOME
 app.get('/', (req, res) => {
-    res.redirect('/ingresar');
-})
-
-app.get('/administrador', async (req, res) => {
-
-  res.render('adminicio');
-
-})
-
+    res.render('index');
+})        
 
 // error midller ware base
 app.all('*', (req, res, next) => {

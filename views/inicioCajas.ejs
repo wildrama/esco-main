@@ -1,0 +1,30 @@
+<%- include('../views/partials/header.ejs'); %>
+
+<div class="container">
+  <a class="btn btn-outline-success px-3" href="/">Ir al inicio</a>
+    <div class="row text-center p-3">
+      <% if(estacionesDeCobro){ %> 
+      <% for(let estacion of estacionesDeCobro){ %> 
+
+        <div class="col-12 col-lg-6">
+            <a class="  link-none" href="/ingreso-caja/<%= estacion._id %>/login">
+                
+                    <div class="p-5 border boder-secondary text-center d-flex justify-content-center">
+                      
+
+                      <h5 class="">
+                       <%= estacion.ubicacionDeEstacion %>
+                      </h5>
+                           
+                    </div>
+                                                                               
+            </a>
+          </a>       
+        </div>
+        <% } %>
+        <% } %>
+
+    </div>
+</div>
+
+<%- include('../views/partials/footer.ejs'); %>

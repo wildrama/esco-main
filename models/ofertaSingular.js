@@ -2,33 +2,27 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 const Producto = require('./productos')
 // fecha de salida
-const ofertasDeProductosSchema = new Schema({
-    nombreOferta:{
-        type: String,
-        required: true
-    }
-    ,
+const ofertasSingularesDeProductosSchema = new Schema({
+    
+   cantidadDeUnidadesNecesarias:{
+       type:Number,
+       required: true
+   },
     fechaDeVigencia: {
-        type: Date,
+        type: Date
     },
     precioOferta: {
         type: Number,
         required: true
 
     },
-    cantidadDeProductosParaOferta: {
-        type: Number,
-        required: true
-
-    }
-    ,
     
-    productosEnOferta: [
+    productoEnOferta: 
         {
             type: Schema.Types.ObjectId,
             ref: Producto
         }
-    ]
+    
     ,
     estacionDeCobroParaLaOferta: [
         {
@@ -38,6 +32,6 @@ const ofertasDeProductosSchema = new Schema({
 
 });
 
-const Oferta = mongoose.model('Oferta', ofertasDeProductosSchema);
+const OfertaSingular = mongoose.model('OfertaSingular', ofertasSingularesDeProductosSchema);
 
-module.exports = Oferta
+module.exports = OfertaSingular;
