@@ -13,8 +13,9 @@ const passport = require('passport');
 // READ PRODUCT {
 
 router.get('/', (req, res) => {
-
+    
     res.render('stock/listado');
+    
 })
 
 router.post('/', catchAsync(async (req , res) => {
