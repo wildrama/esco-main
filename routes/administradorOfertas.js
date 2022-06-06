@@ -11,18 +11,23 @@ const User = require('../models/usuario');
 
 
 const roleADM = 'ADMINISTRADOR';
-
+// menu inicio ofertas
 router.get('/', (req,res)=>{
 
     res.render('panelOfertas/ofertaInicio')
 })
-router.get('/:id', async(req,res)=>{
-
-    const {id} =req.params;
-    const producto = await Producto.findById(id);
-
-    res.render('panelOfertas/ofertaTest',{producto});
+router.get('/text-search-bar', (req,res)=>{
+    const searchQuery = req.params;
+    res.json(searchQuery)
 })
+// ver oferta individual
+// router.get('/:id', async(req,res)=>{
+
+//     const {id} =req.params;
+//     const producto = await Producto.findById(id);
+
+//     res.render('panelOfertas/ofertaTest',{producto});
+// })
 
 router.post('/', (req,res)=>{
     console.log(req.body);
