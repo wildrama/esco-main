@@ -83,6 +83,96 @@ body{
     background-color: rgb(1, 133, 1);
     border-radius: 100%;
 }
+.contenedor-estaciones-inicio{
+    a{
+        text-decoration: none;
+        color: #2e2e95;
+    }
+}
+.container-split{
+    a{
+        text-decoration: none;
+        font-size: 3em;
+        transition: all .4s ease;
+        border: 2px solid #52529f;
+        &:hover{
+            font-size: 4.5em;
+        }
+    }
+ /* Split the screen in half */
+ .split {
+    height: 100%;
+    width: 50%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    overflow-x: hidden;
+    padding-top: 20px;
+  }
+  
+  /* Control the left side */
+  .left {
+    left: 0;
+    background-color: #1B4EA3;
+    a{
+        color: rgb(221, 222, 209);
+        &:hover{
+            border-color: #B4B4BB;
+        }
+    }
+  }
+  
+  /* Control the right side */
+  .right {
+    right: 0;
+    background-color: #B4B4BB;
+    a{
+        color: rgb(11, 10, 10);
+        &:hover{
+            border-color: #1B4EA3;
+        }
+    }
+  }
+  
+  /* If you want the content centered horizontally and vertically */
+  .centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+  
+  }
+  
+ 
+}
+// .container-split{
+  
+
+//     a{
+//         text-decoration: none;
+//     }
+//     .col1{
+//         height: 100%;
+//   width: 50%;
+//   position: fixed;
+//   z-index: 1;
+//   top: 0;
+//   overflow-x: hidden;
+//   padding-top: 20px;
+        
+//     }
+//     .col2{
+//         height: 100%;
+//         width: 50%;
+//         position: fixed;
+//         z-index: 1;
+//         top: 0;
+//         overflow-x: hidden;
+//         padding-top: 20px;
+
+//     }
+// }
 @media print {
     head{
         display: none;

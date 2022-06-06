@@ -44,13 +44,26 @@
 
 
 
-    <div class="container p-5">
-       <h2> <%= estacionDeCobro.ubicacionDeEstacion %> </h2>
-       <h3>Usuario actual: <%= usuario.username %> </h3>
-        <ul class="nav">
-            <li> <a class="nav-link btn btn-outline-secondary mb-3" href="/caja/<%= estacionDeCobro._id%>/inicio"> Inicio </a> </li>
-            <li> <a class="nav-link btn btn-outline-success" href="/caja/<%= estacionDeCobro._id%>/cajaActiva"> Abrir la caja de cobro </a> </li>
-        </ul>
+    <div class="container px-lg-5">
+      <div class="row justify-content-center">
+        <ul class="nav d-flex justify-content-around">
+          <li> <a class="nav-link btn btn-outline-secondary mb-3" href="/caja/<%= estacionDeCobro._id%>/inicio"> Inicio </a> </li>
+          <li> <a class="nav-link btn btn-outline-success mb-3" href="/caja/<%= estacionDeCobro._id%>/cajaActiva"> Abrir la caja de cobro </a> </li>
+      </ul>
+        <div class="col-lg-6 px-md-3 py-lg-5 mt-2 border ">
+          <div class="row text-center ">
+         
+            <div class="col-12 mt-3 pb-3"> Estación de cobro: <strong><%= estacionDeCobro.ubicacionDeEstacion %></strong>  </div>
+            <div class="col-12 mt-3 pb-3"> <a class="link-none p-2 border border-secondary" href="#"><%= estacionDeCobro.dineroEnEstacion %></a>  </div>
+            <div class="col-12 mt-3 pb-3">    
+                 Usuario actual: <%= usuario.username %> 
+            </div>
+            <div class="col-12 mt-3 pb-3"> Fecha de hoy: <%= fechaActual %>   </div>
+          
+          </div>
+        </div>
+      </div>
+        
     </div>
      
     

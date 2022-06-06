@@ -33,17 +33,19 @@ router.get('/administrador', async (req, res) => {
 
         res.render('inicioCajas',{estacionesDeCobro});
       } catch (error) {
-        req.flash('error', 'No hay cajas activas');
+        req.flash('error','No hay cajas activas');
           res.redirect('/');
       }
-   
+      
 
   }));
-  router.get('/ingreso-caja/:id/login',(req,res)=>{
+  router.get('/ingreso-caja/:id/login',catchAsync( async(req,res)=>{
     const estacionDeCobroId = req.params.id;
-    res.render('ingresoCaja',{estacionDeCobroId});
+    const estacionDeCobro = await EstacionDeCobro.findById(estacionDeCobroId);
+    const nombreEstacion = estacionDeCobro.ubicacionDeEstacion;
+    res.render('ingresoCaja',{estacionDeCobroId,nombreEstacion});
 
-  });
+  }));
 // post del ingreso del usuario
   router.post('/ingreso-caja/:id/login', passport.authenticate('local', { failureFlash: true, failureRedirect: '/ingreso-caja' }),async (req, res) => {
     const estacionDeCobroId = req.params.id;
@@ -54,7 +56,7 @@ router.get('/administrador', async (req, res) => {
         res.redirect(`/caja/${checkearSiExisteCaja._id}/inicio`);
         
     } catch (error) {
-      req.flash('error', ' Intenta de nuevo');
+      req.flash('error', ' ntenta de nuevo');
         res.redirect('/ingreso-caja');
     }
     

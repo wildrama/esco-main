@@ -23,8 +23,8 @@ router.get('/:id/inicio',isLoggedIn, catchAsync( async (req, res) => {
   const estacionDeCobroId = req.params.id;
   const usuario = req.user
   const estacionDeCobro = await EstacionDeCobro.findById(estacionDeCobroId);
-
-  res.render('caja/cajainicio',{estacionDeCobro,usuario});
+  const fechaActual = new Date().toLocaleDateString();
+  res.render('caja/cajainicio',{estacionDeCobro,usuario,fechaActual});
 
 }));
 
@@ -33,6 +33,7 @@ router.get('/:id/cajaActiva', isLoggedIn,catchAsync( async (req, res) => {
   const estacionDeCobroId = req.params.id;
   const usuarioID = req.user.id;
   try {
+    
     const estacionDeCobro = await EstacionDeCobro.findById(estacionDeCobroId);
     const ofertasParaEstacion = await Oferta.find({estacionDeCobroParaLaOferta:estacionDeCobroId})
     console.log(ofertasParaEstacion);
