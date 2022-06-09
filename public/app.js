@@ -22,9 +22,9 @@ const keyCodes = () => {
   
   const tableBody = document.querySelector('.tableBody');
 
-  formSearch.addEventListener('submit', async function(event){
+  formSearch.addEventListener('keyup', async function(event){
     event.preventDefault();
-    const query_buscar = formSearch.elements.buscar.value;
+    const query_buscar = event.target.value;
     try {
       
       const res = await axios.post('/administrador/buscar', {buscar: query_buscar }); 
@@ -69,8 +69,8 @@ const keyCodes = () => {
 
 
 
-      formSearch.elements.buscar.value = '';
-      inputBuscar.focus();
+     
+    
         } catch (error) {
       console.error(error);
     }

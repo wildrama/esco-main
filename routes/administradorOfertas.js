@@ -40,6 +40,21 @@ router.get('/agregar-oferta-conjunto', (req,res)=>{
     res.render('panelOfertas/crearOfertaConjunto')
 })
 
+router.post('/agregar-oferta-conjunto', (req,res)=>{
+    res.render('panelOfertas/crearOfertaConjunto')
+})
+
+// agregar oferta de un mismo producto
+
+router.get('/agregar-oferta-individidual', (req,res)=>{
+    res.render('panelOfertas/crearOfertaIndividual')
+})
+
+router.post('/agregar-oferta-individidual', (req,res)=>{
+    res.render('panelOfertas/crearOfertaIndividual')
+})
+// ver ofertas vigentes de cada tipo
 
 
+// sin edit oferta
 module.exports = router;

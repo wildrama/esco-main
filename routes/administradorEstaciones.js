@@ -93,4 +93,9 @@ req.flash('sucess', 'Estación eliminada correctamente');
 
   res.redirect('/administrador/estacionesdecobro');
 }))
+
+
+// editar mas info de la estación
+
+// agregar ofertas a la estación
 module.exports = router;

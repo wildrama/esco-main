@@ -27,7 +27,7 @@ router.post('/', isLoggedIn, async(req,res)=>{
            $or:[
              {nombre:{$regex: query}},
              {marca:{$regex: query}},
-  
+            
            ]
              });
   
@@ -49,8 +49,8 @@ router.post('/', isLoggedIn, async(req,res)=>{
     } catch (error) {
         res.send('error')
     } 
-  
-  
+    
+
   })
   
   

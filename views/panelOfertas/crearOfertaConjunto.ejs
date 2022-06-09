@@ -1,10 +1,139 @@
 <%- include('../partials/headerAdm.ejs'); %>
 
 <div class="container">
-    
     <div class="row">
+      <div class="col-12">
+        <h2>Crear oferta de conjunto</h2>
+
+        <p class="lead px-md-3 px-lg-4">
+          Instrucción
+        </p>
+      </div>
+    </div>
+  
+    <div class="row">
+      
         <div class="col-12">
-            ajbdkasbd
+            <div class=" border border-dark p-xl-3" id="contenedorDeOfertaConjunto">
+
+
+              <form action="/administrador/ofertas/crear-oferta-conjunto" method="post">
+
+                <div class="mb-3">
+                  <label for="nombreOferta" class="form-label">Nombre de la oferta</label>
+                  <input type="text" name="nombreOferta" class="form-control" id="nombreOferta" placeholder="Nombre de la oferta">
+                </div>
+
+
+                <div class="mb-3">
+                  <label for="fechaDeVigencia" class="form-label">Fecha de vigencia</label>
+                  <input type="date" name="fechaDeVigencia" class="form-control" id="fechaDeVigencia" placeholder="">
+                </div>
+
+
+                <div class="mb-3">
+                  <label for="precioOferta" class="form-label">Precio de la oferta</label>
+                  <input type="number" name="precioOferta" class="form-control" id="precioOferta" placeholder="">
+                </div>
+
+
+                <div class="mb-3">
+                  <label for="productosEnOfertaConCodigo" class="form-label">Agregar productos con codigo de barra</label>
+                  <!-- una ves encontrado el producto, capturar el id y agregarlo a un array -->
+                    <input id="searchBarcode" class="form-control me-2" type="search" placeholder="Agregar producto por codigo de barra" aria-label="Buscar">
+                    <div class="resultadoDeBusquedaPorCodigo">
+
+                      <div class="row">
+                        <div class="col-12">
+                          <ul class="d-flex">
+                            <li>
+                            Producto.nombre                             
+                            </li>
+                            <li>
+                              Producto.nombre                             
+                              </li>
+                          </ul>
+
+                        </div>
+                      </div>
+                    </div>
+                  
+                
+                  <p class="text-muted">Funcionalidad para descontar la venta de los productos agregados a la oferta del stock</p>
+                </div>
+
+                <div class="mb-3">
+                  <label for="estacionDeCobroParaLaOferta" class="form-label">Seleccionar las estaciones de cobros donde se aplique la oferta</label>
+                  <select id="estacionDeCobroParaLaOferta" name="estacionDeCobroParaLaOferta" class="form-select" aria-label="Default select example">
+                  
+
+
+                  
+                  </select>
+                </div>
+
+
+                <button type="submit" class="btn btn-primary">Confirmar</button>
+
+
+              </form>
+                <!-- <form class="d-flex">
+                    <input id="searchBarOfertas" class="form-control me-2" type="search" placeholder="Buscar producto" aria-label="Search">
+                    <button class="btn btn-outline-dark" type="submit">Buscar</button>
+                  </form> -->
+
+
+               
+                  <!-- <div style="overflow-y: scroll; height:400px;" class="tablaDeProductosParaAgregarOferta " >
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th scope="col">Agregar</th>
+
+                          <th scope="col">Nombre</th>
+            
+                          <th scope="col">Precio Minorista</th>
+                          
+                
+                          <th scope="col">Marca</th>
+                          <th scope="col">Cantidad</th>
+                
+                          <th scope="col">Categoria</th>
+                         
+                         
+          
+                
+                
+                        </tr>
+                      </thead>
+                      <tbody>
+                       
+                          <tr>
+                            <td class="">
+                              <ul class=" d-flex justify-content-around">
+                                
+                                <li>
+                                  <a class="" href="#"><img width="32px" height="32px" src="/imgs/png/add.png" alt=""></a>
+                                </li>
+                               
+                               </ul>
+                            
+                          
+                
+                
+                
+                
+                          </tr>
+                       
+                
+                
+                
+                      </tbody>
+                    </table>
+                 
+                  </div>      -->
+            </div>
+     
             <!-- |LISTADO DE PRODUCTOS CON SEARCHBAR|
             productos: [
             //con codigo de barra > se escanea o busca/filtra
@@ -25,7 +154,9 @@
         </div>
     </div>
 </div>
-<script type="module" src="/liveSearchBar.js"></script>
-
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+<script type="module" src="/liveSearchBar.js"></script>
+<script  src="/ofertas.js"></script>
+
 <%- include('../partials/footer.ejs'); %>

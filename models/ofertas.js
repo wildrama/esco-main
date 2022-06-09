@@ -23,7 +23,7 @@ const ofertasDeProductosSchema = new Schema({
     }
     ,
     
-    productosEnOferta: [
+    productosEnOfertaConCodigo: [
         {
             type: Schema.Types.ObjectId,
             ref: Producto
