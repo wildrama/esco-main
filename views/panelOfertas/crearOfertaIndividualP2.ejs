@@ -1,0 +1,80 @@
+<%- include('../partials/headerAdm.ejs'); %>
+
+<div class="container">
+    
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-6">
+            <form class="">
+                <input id="searchBarcode" class="form-control me-2" type="search" placeholder="Buscar producto por codigo de barra" aria-label="Buscar">
+                <button class="btn btn-outline-dark" type="submit">Buscar por codigo</button>
+              
+            </form>
+
+            <form action="/administrador/ofertas/crear-oferta-conjunto" method="post">
+
+              
+
+
+                <div class="mb-3">
+                  <label for="fechaDeVigencia" class="form-label">Fecha de vigencia</label>
+                  <input type="date" name="fechaDeVigencia" class="form-control" id="fechaDeVigencia" placeholder="">
+                </div>
+
+
+                <div class="mb-3">
+                  <label for="precioOferta" class="form-label">Precio de la oferta</label>
+                  <input type="number" name="precioOferta" class="form-control" id="precioOferta" placeholder="">
+                </div>
+
+
+                <div class="mb-3">
+                  <label for="productosEnOfertaConCodigo" class="form-label">Agregar productos con codigo de barra</label>
+                  <!-- una ves encontrado el producto, capturar el id y agregarlo a un array -->
+                    <input id="searchBarcode" class="form-control me-2" type="search" placeholder="Agregar producto por codigo de barra" aria-label="Buscar">
+                    <div class="resultadoDeBusquedaPorCodigoIndividual">
+                        
+                     
+                    </div>
+                  
+                
+                  <p class="text-muted">Funcionalidad para descontar la venta de los productos agregados a la oferta del stock</p>
+                </div>
+
+                <div class="mb-3">
+                  <label for="estacionDeCobroParaLaOferta" class="form-label">Seleccionar las estaciones de cobros donde se aplique la oferta</label>
+                  <select id="estacionDeCobroParaLaOferta" name="estacionDeCobroParaLaOferta" class="form-select" aria-label="Default select example">
+                  
+
+
+                  
+                  </select>
+                </div>
+
+
+                <button type="submit" class="btn btn-primary">Confirmar</button>
+
+
+              </form>
+              .
+            <!-- |LISTADO DE PRODUCTOS CON SEARCHBAR|
+            productos: [
+            //con codigo de barra > se escanea o busca/filtra
+            
+        ],
+            cantidadDeProductosParaAplicarOferta: 3,
+            productoEnOferta:'combo hamburguesa' 
+            precioDeLaOferta: $ 450:
+            Disponible para: [Caja1- caja2- caja4] -->
+
+                
+       
+        </div>
+
+        <div class="col-12">
+
+        </div>
+    </div>
+</div>
+
+
+<%- include('../partials/footer.ejs'); %>

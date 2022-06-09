@@ -46,12 +46,12 @@ router.post('/agregar-oferta-conjunto', (req,res)=>{
 
 // agregar oferta de un mismo producto
 
-router.get('/agregar-oferta-individidual', (req,res)=>{
-    res.render('panelOfertas/crearOfertaIndividual')
+router.get('/agregar-oferta-individual', (req,res)=>{
+    res.render('panelOfertas/crearOfertaIndividualP1')
 })
 
-router.post('/agregar-oferta-individidual', (req,res)=>{
-    res.render('panelOfertas/crearOfertaIndividual')
+router.post('/agregar-oferta-individual', (req,res)=>{
+    res.redirect('/administrador/ofertas/:id/oferta-individual')
 })
 // ver ofertas vigentes de cada tipo
 

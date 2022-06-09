@@ -1,0 +1,60 @@
+<%- include('../partials/headerAdm.ejs'); %>
+
+<div class="container">
+    
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-6">
+            <form class="">
+                
+              
+            </form>
+
+            <form action="/administrador/ofertas/crear-oferta-individual" method="post">
+                <h3 class="text-center">Resultado:</h3>
+                <div class="mb-3">
+                    <form class="my-2" action="">
+                        <input id="searchBarcode" class="form-control py-2" type="search" placeholder="Buscar producto por codigo de barra" aria-label="Buscar">
+                        <button class="btn btn-outline-dark " type="submit">Buscar</button>
+                        
+                    </form>
+              
+               
+                 <div class="productoIndividualp1 border border-secondary px-3 py-2">
+                    <p>Nombre:   PRODUCTO.NOMBRE</p>
+                    <p>Marca: PRODUCTO.MARCA</p>
+                    <p>Cantidad: PRODUCTO.CANTIDAD</p>
+
+                 </div>
+                </div>
+                
+
+                <input type="number" name="idProducto" value="productoId">
+
+
+                <button type="submit" class="btn btn-primary">Continuar</button>
+
+
+              </form>
+              .
+            <!-- |LISTADO DE PRODUCTOS CON SEARCHBAR|
+            productos: [
+            //con codigo de barra > se escanea o busca/filtra
+            
+        ],
+            cantidadDeProductosParaAplicarOferta: 3,
+            productoEnOferta:'combo hamburguesa' 
+            precioDeLaOferta: $ 450:
+            Disponible para: [Caja1- caja2- caja4] -->
+
+                
+       
+        </div>
+
+        <div class="col-12">
+
+        </div>
+    </div>
+</div>
+
+
+<%- include('../partials/footer.ejs'); %>
