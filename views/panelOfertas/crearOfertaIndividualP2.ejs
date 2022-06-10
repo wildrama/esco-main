@@ -3,42 +3,47 @@
 <div class="container">
     
     <div class="row d-flex justify-content-center">
-        <div class="col-md-6">
-            <form class="">
-                <input id="searchBarcode" class="form-control me-2" type="search" placeholder="Buscar producto por codigo de barra" aria-label="Buscar">
-                <button class="btn btn-outline-dark" type="submit">Buscar por codigo</button>
-              
-            </form>
+        <div class="col-md-6 p-md-2">
+           
+          <h3>Crear oferta de NOMBRE + PRODUCTO</h3>
 
-            <form action="/administrador/ofertas/crear-oferta-conjunto" method="post">
+            <form action="/administrador/ofertas/crear-oferta-individual" method="post">
 
-              
+
+
+
+              <div class="mb-3">
+                <p class="mx-2">
+                  Precio por unidad actual: $ 300
+                </p>
+              </div>
 
 
                 <div class="mb-3">
-                  <label for="fechaDeVigencia" class="form-label">Fecha de vigencia</label>
-                  <input type="date" name="fechaDeVigencia" class="form-control" id="fechaDeVigencia" placeholder="">
+                  <label for="cantidadDeUnidadesNecesarias" class="form-label">Cantidad de unidades para validar la oferta</label>
+                  <input type="number" name="cantidadDeUnidadesNecesarias" class="form-control" id="cantidadDeUnidadesNecesarias" placeholder="">
+                  <select class="form-select"  name="cantidadDeUnidadesNecesarias" aria-label="Default select example">
+                    <option selected> Abrir el menu para elegir la cantidad</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+
+
+                  </select>
                 </div>
-
-
+                
                 <div class="mb-3">
                   <label for="precioOferta" class="form-label">Precio de la oferta</label>
                   <input type="number" name="precioOferta" class="form-control" id="precioOferta" placeholder="">
                 </div>
 
-
                 <div class="mb-3">
-                  <label for="productosEnOfertaConCodigo" class="form-label">Agregar productos con codigo de barra</label>
-                  <!-- una ves encontrado el producto, capturar el id y agregarlo a un array -->
-                    <input id="searchBarcode" class="form-control me-2" type="search" placeholder="Agregar producto por codigo de barra" aria-label="Buscar">
-                    <div class="resultadoDeBusquedaPorCodigoIndividual">
-                        
-                     
-                    </div>
-                  
-                
-                  <p class="text-muted">Funcionalidad para descontar la venta de los productos agregados a la oferta del stock</p>
+                  <label for="fechaDeVigencia" class="form-label">Fecha de vigencia</label>
+                  <input type="date" name="fechaDeVigencia" class="form-control" id="fechaDeVigencia" placeholder="">
                 </div>
+                
 
                 <div class="mb-3">
                   <label for="estacionDeCobroParaLaOferta" class="form-label">Seleccionar las estaciones de cobros donde se aplique la oferta</label>

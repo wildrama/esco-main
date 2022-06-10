@@ -6,7 +6,7 @@ const EstacionDeCobro = require('../models/estaciondecobro');
 const User = require('../models/usuario');
 
 const passport = require('passport');
-const Oferta = require('../models/ofertas');
+
 
 router.get('/administrador', async (req, res) => {
     
@@ -14,12 +14,7 @@ router.get('/administrador', async (req, res) => {
     
   });
 
-  router.get('/crearOferta',(req,res)=>{
-    const oferta1 = new Oferta({precioOferta:200,cantidadDeProductosParaOferta:3,estacionDeCobroParaLaOferta:"629c08e964c1213565a4dfd51"})
-    oferta1.save();
-    console.log(oferta1)
-    res.send(oferta1)
-  })
+ 
   router.get('/ingreso-administrador', async(req,res)=>{
     res.render('home');
   });

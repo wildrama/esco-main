@@ -3,9 +3,9 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-4">
+        <div class="col-4">asassasaas
             <h2>Panel de Ofertas</h2>
-                <p class="p-lg-4 lead" > Realize la gestión de las ofertas de productos</p>
+                <p class="p-lg-4 lead" > asasasRealize la gestión de las ofertas de productos</p>
     <ul class="nav">
         <li class="nav-item">
           <a class="nav-link active" href="/administrador/ofertas/agregar-oferta-conjunto">Agregar oferta de conjunto</a>
@@ -22,15 +22,103 @@
       </ul>
         </div>
 
-        <div class="col"></div>
-        <div class="col"></div>
+        
     </div>
     
     <div class="row">
-        <div class="col"></div>
-        <div class="col"></div>
-        <div class="col"></div>
-        <div class="col"></div>
+        <div class="col-lg-6">
+            <table class="table" style="overflow-y: scroll; height:400px;">
+
+              <thead>
+                <tr>
+                  <th scope="col">Nombre</th>
+    
+                  <th scope="col">Precio Oferta</th>
+        
+        
+                  <th scope="col">Fecha vigencia</th>
+        
+        
+        
+        
+                </tr>
+              </thead>
+              <tbody>
+                <% for (let ofertaConjunto of ofertasConjunto){ %>
+                  <tr>
+                   
+                    <td>
+                      <a href="/administrador/ofertas/oferta-conjunto/<%= ofertaConjunto._id %>"><%= ofertaConjunto.nombre %></a>
+                    </td>
+                    <td>
+                      <%= ofertaConjunto.precioOferta %>
+                    </td>
+              
+                   
+                  
+                    
+                    <td>
+                      <%= ofertaConjunto.fechaDeVigencia %>
+                    </td>
+        
+        
+                  </tr>
+                  <%} %>
+        
+        
+        
+              </tbody>
+            </table>
+         
+        </div>
+        <div class="col-lg-6">
+          <table class="table" style="overflow-y: scroll; height:400px;">
+
+            <thead>
+              <tr>
+                <th scope="col">Nombre</th>
+  
+                <th scope="col">Precio Oferta</th>
+      
+                <th scope="col">Cantidad de necesaria</th>
+
+                <th scope="col">Fecha vigencia</th>
+      
+      
+      
+      
+              </tr>
+            </thead>
+            <tbody>
+              <% for (let ofertaIndividual of ofertasIndividuales){ %>
+                <tr>
+                 
+                  <td>
+                    <a href="/administrador/ofertas/oferta-individual/<%= ofertaIndividual._id %>"><%= ofertaIndividual.nombre %></a>
+                  </td>
+                  <td>
+                    <%= ofertaIndividual.precioOferta %>
+                  </td>
+            
+                 
+                  <td>
+                    <%= ofertaIndividual.cantidadDeUnidadesNecesarias %>
+                  </td>
+                  
+                  <td>
+                    <%= ofertaIndividual.fechaDeVigencia %>
+                  </td>
+      
+      
+                </tr>
+                <%} %>
+      
+      
+      
+            </tbody>
+          </table>
+        </div>
+       
     </div>
 </div>
 <%- include('../partials/footer.ejs'); %>
