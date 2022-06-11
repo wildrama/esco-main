@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
-const Producto = require('./productos')
+const Producto = require('./productos');
+const EstacionDeCobro = require('./estaciondecobro')
 // fecha de salida
 const ofertasSingularesDeProductosSchema = new Schema({
     
@@ -20,13 +21,14 @@ const ofertasSingularesDeProductosSchema = new Schema({
     productoEnOferta: 
         {
             type: Schema.Types.ObjectId,
-            ref: Producto
+            ref: 'Producto'
         }
     
     ,
-    estacionDeCobroParaLaOferta: [
+    estacionesDeCobroParaLaOferta: [
         {
-            type: String
+            type: Schema.Types.ObjectId,
+            ref: 'EstacionDeCobro'
         }
     ]
 

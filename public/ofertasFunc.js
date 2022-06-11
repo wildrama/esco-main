@@ -8,7 +8,8 @@ const buscarcodigo = document.querySelector('#buscarcodigo');
 
 const searchBarOfertas = document.querySelector('#searchBarOfertas')
 const tableBody = document.querySelector('.tableBody');
-
+const searchBarcodeCodigo = document.querySelector('#searchBarCodigo');
+resultadoDeBusquedaPorCodigo = document.querySelector('#resultadoDeBusquedaPorCodigo');
 searchBarOfertas.addEventListener('keyup',(e)=>{
     console.log(e.target.value)
 })
@@ -75,57 +76,59 @@ searchBarOfertas.addEventListener('keyup', async function(event){
 })
 
 
-// formSearchCodigo.addEventListener('submit', async function(event){
-//   event.preventDefault();
-//   const query_buscar_codigo = formSearchCodigo.elements.buscarcodigo.value;
-//   console.log(query_buscar_codigo)
-//   try {
+searchBarcodeCodigo.addEventListener('submit', async function(event){
+  event.preventDefault();
+  const query_buscar_codigo = searchBarcodeCodigo.elements.buscarcodigo.value;
+  console.log(query_buscar_codigo)
+  try {
     
-//     const res = await axios.post('/administrador/productos/buscar-codigo', {buscar: query_buscar_codigo }); 
-//     const productosDeCodigo = res.data;
+    const res = await axios.post('/buscar-codigo', {buscar: query_buscar_codigo }); 
+    const productosDeCodigo = res.data;
+    
+    console.log(productosDeCodigo);  
 
-//     console.log(productosDeCodigo);  
+    for (let producto of productosDeCodigo){
+      const productoId = producto._id;
+    //   const td0 = document.createElement('td');
+    //   const td1 = document.createElement('td');
 
-//     // for (let producto of productosDeCodigo){
+    //   const td2 = document.createElement('td');
 
-//     //   const td0 = document.createElement('td');
-//     //   const td1 = document.createElement('td');
+    //   const td3 = document.createElement('td');
 
-//     //   const td2 = document.createElement('td');
+    //   const td4 = document.createElement('td');
 
-//     //   const td3 = document.createElement('td');
+    //   const tr = document.createElement('tr');
 
-//     //   const td4 = document.createElement('td');
+    //   const ul = document.createElement('ul');
+      const li = document.createElement('li');
+    //   const li2 = document.createElement('li');
+    //   const accion1 = document.createElement('a');
+    //   const accion2 = document.createElement('a');
 
-//     //   const tr = document.createElement('tr');
+    //   td1.textContent= producto.precioMinorista;
+      li.textContent= producto.nombre;
+    //   td2.textContent= producto.marca;
+    //   td3.textContent= producto.cantidad;
 
-//     //   const ul = document.createElement('ul');
-//     //   const li = document.createElement('li');
-//     //   const li2 = document.createElement('li');
-//     //   const accion1 = document.createElement('a');
-//     //   const accion2 = document.createElement('a');
-
-//     //   td1.textContent= producto.precioMinorista;
-//     //   td0.textContent= producto.nombre;
-//     //   td2.textContent= producto.marca;
-//     //   td3.textContent= producto.cantidad;
-
-//     //   tr.append(td0,td1,td2,td3)
-//     //   tableBody.append(tr);
-//     //   console.log(producto);  
-
-//     // }
-
+    //   tr.append(td0,td1,td2,td3)
+    //   tableBody.append(tr);
+    //   console.log(producto);  
+    const idContainer = document.createElement('input');
+    idContainer.type = "number";
+    idContainer.value = productoId;
+    // idContainer.classList.add('d-none');
+    resultadoDeBusquedaPorCodigo.append(li,idContainer)
+    }
 
 
 
-//     formSearchCodigo.elements.buscarcodigo.value = '';
-//     buscarcodigo.focus();
-//       } catch (error) {
-//     console.error(error);
-//   }
+
+      } catch (error) {
+    console.error(error);
+  }
  
-// })
+})
 const agregarPeeroducto = (producto)=>{
     const td0 = document.createElement('td');
     const td1 = document.createElement('td');

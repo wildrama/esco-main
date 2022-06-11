@@ -42,7 +42,7 @@ router.get('/nuevaestacion',  (req, res) => {
    const ubicacionDeEstacion = req.body.ubicacionDeEstacion
     const nuevaEstacion = new EstacionDeCobro({dineroEnEstacion: dineroEnEstacion,ubicacionDeEstacion:ubicacionDeEstacion});
     await nuevaEstacion.save();
-
+    
     req.flash('success', 'Estación de cobro creada');
     res.redirect(`/administrador/estacionesdecobro/${nuevaEstacion._id}`)
  }))

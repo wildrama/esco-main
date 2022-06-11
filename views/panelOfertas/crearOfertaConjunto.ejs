@@ -11,13 +11,42 @@
       </div>
     </div>
   
-    <div class="row">
+    <div class="row justify-content-center">
       
-        <div class="col-12">
+        <div class="col-6">
             <div class=" border border-dark p-xl-3" id="contenedorDeOfertaConjunto">
+              <form id="searchBarcodeCodigo">
+
+              <div class="row mb-3">
+                  <p class="text-muted px-md-3">Funcionalidad para descontar la venta de los productos agregados a la oferta del stock</p>
+
+                <div class="col-8">
+              <!-- una ves encontrado el producto, capturar el id y agregarlo a un array -->
+
+                  <input name="buscarcodigo" class=" form-control me-2" type="text" placeholder="Agregar producto por codigo de barra" aria-label="Buscar">
+
+                    
 
 
-              <form action="/administrador/ofertas/crear-oferta-conjunto" method="post">
+                   </div>
+       
+                    <div class="col-4">
+                      <button type="submit" class="btn btn-secondary ">Confirmar</button>
+
+                      
+                    </div>
+                  
+                  </form>
+                  <div class="resultBusquedaCodigo px-2">
+                    <ul id="resultadoDeBusquedaPorCodigo" class="ul">
+                      <li>
+                      Producto.nombre                             
+                      </li>
+                    
+                    </ul>
+                  </div>
+              </div>
+              <form action="/administrador/ofertas/agregar-oferta-conjunto" method="post">
 
                 <div class="mb-3">
                   <label for="nombreOferta" class="form-label">Nombre de la oferta</label>
@@ -25,53 +54,36 @@
                 </div>
 
 
-                <div class="mb-3">
-                  <label for="fechaDeVigencia" class="form-label">Fecha de vigencia</label>
-                  <input type="date" name="fechaDeVigencia" class="form-control" id="fechaDeVigencia" placeholder="">
+                <div class="row mb-3">
+                  <div class="col-6">                  <label for="precioOferta" class="form-label">Precio de la oferta</label>
+                    <input type="number" name="precioOferta" class="form-control" id="precioOferta" placeholder=""></div>
+                  <div class="col-6">                  <label for="fechaDeVigencia" class="form-label">Fecha de vigencia</label>
+                    <input type="date" name="fechaDeVigencia" class="form-control" id="fechaDeVigencia" placeholder=""></div>
+
                 </div>
 
 
-                <div class="mb-3">
-                  <label for="precioOferta" class="form-label">Precio de la oferta</label>
-                  <input type="number" name="precioOferta" class="form-control" id="precioOferta" placeholder="">
-                </div>
+         
 
-
-                <div class="mb-3">
-                  <label for="productosEnOfertaConCodigo" class="form-label">Agregar productos con codigo de barra</label>
-                  <!-- una ves encontrado el producto, capturar el id y agregarlo a un array -->
-                    <input id="searchBarcode" class="form-control me-2" type="search" placeholder="Agregar producto por codigo de barra" aria-label="Buscar">
-                    <div class="resultadoDeBusquedaPorCodigo">
-
-                      <div class="row">
-                        <div class="col-12">
-                          <ul class="d-flex">
-                            <li>
-                            Producto.nombre                             
-                            </li>
-                            <li>
-                              Producto.nombre                             
-                              </li>
-                          </ul>
-
-                        </div>
-                      </div>
-                    </div>
+                
+           
+                 
                   
                 
-                  <p class="text-muted">Funcionalidad para descontar la venta de los productos agregados a la oferta del stock</p>
-                </div>
+              
 
                 <div class="mb-3">
                   <label for="estacionDeCobroParaLaOferta" class="form-label">Seleccionar las estaciones de cobros donde se aplique la oferta</label>
-                  <select id="estacionDeCobroParaLaOferta" name="estacionDeCobroParaLaOferta" class="form-select" aria-label="Default select example">
+                  <select id="estacionDeCobroParaLaOferta" name="estacionDeCobroParaLaOferta" class="form-select" multiple aria-label="multiple select example">>
                   
-
+                    <% for( let estacionDeCobro of estacionesDeCobro ) { %>
+                      <option value="<%= estacionDeCobro._id %>"><%= estacionDeCobro.ubicacionDeEstacion %> </option>
+                    <% } %>
 
                   
                   </select>
                 </div>
-
+                
 
                 <button type="submit" class="btn btn-primary">Confirmar</button>
 
@@ -154,7 +166,6 @@
 </div>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
-<script type="module" src="/liveSearchBar.js"></script>
-<script  src="/ofertas.js"></script>
+<script  src="ofertasFunc.js"></script>
 
 <%- include('../partials/footer.ejs'); %>
