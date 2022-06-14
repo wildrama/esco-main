@@ -218,3 +218,16 @@ table {
 
 /* Editor de precios en caja */
 
+
+/* fixes */
+#borrarInvisible {
+	visibility: hidden;
+	background-color: #882222;
+	color: #fff;
+	border: none;
+	border-radius: 15px;
+	color: #fff;
+	border: none;
+	border-radius: 15px;
+	padding: .5rem;
+}

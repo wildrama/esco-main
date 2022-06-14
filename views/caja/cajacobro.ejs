@@ -60,11 +60,12 @@
 							<input class="inputBuscar" id="textBuscar" type="text"
 								placeholder="Buscar producto por código">
 							<input id="sbBuscar" type="submit" class="btnBuscar" value="Buscar">
+											<button id="borrarInvisible">Eliminar selección</button>
 						</form> <button class="btnAddMan" id="llamadorVerde">Agregar producto manualmente</button>
 					</div>
 
-					<div class="filaB row">
-
+								
+							<div class="filaB row">
 
 						<table class="table table-dark table-hover mt-4 mb-4">
 							<tr>
@@ -73,8 +74,10 @@
 								<th>Precio unitario</th>
 
 								<th><b>Subtotal</b></th>
-							</tr>
 
+							<th>Seleccionar</th>
+							<th></th>
+						</tr>
 							<tbody id="tablaCajaCobro">
 
 
@@ -91,7 +94,7 @@
 					</div>
 				</div>
 				<div class="btnContainer mt-4">
-					<div id="imprimirTicketC" class="btnFunc">Imprimir Ticket-C</div>
+					<div id="callFiambreria" class="btnFunc">Agregar Producto Fiambrería</div>
 					<div id="cancelarCompra" class="btnFunc">Cancelar Compra</div>
 					<div id="cambiarPrecio" class="btnFunc">Cambiar Precio</div>
 					<div id="imprimirTicketA" class="btnFunc">Imprimir Ticket-A</div>
@@ -136,11 +139,11 @@
 						<label>$</label><input id="dineroIngresado" type="number">
 					</div>
 
+				<div>
 					<p class="subt">Vuelto</p>
+					<p id="vuelto">$0.00</p>
 
-					<div class="boxDinero">
-						<p id="vuelto">0.00</p>
-					</div>
+
 				</div>
 				<div class="row">
 
@@ -159,6 +162,7 @@
 	<script type="module" src="/cajaCobro.js"></script>
 	<script type="module" src="/eliminarDeCaja.js"></script>
 	<script type="module" src="/agregarProducto.js"></script>
+	<script type="module" src="/fiambreria.js"></script>
 	<script type="module" src="/editarPrecio.js"></script>
 
 

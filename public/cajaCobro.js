@@ -2,6 +2,7 @@ import {iniciar} from "./edit.js";
 import {agregarArriba} from "./agregarProducto.js"
 import {arrEliminar} from './eliminarDeCaja.js'
 //Elementos
+const borrarInvisible = document.getElementById("borrarInvisible")
 export const textBuscar = document.getElementById("textBuscar");
 const cajaCobroForm = document.getElementById("cajaCobroForm");
 const sbBuscar = document.getElementById("sbBuscar");
@@ -17,16 +18,19 @@ const eliminarProductos = document.getElementById("eliminarProductos");
 const agregarProducto = document.getElementById("agregarProducto");
 const finalizarCompra = document.getElementById("finalizarCompra");
 const bBody = document.getElementsByTagName("body")
+
 bBody[0].classList.add("body")
 textBuscar.focus()
 //Variables globales
 
 export let productosAgregados = [{nombre: "vacio", precio: 0, cantidadAgregada: 1, impuestoPrecio: 0, borrado: false}];
+let productosSeleccionados = []
 let cantidad;
 let index;
 let totalGlobal;
 let vueltoGlobal; 
-let ingresoDinero;
+let ingresoDinero = 0;
+dineroIngresado.value = "0";
 //Funciones
 
 export const eliminar = () => {
@@ -66,7 +70,12 @@ export const importar = () => {
 			impuestoPrecio: importando.impuestoPrecio,
 			borrado: false
 		}
-		
+
+				for (let i = 0; i < productosAgregados.length; i++) {
+			if (productosAgregados[i].nombre == aAg.nombre) {
+				document.getElementsByClassName(productosAgregados[i].idArr)[0].style.visibility = "visible"
+			}
+		}
 		let check = false;
 		const tr = document.createElement("tr");
 		sumarConImpuesto()
@@ -104,6 +113,30 @@ export const importar = () => {
 		const pSubtotal = document.createElement("p")
 		const divPrecio = document.createElement("div")
 		const pSigno = document.createElement("p")
+		const checkbox = document.createElement("input");
+		checkbox.setAttribute("type", "checkbox");
+		checkbox.classList.add("check");
+		checkbox.addEventListener('change', ()  => {
+
+			console.log(checkbox.checked)
+			if (checkbox.checked == true) {
+				productosSeleccionados.push(tr.classList.value)
+			} else {
+				
+				for (let i = 0; i < productosSeleccionados.length; i++) {
+					if (productosSeleccionados[i] == tr.classList.value) {
+						productosSeleccionados.splice(i, 1);
+					}
+				}
+			}
+			if (productosSeleccionados.length > 0) {
+				
+				borrarInvisible.style.visibility = "visible";
+			} else {
+				borrarInvisible.style.visibility = "hidden"
+			}
+console.log(productosSeleccionados)
+		})
 
 		tdNombre.innerHTML = aAg.nombre
 		tdCantidad.innerHTML = aAg.cantidadAgregada
@@ -122,11 +155,13 @@ export const importar = () => {
 		tdPrecio.appendChild(divPrecio)
 		pSubtotal.innerHTML = `$${aAg.impuestoPrecio * aAg.cantidadAgregada}`;
 		tdSubtotal.appendChild(pSubtotal);
-
+		const thCheck = document.createElement("td");
 		tr.appendChild(tdNombre);
 		tr.appendChild(tdCantidad)
 		tr.appendChild(tdPrecio)
 		tr.appendChild(tdSubtotal)
+		thCheck.appendChild(checkbox)	
+		tr.appendChild(thCheck)	
 		tr.style.display = "table-row"	
 		tablaCajaCobro.appendChild(tr)
 		tr.classList.add(productosAgregados.length - 1)
@@ -201,6 +236,7 @@ const sumarConImpuesto = () => {
 			
 	totalGlobal = sum.toFixed(2);
 	totalHTML.innerHTML = "TOTAL: $" + sum.toFixed(2);
+	vuelto.innerHTML = "$" + (ingresoDinero - totalGlobal).toFixed(2)
 }
 
 }
@@ -208,14 +244,17 @@ const sumarConImpuesto = () => {
 
 //Eventos
 
-dineroIngresado.addEventListener('keypress', e => {
-	if (e.key === "Enter") {
+dineroIngresado.addEventListener('input', e => {
 	ingresoDinero = e.target.value;
 	let totalMenosVuelto = e.target.value - totalGlobal;
 	vueltoGlobal = totalMenosVuelto.toFixed(2);
 	vuelto.innerHTML = "$" + vueltoGlobal;
+	if (vuelto.innerHTML == "$NaN") {
+		vuelto.innerHTML = "$0.00"
+	}
+
 	
-}})
+})
 
 
 const updateTotalConVuelto = () => {
@@ -242,7 +281,10 @@ cajaCobroForm.addEventListener('submit', async e => {
 		textBuscar.style.backgroundColor = "#ffd6db";
 		return;
 	}
+	
+
 	try {
+
 		const res = await axios.post('/caja/buscar', {codigo: codigoactual});
 		const producto = res.data;
 		if(producto.nombre == undefined) {
@@ -251,13 +293,24 @@ cajaCobroForm.addEventListener('submit', async e => {
 			return
 		}
 		textBuscar.value = "";
-	
+		
+		
+		for (let i = 0; i < productosAgregados.length; i++) {
+			if (productosAgregados[i].nombre == producto.nombre) {
+				document.getElementsByClassName(productosAgregados[i].idArr)[0].style.visibility = "visible"
+			}
+		}
+
 		const tr = document.createElement("tr");
 	const thNombre = document.createElement("td");
 		thNombre.innerHTML = producto.nombre;
 		const thPrecio =  document.createElement("td");
 		const divPrecio = document.createElement("div");
 		const signoPrecio = document.createElement("p");
+		const checkbox = document.createElement("input");
+		checkbox.setAttribute("type", "checkbox");
+		checkbox.classList.add("check");
+
 		signoPrecio.innerHTML = "$"
 		divPrecio.innerHTML = (producto.precioMinorista + producto.impuestoAplicado * producto.precioMinorista / 100).toFixed(2);
 		divPrecio.style.width = "100px"
@@ -270,13 +323,40 @@ cajaCobroForm.addEventListener('submit', async e => {
 		thPrecio.appendChild(divPrecio)
 		const thCantidad =  document.createElement("td");
 		const thSubtotal = document.createElement("td");
+		const thCheck = document.createElement("td");
+		thCheck.appendChild(checkbox);
 		thSubtotal.innerHTML = `$${(producto.precioMinorista + producto.impuestoAplicado * producto.precioMinorista / 100).toFixed(2)}`;
+		
 		tr.appendChild(thNombre)
 		tr.appendChild(thCantidad)
 
 		tr.appendChild(thPrecio)
 		tr.appendChild(thSubtotal);
+		tr.appendChild(thCheck);
 		thPrecio.style.cursor = "pointer"
+
+		checkbox.addEventListener('change', ()  => {
+
+			console.log(checkbox.checked)
+			if (checkbox.checked == true) {
+				productosSeleccionados.push(tr.classList.value)
+			} else {
+				
+				for (let i = 0; i < productosSeleccionados.length; i++) {
+					if (productosSeleccionados[i] == tr.classList.value) {
+						productosSeleccionados.splice(i, 1);
+					}
+				}
+			}
+			if (productosSeleccionados.length > 0) {
+				
+				borrarInvisible.style.visibility = "visible";
+			} else {
+				borrarInvisible.style.visibility = "hidden"
+			}
+console.log(productosSeleccionados)
+		})
+
 		let yaNo = false;
 		thPrecio.addEventListener("click", () => {
 			if (yaNo == false) {
@@ -292,7 +372,7 @@ cajaCobroForm.addEventListener('submit', async e => {
 			divPrecio.appendChild(nuevoPrecioText)
 			nuevoPrecioText.focus()	
 			yaNo = true;
-
+		checkbox.valor = tr.classList.value;
 				nuevoPrecioText.addEventListener("keypress", e => {
 					if (e.key == "Enter") {
 					
@@ -315,7 +395,6 @@ cajaCobroForm.addEventListener('submit', async e => {
 				
 			})
 
-	
 
 		}})
 
@@ -454,4 +533,33 @@ textBuscar.focus()
 
 }
 
+borrarInvisible.onclick = () => {
+	productosSeleccionados.map(item => {
+		for (let i = 0; i < productosAgregados.length; i++) {
+			if (productosAgregados[i].idArr == item) {
+				const domRow = document.getElementsByClassName(i)[0]
+				
+				domRow.style.display = "none"
 
+
+				productosAgregados[i].cantidadAgregada = 0;
+				
+
+			}
+		}
+	})
+
+	console.log(productosAgregados)
+	sumarConImpuesto()
+
+	let todosLosChecks = document.getElementsByClassName("check")
+	todosLosChecks = Array.from(todosLosChecks)
+	console.log(todosLosChecks)
+	todosLosChecks.map(item => {
+		item.checked = false;
+	})
+
+
+productosSeleccionados = []
+borrarInvisible.style.visibility = "hidden";
+}
