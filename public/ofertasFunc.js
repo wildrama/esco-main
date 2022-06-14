@@ -4,155 +4,80 @@ const formSearch = document.querySelector('#formSearch');
 const formSearchCodigo = document.querySelector('#formSearchCodigo');
 
 const inputBuscar = document.querySelector('#inputBuscar');
-const buscarcodigo = document.querySelector('#buscarcodigo');
-
+const codigoIndividualInput = document.querySelector('#codigoIndividualInput');
 const searchBarOfertas = document.querySelector('#searchBarOfertas')
 const tableBody = document.querySelector('.tableBody');
-const searchBarcodeCodigo = document.querySelector('#searchBarCodigo');
-resultadoDeBusquedaPorCodigo = document.querySelector('#resultadoDeBusquedaPorCodigo');
-searchBarOfertas.addEventListener('keyup',(e)=>{
-    console.log(e.target.value)
-})
+const searchBarFormCodigoIndividual = document.querySelector('#searchBarFormCodigoIndividual');
+const resultadoDeBusquedaPorCodigo = document.querySelector('#resultadoDeBusquedaPorCodigo');
+const nombreProdIndividual = document.querySelector('#nombreProdIndividual')
+const marcaProdIndividual = document.querySelector('#marcaProdIndividual')
+const precioProdIndividual = document.querySelector('#precioProdIndividual')
 
-searchBarOfertas.addEventListener('keyup', async function(event){
-  event.preventDefault();
-  const query_buscar = event.target.value;
-  try {
-    
-    const res = await axios.post('/administrador/buscar',
-     {
-         buscar: query_buscar 
-        
-    }); 
-    const productos = res.data;
-    
-    console.log(productos);  
-    productos.forEach(prod => {
-        console.log(prod.nombre)
-        console.log(prod.marca)
+const cantidadProdIndividual = document.querySelector('#cantidadProdIndividual')
+const productoIndividualContainer = document.querySelector('#productoIndividualContainer');
+const idContainer = document.querySelector('#idContainer');
 
-    });
-    // for (let producto of productos){
+const btn2daPantalla = document.querySelector('#btn2daPantalla');
 
-    //   const td0 = document.createElement('td');
-    //   const td1 = document.createElement('td');
 
-    //   const td2 = document.createElement('td');
-
-    //   const td3 = document.createElement('td');
-
-    //   const td4 = document.createElement('td');
-
-    //   const tr = document.createElement('tr');
-
-    //   const ul = document.createElement('ul');
-    //   const li = document.createElement('li');
-    //   const li2 = document.createElement('li');
-    //   const accion1 = document.createElement('a');
-    //   const imgButton1 = document.createElement('img');
-    //   const accion2 = document.createElement('a');
-
-        
-    //   td1.textContent= producto.precioMinorista;
-    //   td0.textContent= producto.nombre;
-    //   td2.textContent= producto.marca;
-    //   td3.textContent= producto.cantidad;
-    //   accion1.append(imgButton1);
-    //   tr.append(td0,td1,td2,td3,accion1)
-    //   tableBody.append(tr);
-    //   console.log(producto);  
-
-    // }
+// searchBarOfertas.addEventListener('keyup',(e)=>{
+//     console.log(e.target.value)
+// })
 
 
 
-
-    // formSearch.elements.buscar.value = '';
-    // inputBuscar.focus();
-      } catch (error) {
-    console.error(error);
-  }
- 
-})
-
-
-searchBarcodeCodigo.addEventListener('submit', async function(event){
-  event.preventDefault();
-  const query_buscar_codigo = searchBarcodeCodigo.elements.buscarcodigo.value;
+searchBarFormCodigoIndividual.addEventListener('submit', async function(e){
+  e.preventDefault();
+  const query_buscar_codigo = searchBarFormCodigoIndividual.elements.codigoIndividualInput.value;
   console.log(query_buscar_codigo)
   try {
     
-    const res = await axios.post('/buscar-codigo', {buscar: query_buscar_codigo }); 
-    const productosDeCodigo = res.data;
+    const res = await axios.post('/administrador/buscar/buscar-codigo',
+     {codigo: query_buscar_codigo }); 
+    const producto = res.data;
     
-    console.log(productosDeCodigo);  
+    console.log(producto);  
+    const productoId = producto._id;
+    console.log(productoId);  
 
-    for (let producto of productosDeCodigo){
-      const productoId = producto._id;
-    //   const td0 = document.createElement('td');
-    //   const td1 = document.createElement('td');
-
-    //   const td2 = document.createElement('td');
-
-    //   const td3 = document.createElement('td');
-
-    //   const td4 = document.createElement('td');
-
-    //   const tr = document.createElement('tr');
-
-    //   const ul = document.createElement('ul');
-      const li = document.createElement('li');
     //   const li2 = document.createElement('li');
     //   const accion1 = document.createElement('a');
     //   const accion2 = document.createElement('a');
-
+    
     //   td1.textContent= producto.precioMinorista;
-      li.textContent= producto.nombre;
+    nombreProdIndividual.innerHTML= producto.nombre;
+    marcaProdIndividual.innerHTML= producto.marca;
+   precioProdIndividual.innerHTML= `$ ${producto.precioMinorista}` ;
+  
+    cantidadProdIndividual.innerHTML= producto.cantidad;
+    idContainer.textContent=productoId;
+    idContainer.classList.add('d-none')
     //   td2.textContent= producto.marca;
     //   td3.textContent= producto.cantidad;
 
     //   tr.append(td0,td1,td2,td3)
     //   tableBody.append(tr);
     //   console.log(producto);  
-    const idContainer = document.createElement('input');
-    idContainer.type = "number";
-    idContainer.value = productoId;
+    
     // idContainer.classList.add('d-none');
-    resultadoDeBusquedaPorCodigo.append(li,idContainer)
-    }
 
 
 
 
+    
       } catch (error) {
     console.error(error);
   }
- 
+  console.log("this is "+ idContainer.textContent)
+  
 })
-const agregarPeeroducto = (producto)=>{
-    const td0 = document.createElement('td');
-    const td1 = document.createElement('td');
+btn2daPantalla.setAttribute('href',`/administrador/ofertas/agregar-oferta-individx/nueva?idProd=${idContainer.textContent}`)
+// btn2daPantalla.addEventListener('click', async function(e){
 
-    const td2 = document.createElement('td');
+//   try {
+//    await axios.get(); 
 
-    const td3 = document.createElement('td');
-
-    const td4 = document.createElement('td');
-
-    const tr = document.createElement('tr');
-
-    const ul = document.createElement('ul');
-    const li = document.createElement('li');
-    const li2 = document.createElement('li');
-    const accion1 = document.createElement('a');
-    const accion2 = document.createElement('a');
-
-    td0.textContent= producto.precioMinorista;
-    td1.textContent= producto.nombre;
-    td2.textContent= producto.marca;
-    td3.textContent= producto.cantidad;
-
-    tr.append(td0,td1,td2,td3)
-    tableBody.append(tr);
-
-  }
+//   } catch (error) {
+//     console.log(error)
+//   }
+// } )

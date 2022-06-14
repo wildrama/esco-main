@@ -5,6 +5,8 @@ const catchAsync =require('../utils/catchAsync');
 const Producto = require('../models/productos');
 const Venta = require('../models/ventas');
 const Oferta = require('../models/ofertas');
+const OfertaSingular = require('../models/ofertaSingular');
+
 const {isLoggedIn,isCaja} = require('../middleware');
 const EstacionDeCobro = require('../models/estaciondecobro');
 
@@ -35,9 +37,11 @@ router.get('/:id/cajaActiva', isLoggedIn,catchAsync( async (req, res) => {
   try {
     
     const estacionDeCobro = await EstacionDeCobro.findById(estacionDeCobroId);
-    const ofertasParaEstacion = await Oferta.find({estacionDeCobroParaLaOferta:estacionDeCobroId})
+    const ofertasConjuntoParaEstacion = await Oferta.find({estacionDeCobroParaLaOferta:estacionDeCobroId})
+    
+    const ofertasIndividualesParaEstacion = await OfertaSingular.find({estacionDeCobroParaLaOferta:estacionDeCobroId})
     console.log(ofertasParaEstacion);
-    res.render('caja/cajacobro',{ofertasParaEstacion,usuarioID,estacionDeCobro});
+    res.render('caja/cajacobro',{ofertasConjuntoParaEstacion,ofertasIndividualesParaEstacion,usuarioID,estacionDeCobro});
   } catch (error) {
     req.flash('error','Intenta de nuevo');
     res.redirect(`/caja/${estacionDeCobroId}/inicio`)

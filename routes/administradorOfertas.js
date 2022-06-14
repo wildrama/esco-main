@@ -120,11 +120,19 @@ router.get('/agregar-oferta-individual/', (req,res)=>{
 })
 
 // render de la 2da pantalla con el formulario
-router.get('/agregar-oferta-individual/nueva', (req,res)=>{
-    res.render('panelOfertas/crearOfertaIndividualP1')
-})
+router.get('/agregar-oferta-individual/nueva', catchAsync( async(req,res)=>{
+  console.log(req.query.idProd)
+const idProd = req.query.idProd
+
+const productoParaOfertaIndividual = await Producto.findById(idProd).exec();
+console.log(productoParaOfertaIndividual);
+
+res.render('panelOfertas/crearOfertaIndividualP2',{productoParaOfertaIndividual})
+
+}));
+
 // post del form para crear la oferta individual
-router.post('/agregar-oferta-individual', (req,res)=>{
+router.post('/agregar-oferta-individual/nueva-o', (req,res)=>{
     res.redirect('/administrador/ofertas/oferta-individual/:id')
 })
 

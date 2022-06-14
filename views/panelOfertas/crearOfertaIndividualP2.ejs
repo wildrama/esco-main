@@ -5,16 +5,16 @@
     <div class="row d-flex justify-content-center">
         <div class="col-md-6 p-md-2">
            
-          <h3>Crear oferta de NOMBRE + PRODUCTO</h3>
+          <h3>Crear oferta de <%= productoParaOfertaIndividual.nombre %> - <%= productoParaOfertaIndividual.marca %> </h3>
 
-            <form action="/administrador/ofertas/crear-oferta-individual" method="post">
+            <form action="/administrador/ofertas/crear-oferta-individual/nueva-o" method="post">
 
 
 
 
               <div class="mb-3">
                 <p class="mx-2">
-                  Precio por unidad actual: $ 300
+                  Precio por unidad actual: $ <%=  productoParaOfertaIndividual.precioMinorista %> 
                 </p>
               </div>
 
@@ -80,6 +80,7 @@
         </div>
     </div>
 </div>
-
+<script src="/ofertasFunc.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
 <%- include('../partials/footer.ejs'); %>
