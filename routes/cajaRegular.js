@@ -61,8 +61,24 @@ router.get('/:id/cajaActiva', isLoggedIn,catchAsync( async (req, res) => {
 }));
 
 
+// ofertas json
+router.get('/ofertasFetch', catchAsync( async (req, res) => {
+  
+const estacionDeCobroId = req.query.idESTACION;
+  try {
 
+    // const ofertasConjuntoParaEstacion = await Oferta.find({})
+    const ofertasConjuntoParaEstacion = await Oferta.find({estacionesDeCobroParaLaOferta: mongoose.Types.ObjectId(estacionDeCobroId)}).exec();
 
+    const ofertasIndividualesParaEstacion = await OfertaSingular.find({estacionesDeCobroParaLaOferta: mongoose.Types.ObjectId(estacionDeCobroId)}).exec();
+  
+    res.json({ofertasConjuntoParaEstacion,ofertasIndividualesParaEstacion});
+    
+  } catch (error) {
+    res.json('NO SE PUEDE BUSCAR OFERTAS')
+  }
+  
+}));
 router.post('/buscar', isLoggedIn, async (req, res) => {
   try {
     const codigo = req.body.codigo;
