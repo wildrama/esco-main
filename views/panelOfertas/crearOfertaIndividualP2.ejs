@@ -7,7 +7,7 @@
            
           <h3>Crear oferta de <%= productoParaOfertaIndividual.nombre %> - <%= productoParaOfertaIndividual.marca %> </h3>
 
-            <form action="/administrador/ofertas/crear-oferta-individual/nueva-o" method="post">
+            <form action="/administrador/ofertas/agregar-oferta-individual/nueva" method="post">
 
 
 
@@ -22,16 +22,7 @@
                 <div class="mb-3">
                   <label for="cantidadDeUnidadesNecesarias" class="form-label">Cantidad de unidades para validar la oferta</label>
                   <input type="number" name="cantidadDeUnidadesNecesarias" class="form-control" id="cantidadDeUnidadesNecesarias" placeholder="">
-                  <select class="form-select"  name="cantidadDeUnidadesNecesarias" aria-label="Default select example">
-                    <option selected> Abrir el menu para elegir la cantidad</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-
-
-                  </select>
+              
                 </div>
                 
                 <div class="mb-3">
@@ -47,14 +38,16 @@
 
                 <div class="mb-3">
                   <label for="estacionDeCobroParaLaOferta" class="form-label">Seleccionar las estaciones de cobros donde se aplique la oferta</label>
-                  <select id="estacionDeCobroParaLaOferta" name="estacionDeCobroParaLaOferta" class="form-select" aria-label="Default select example">
+                  <select id="estacionDeCobroParaLaOferta" name="estacionDeCobroParaLaOferta" class="form-select" multiple aria-label="multiple select example">>
                   
-
+                    <% for( let estacionDeCobro of estacionesDeCobro ) { %>
+                      <option value="<%= estacionDeCobro._id %>"><%= estacionDeCobro.ubicacionDeEstacion %> </option>
+                    <% } %>
 
                   
                   </select>
                 </div>
-
+                <input value="<%= productoParaOfertaIndividual._id %>" type="text" name="productoEnOferta" class="d-none">
 
                 <button type="submit" class="btn btn-primary">Confirmar</button>
 
@@ -80,7 +73,6 @@
         </div>
     </div>
 </div>
-<script src="/ofertasFunc.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
 <%- include('../partials/footer.ejs'); %>

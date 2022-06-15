@@ -251,18 +251,18 @@ cajaCobroForm.addEventListener('submit', async e => {
 			return
 		}
 		textBuscar.value = "";
-	
+		
 		const tr = document.createElement("tr");
-	const thNombre = document.createElement("td");
+		const thNombre = document.createElement("td");
 		thNombre.innerHTML = producto.nombre;
 		const thPrecio =  document.createElement("td");
 		const divPrecio = document.createElement("div");
 		const signoPrecio = document.createElement("p");
-		signoPrecio.innerHTML = "$"
+		signoPrecio.innerHTML = "$";
 		divPrecio.innerHTML = (producto.precioMinorista + producto.impuestoAplicado * producto.precioMinorista / 100).toFixed(2);
-		divPrecio.style.width = "100px"
-		divPrecio.style.height = "30px"
-		divPrecio.style.display = "flex"
+		divPrecio.style.width = "100px";
+		divPrecio.style.height = "30px";
+		divPrecio.style.display = "flex";
 		divPrecio.style.justifyContent = "center";
 		thPrecio.style.display = "flex";
 		thPrecio.style.justifyContent = "space-between";
@@ -271,12 +271,12 @@ cajaCobroForm.addEventListener('submit', async e => {
 		const thCantidad =  document.createElement("td");
 		const thSubtotal = document.createElement("td");
 		thSubtotal.innerHTML = `$${(producto.precioMinorista + producto.impuestoAplicado * producto.precioMinorista / 100).toFixed(2)}`;
-		tr.appendChild(thNombre)
-		tr.appendChild(thCantidad)
+		tr.appendChild(thNombre);
+		tr.appendChild(thCantidad);
 
-		tr.appendChild(thPrecio)
+		tr.appendChild(thPrecio);
 		tr.appendChild(thSubtotal);
-		thPrecio.style.cursor = "pointer"
+		thPrecio.style.cursor = "pointer";
 		let yaNo = false;
 		thPrecio.addEventListener("click", () => {
 			if (yaNo == false) {
@@ -439,9 +439,9 @@ const stringValorDelProducto = () => {
 		codigosDeBarra: [],
 		fechaDeEmision: new Date().toString(),
 		valorDelProducto: stringValorDelProducto(),
-		ticket: false,
+		ticket: "SI/NO",
 		cantidadDeProductosTotales: cantidadTotal,
-		turnoCaja: "Mañana o tarde"
+		estacionDeCobro: "ESTACIONDECOBRO.NOMBRE"
 	}
 	alert("Venta finalizada, ver Consola JavaScript")	
 	console.log("EL OBJETO QUE SE VA A IMPORTAR:")
@@ -453,5 +453,20 @@ textBuscar.focus()
 
 
 }
+
+
+// productos: [
+// 	{
+// 		valorDelProductoEnLaCompra:
+// 		{
+// 			type: Number
+// 		},
+// 		identificadorDeProducto:
+// 		{
+// 			type: Schema.Types.ObjectId,
+// 			ref: Producto
+// 		}
+// 	}
+// ]
 
 

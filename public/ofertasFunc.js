@@ -68,10 +68,13 @@ searchBarFormCodigoIndividual.addEventListener('submit', async function(e){
       } catch (error) {
     console.error(error);
   }
+
   console.log("this is "+ idContainer.textContent)
-  
+  const idProducto = idContainer.textContent;
+  btn2daPantalla.setAttribute('href',`/administrador/ofertas/agregar-oferta-individual/${idProducto}/nueva`)
+                                
 })
-btn2daPantalla.setAttribute('href',`/administrador/ofertas/agregar-oferta-individx/nueva?idProd=${idContainer.textContent}`)
+
 // btn2daPantalla.addEventListener('click', async function(e){
 
 //   try {

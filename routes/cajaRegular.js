@@ -1,4 +1,6 @@
 const express = require('express');
+const mongoose = require('mongoose');
+
 const router = express.Router();
 const catchAsync =require('../utils/catchAsync');
 // const {isLoggedIn} = require('../middleware');
@@ -16,7 +18,7 @@ const rolecAJA= 'CAJA';
 // isCaja(rolecAJA)
 // isCaja(rolecAJA)
 // isCaja(rolecAJA)
-
+  
 // READ PRODUCT {
   // isLoggedIn,
 
@@ -32,21 +34,30 @@ router.get('/:id/inicio',isLoggedIn, catchAsync( async (req, res) => {
 
 // ir a la caja y llevar las ofertas
 router.get('/:id/cajaActiva', isLoggedIn,catchAsync( async (req, res) => {
+  
   const estacionDeCobroId = req.params.id;
   const usuarioID = req.user.id;
   try {
-    
+
     const estacionDeCobro = await EstacionDeCobro.findById(estacionDeCobroId);
-    const ofertasConjuntoParaEstacion = await Oferta.find({estacionDeCobroParaLaOferta:estacionDeCobroId})
+    // const ofertasConjuntoParaEstacion = await Oferta.find({})
+    const ofertasConjuntoParaEstacion = await Oferta.find({estacionesDeCobroParaLaOferta: mongoose.Types.ObjectId(estacionDeCobroId)}).exec();
+
+    const ofertasIndividualesParaEstacion = await OfertaSingular.find({estacionesDeCobroParaLaOferta: mongoose.Types.ObjectId(estacionDeCobroId)}).exec();
+   console.log('estacion actual');
+   console.log(estacionDeCobro)
     
-    const ofertasIndividualesParaEstacion = await OfertaSingular.find({estacionDeCobroParaLaOferta:estacionDeCobroId})
-    console.log(ofertasParaEstacion);
-    res.render('caja/cajacobro',{ofertasConjuntoParaEstacion,ofertasIndividualesParaEstacion,usuarioID,estacionDeCobro});
+    console.log('ofertasConjunto:')
+   console.log(ofertasConjuntoParaEstacion)
+
+    console.log('ofertasIndividuales:')
+   console.log(ofertasIndividualesParaEstacion)
+    res.render('caja/cajacobro',{ofertasIndividualesParaEstacion,ofertasConjuntoParaEstacion,usuarioID,estacionDeCobro});
   } catch (error) {
     req.flash('error','Intenta de nuevo');
     res.redirect(`/caja/${estacionDeCobroId}/inicio`)
   }
-
+  
 }));
 
 

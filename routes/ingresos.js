@@ -51,7 +51,7 @@ router.get('/administrador', async (req, res) => {
         res.redirect(`/caja/${checkearSiExisteCaja._id}/inicio`);
         
     } catch (error) {
-      req.flash('error', ' ntenta de nuevo');
+      req.flash('error', 'IntentaR de nuevo');
         res.redirect('/ingreso-caja');
     }
     
