@@ -404,7 +404,6 @@ cajaCobroForm.addEventListener('submit', async e => {
 		}
 		textBuscar.value = "";
 		
-<<<<<<< HEAD
 		
 		for (let i = 0; i < productosAgregados.length; i++) {
 			if (productosAgregados[i].nombre == producto.nombre) {
@@ -412,23 +411,18 @@ cajaCobroForm.addEventListener('submit', async e => {
 			}
 		}
 
-=======
->>>>>>> 2812f599c8761a0be3c6fd2172582831723fdb59
 		const tr = document.createElement("tr");
 		const thNombre = document.createElement("td");
 		thNombre.innerHTML = producto.nombre;
 		const thPrecio =  document.createElement("td");
 		const divPrecio = document.createElement("div");
 		const signoPrecio = document.createElement("p");
-<<<<<<< HEAD
 		const checkbox = document.createElement("input");
 		checkbox.setAttribute("type", "checkbox");
 		checkbox.classList.add("check");
 
 		signoPrecio.innerHTML = "$"
-=======
 		signoPrecio.innerHTML = "$";
->>>>>>> 2812f599c8761a0be3c6fd2172582831723fdb59
 		divPrecio.innerHTML = (producto.precioMinorista + producto.impuestoAplicado * producto.precioMinorista / 100).toFixed(2);
 		divPrecio.style.width = "100px";
 		divPrecio.style.height = "30px";
@@ -443,18 +437,14 @@ cajaCobroForm.addEventListener('submit', async e => {
 		const thCheck = document.createElement("td");
 		thCheck.appendChild(checkbox);
 		thSubtotal.innerHTML = `$${(producto.precioMinorista + producto.impuestoAplicado * producto.precioMinorista / 100).toFixed(2)}`;
-<<<<<<< HEAD
 		
 		tr.appendChild(thNombre)
 		tr.appendChild(thCantidad)
-=======
 		tr.appendChild(thNombre);
 		tr.appendChild(thCantidad);
->>>>>>> 2812f599c8761a0be3c6fd2172582831723fdb59
 
 		tr.appendChild(thPrecio);
 		tr.appendChild(thSubtotal);
-<<<<<<< HEAD
 		tr.appendChild(thCheck);
 		thPrecio.style.cursor = "pointer"
 
@@ -480,9 +470,7 @@ cajaCobroForm.addEventListener('submit', async e => {
 console.log(productosSeleccionados)
 		})
 
-=======
 		thPrecio.style.cursor = "pointer";
->>>>>>> 2812f599c8761a0be3c6fd2172582831723fdb59
 		let yaNo = false;
 		thPrecio.addEventListener("click", () => {
 			if (yaNo == false) {
@@ -763,7 +751,6 @@ borrarInvisible.onclick = () => {
 		}
 	})
 
-<<<<<<< HEAD
 	console.log(productosAgregados)
 	sumarConImpuesto()
 
@@ -778,7 +765,6 @@ borrarInvisible.onclick = () => {
 productosSeleccionados = []
 borrarInvisible.style.visibility = "hidden";
 }
-=======
 // productos: [
 // 	{
 // 		valorDelProductoEnLaCompra:
@@ -794,4 +780,3 @@ borrarInvisible.style.visibility = "hidden";
 // ]
 
 
->>>>>>> 2812f599c8761a0be3c6fd2172582831723fdb59
