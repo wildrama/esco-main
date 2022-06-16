@@ -9,7 +9,7 @@
     // console.log(codigoactual);
     try {
 
-      const res = await axios.post('/admnistrador/productos/buscar', {codigo: codigoBuscado }); 
+      const res = await axios.post('/administrador/productos/buscar', {codigo: codigoBuscado }); 
       console.log(res.data.nombre)
       const li = document.createElement('li');
       li.textContent = res.data.nombre

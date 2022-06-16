@@ -77,7 +77,7 @@ router.get('/:id/historia-ventas', catchAsync(async(req,res)=>{
   console.log({historialVentasEstacion});
   console.log(historialVentasEstacion);
 
-  res.render('panelEstacion/estacion-historial',{ historialVentasEstacion})
+  res.render('panelEstacionCobro/estacion-historial',{ historialVentasEstacion})
 
 res.send('ok');
 }))
@@ -96,6 +96,8 @@ req.flash('sucess', 'Estación eliminada correctamente');
 
 
 // editar mas info de la estación
+// ingreso de dinero
+// egreso de dinero
 
 // agregar ofertas a la estación
 module.exports = router;
