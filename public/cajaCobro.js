@@ -18,12 +18,13 @@ const eliminarProductos = document.getElementById("eliminarProductos");
 const agregarProducto = document.getElementById("agregarProducto");
 const finalizarCompra = document.getElementById("finalizarCompra");
 const bBody = document.getElementsByTagName("body")
-
+const ul = document.getElementById("ulOfertas")
+const idEstacion = document.getElementById("idEstacion").innerHTML
 bBody[0].classList.add("body")
 textBuscar.focus()
 //Variables globales
 
-export let productosAgregados = [{nombre: "vacio", precio: 0, cantidadAgregada: 1, impuestoPrecio: 0, borrado: false}];
+export let productosAgregados = [{nombre: "vacio", precio: 0, cantidadAgregada: 1, impuestoPrecio: 0, id: 123, borrado: false}];
 export let productosSeleccionados = []
 let cantidad;
 let index;
@@ -34,6 +35,129 @@ dineroIngresado.value = "0";
 //Funciones
 
 let ultimo = 0;
+let ofertasIndividuales = []
+
+//fetch ofertas
+
+
+window.onload = async () => {
+	try {
+		await axios.get(`/caja/ofertasFetch/?idESTACION=${idEstacion}`).then(res => {
+
+		const ofertas = res.data;
+			ofertas.ofertasIndividualesParaEstacion.map(oferta => {
+				ofertasIndividuales.push(oferta)
+				console.log(oferta)
+
+			})
+
+			
+
+
+			ofertas.ofertasConjuntoParaEstacion.map(oferta => {
+				const li = document.createElement("li");
+				li.innerHTML = `${oferta.nombreOferta}: $${oferta.precioOferta}`
+				li.onclick = () => {
+						const tr = document.createElement("tr");
+						const thNombre = document.createElement("td");
+						thNombre.innerHTML = oferta.nombreOferta;
+						const thPrecio =  document.createElement("td");
+						const divPrecio = document.createElement("div");
+						const signoPrecio = document.createElement("p");
+						const checkbox = document.createElement("input");
+						checkbox.setAttribute("type", "checkbox");
+						checkbox.classList.add("check");
+
+						signoPrecio.innerHTML = "$"
+						signoPrecio.innerHTML = "$";
+						divPrecio.innerHTML = (oferta.precioOferta).toFixed(2);
+						divPrecio.style.width = "100px";
+						divPrecio.style.height = "30px";
+						divPrecio.style.display = "flex";
+						divPrecio.style.justifyContent = "center";
+						thPrecio.style.display = "flex";
+						thPrecio.style.justifyContent = "left";
+						thPrecio.appendChild(signoPrecio)
+						thPrecio.appendChild(divPrecio)
+						const thCantidad =  document.createElement("td");
+						const thSubtotal = document.createElement("td");
+						const thCheck = document.createElement("td");
+						thCheck.appendChild(checkbox);
+						thSubtotal.innerHTML = `$${(oferta.precioOferta)}`;
+		
+						tr.appendChild(thNombre)
+						tr.appendChild(thCantidad)
+						tr.appendChild(thNombre);
+						tr.appendChild(thCantidad);
+						tr.classList.add(productosAgregados.length)
+						tr.appendChild(thPrecio);
+						tr.appendChild(thSubtotal);
+						tr.appendChild(thCheck);
+						thPrecio.style.cursor = "pointer"
+						tablaCajaCobro.appendChild(tr)
+		checkbox.addEventListener('change', ()  => {
+
+			console.log(checkbox.checked)
+			if (checkbox.checked == true) {
+				productosSeleccionados.push(tr.classList.value)
+			} else {
+				
+				for (let i = 0; i < productosSeleccionados.length; i++) {
+					if (productosSeleccionados[i] == tr.classList.value) {
+						productosSeleccionados.splice(i, 1);
+					}
+				}
+			}
+			if (productosSeleccionados.length > 0) {
+				
+				borrarInvisible.style.visibility = "visible";
+			} else {
+				borrarInvisible.style.visibility = "hidden"
+			}
+console.log(productosSeleccionados)
+		})
+
+					productosAgregados.push({
+						nombre: oferta.nombreOferta,
+						precio: parseFloat(oferta.precioOferta),
+						cantidadAgregada: 1,
+						impuestoPrecio: parseFloat(oferta.precioOferta),
+						idArr: productosAgregados.length
+
+
+
+					})
+
+					console.log(productosAgregados)
+
+					sumarConImpuesto()
+						
+
+
+				}
+				ulOfertas.appendChild(li)
+
+			})
+		}
+
+		)
+	} catch (error) {
+		console.log(error)
+	}
+
+} 
+
+
+
+
+
+
+
+
+
+
+
+
 
 export const agregarFiambre = (nombre, precio, id) => {
 	let fiambre = {
@@ -92,6 +216,7 @@ export const importar = () => {
 			precio: importando.precio,
 			cantidadAgregada : importando.cantidadAgregada,
 			impuestoPrecio: importando.impuestoPrecio,
+			id: importando.id,
 			borrado: false
 		}
 
@@ -113,6 +238,88 @@ export const importar = () => {
 				fila[0].children[1].innerHTML = prod.cantidadAgregada;
 				fila[0].children[3].innerHTML = prod.cantidadAgregada * prod.impuestoPrecio;
 				fila[0].style.display = "table-row"
+
+
+
+
+
+	ofertasIndividuales.map(oferta => {
+				
+					productosAgregados.map( producto => {
+						if (producto.id == oferta.productoEnOferta) {
+							if (producto.cantidadAgregada >= oferta.cantidadDeUnidadesNecesarias) {
+								let cuantas = parseInt(producto.cantidadAgregada) / parseInt(oferta.cantidadDeUnidadesNecesarias);
+								cuantas = parseInt(cuantas)
+								let resto = producto.cantidadAgregada % oferta.cantidadDeUnidadesNecesarias;
+								console.log("Cantidad de ofertas: " + cuantas)
+								console.log("Resto: "+ resto)
+								for (let i = 1; i <= cuantas; i++) {
+									productosAgregados.push({
+										nombre: oferta.nombreOferta,
+										cantidadAgregada: 1,
+										impuestoPrecio: oferta.precioOferta,
+										borrado: false
+
+									})
+								}
+								console.log(productosAgregados)
+								document.getElementsByClassName(producto.idArr)[0].childNodes[1].innerHTML = resto
+								if (document.getElementsByClassName(producto.idArr)[0].childNodes[1].innerHTML == 0 ) {
+									document.getElementsByClassName(producto.idArr)[0].style.display = "none"; 
+								} else {
+									document.getElementsByClassName(producto.idArr)[0].style.display = "table-row"; 
+
+								}
+								const tr = document.createElement("tr")
+								const thNombre = document.createElement("td");
+								const thCantidad = document.createElement("td")
+								thNombre.innerHTML = "Oferta en " + producto.nombre;
+								thCantidad.innerHTML = cuantas
+								const thPrecio =  document.createElement("td");
+								thPrecio.innerHTML = "$" + oferta.precioOferta
+								console.log(oferta)
+								console.log("aca no")
+								const checkbox = document.createElement("input");
+								checkbox.setAttribute("type", "checkbox");
+								checkbox.classList.add("check");
+								const thSubtotal = document.createElement("td");
+								const thCheck = document.createElement("td");
+								thCheck.appendChild(checkbox);
+								thSubtotal.innerHTML = `$${oferta.precioOferta * cuantas}`;
+		
+								tr.appendChild(thNombre)
+								tr.appendChild(thCantidad)
+								tr.appendChild(thNombre);
+								tr.appendChild(thCantidad);
+
+								tr.appendChild(thPrecio);
+								tr.appendChild(thSubtotal);
+								tr.appendChild(thCheck);
+								thPrecio.style.cursor = "pointer"
+								tablaCajaCobro.appendChild(tr)
+
+
+
+
+								producto.cantidadAgregada = resto;
+
+
+
+
+
+
+
+
+
+								sumarConImpuesto()
+							}
+						}
+					} )
+				})
+
+
+
+
 				sumarConImpuesto()
 		textBuscar.focus()	
 
@@ -150,6 +357,10 @@ export const importar = () => {
 			document.getElementsByClassName(index)[0].childNodes[3].innerHTML = "$" + productosAgregados[index].impuestoPrecio * productosAgregados[index].cantidadAgregada;
 			console.log(productosAgregados[index].impuestoPrecio)
 			console.log(productosAgregados[index])
+
+			
+
+
 			sumarConImpuesto()
 		textBuscar.blur()	
 			return
@@ -258,7 +469,7 @@ console.log(productosSeleccionados)
 		divPrecio.style.display = "flex"
 		divPrecio.style.justifyContent = "center";
 		tdPrecio.style.display = "flex"
-		tdPrecio.style.justifyContent = "space-between"
+		tdPrecio.style.justifyContent = "left"
 		pSigno.innerHTML = "$"
 		tdPrecio.appendChild(pSigno)
 		tdPrecio.appendChild(divPrecio)
@@ -429,7 +640,7 @@ cajaCobroForm.addEventListener('submit', async e => {
 		divPrecio.style.display = "flex";
 		divPrecio.style.justifyContent = "center";
 		thPrecio.style.display = "flex";
-		thPrecio.style.justifyContent = "space-between";
+		thPrecio.style.justifyContent = "left";
 		thPrecio.appendChild(signoPrecio)
 		thPrecio.appendChild(divPrecio)
 		const thCantidad =  document.createElement("td");
@@ -531,9 +742,83 @@ console.log(productosSeleccionados)
 				const trEspecifico = document.getElementsByClassName(itemProducto.idArr)
 				itemProducto.cantidadAgregada = itemProducto.cantidadAgregada + 1;
 				trEspecifico[0].childNodes[1].innerHTML = itemProducto.cantidadAgregada;
-				trEspecifico[0].childNodes[3].innerHTML = (itemProducto.cantidadAgregada * itemProducto.impuestoPrecio).toFixed(2)
+				trEspecifico[0].childNodes[3].innerHTML = "$" + (itemProducto.cantidadAgregada * itemProducto.impuestoPrecio).toFixed(2)
 				trEspecifico[0].style.display = "table-row"
-				sumarConImpuesto()	
+				sumarConImpuesto()
+
+				ofertasIndividuales.map(oferta => {
+				
+					productosAgregados.map( producto => {
+						if (producto.id == oferta.productoEnOferta) {
+							if (producto.cantidadAgregada >= oferta.cantidadDeUnidadesNecesarias) {
+								let cuantas = parseInt(producto.cantidadAgregada) / parseInt(oferta.cantidadDeUnidadesNecesarias);
+								cuantas = parseInt(cuantas)
+								let resto = producto.cantidadAgregada % oferta.cantidadDeUnidadesNecesarias;
+								console.log("Cantidad de ofertas: " + cuantas)
+								console.log("Resto: "+ resto)
+								for (let i = 1; i <= cuantas; i++) {
+									productosAgregados.push({
+										nombre: oferta.nombreOferta,
+										cantidadAgregada: 1,
+										impuestoPrecio: oferta.precioOferta,
+										borrado: false
+
+									})
+								}
+								console.log(productosAgregados)
+								document.getElementsByClassName(producto.idArr)[0].childNodes[1].innerHTML = resto
+								if (document.getElementsByClassName(producto.idArr)[0].childNodes[1].innerHTML == 0 ) {
+									document.getElementsByClassName(producto.idArr)[0].style.display = "none"; 
+								} else {
+									document.getElementsByClassName(producto.idArr)[0].style.display = "table-row"; 
+
+								}
+								const tr = document.createElement("tr")
+								const thNombre = document.createElement("td");
+								const thCantidad = document.createElement("td")
+								thNombre.innerHTML = "Oferta en " + producto.nombre;
+								thCantidad.innerHTML = cuantas
+								const thPrecio =  document.createElement("td");
+								thPrecio.innerHTML = "$" + oferta.precioOferta
+								console.log(oferta)
+								console.log("aca no")
+								const checkbox = document.createElement("input");
+								checkbox.setAttribute("type", "checkbox");
+								checkbox.classList.add("check");
+								const thSubtotal = document.createElement("td");
+								const thCheck = document.createElement("td");
+								thCheck.appendChild(checkbox);
+								thSubtotal.innerHTML = `$${oferta.precioOferta * cuantas}`;
+		
+								tr.appendChild(thNombre)
+								tr.appendChild(thCantidad)
+								tr.appendChild(thNombre);
+								tr.appendChild(thCantidad);
+
+								tr.appendChild(thPrecio);
+								tr.appendChild(thSubtotal);
+								tr.appendChild(thCheck);
+								thPrecio.style.cursor = "pointer"
+								tablaCajaCobro.appendChild(tr)
+
+
+
+
+								producto.cantidadAgregada = resto;
+
+
+
+
+
+
+
+
+
+								sumarConImpuesto()
+							}
+						}
+					} )
+				})
 			}
 		})
 
@@ -546,6 +831,8 @@ console.log(productosSeleccionados)
 						marca: producto.marca,
 						cantidadAgregada: 1,
 						idArr: productosAgregados.length,
+						id: producto._id,
+						backup: producto.precioMinorista,
 						borrado: false
 					})
 				thCantidad.innerHTML = 1;
@@ -553,6 +840,7 @@ console.log(productosSeleccionados)
 				tr.classList.add(productosAgregados.length - 1)
 				ultimo = productosAgregados.length - 1
 				sumarConImpuesto()
+				console.log(productosAgregados)
 
 				
 
@@ -574,6 +862,27 @@ console.log(productosSeleccionados)
 			document.getElementsByClassName(index)[0].childNodes[3].innerHTML = "$" + productosAgregados[index].impuestoPrecio * productosAgregados[index].cantidadAgregada;
 			console.log(productosAgregados[index].impuestoPrecio)
 			console.log(productosAgregados[index])
+
+
+				ofertasIndividuales.map(oferta => {
+				
+					productosAgregados.map( producto => {
+						if (producto.id == oferta.productoEnOferta) {
+							if (producto.cantidadAgregada == oferta.cantidadDeUnidadesNecesarias) {
+								producto.impuestoPrecio = oferta.precioOferta / oferta.cantidadDeUnidadesNecesarias
+								document.getElementsByClassName(producto.idArr)[0].childNodes[2].innerHTML = "$" + oferta.precioOferta
+							
+							document.getElementsByClassName(producto.idArr)[0].childNodes[3].innerHTML = "$" + oferta.precioOferta
+								sumarConImpuesto()
+							}
+						}
+					} )
+				})
+			
+		
+
+
+
 			sumarConImpuesto()
 			return
 
@@ -745,6 +1054,9 @@ borrarInvisible.onclick = () => {
 
 
 				productosAgregados[i].cantidadAgregada = 0;
+				productosAgregados[i].impuestoPrecio = productosAgregados[i].backup
+				document.getElementsByClassName(productosAgregados[i].idArr)[0].childNodes[2].innerHTML = "$" + productosAgregados[i].impuestoPrecio
+
 				
 
 			}

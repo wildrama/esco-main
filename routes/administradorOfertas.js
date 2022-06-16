@@ -93,7 +93,11 @@ router.get('/oferta-conjunto/:id', async (req, res) => {
 })
 
 
-
+router.get('/oferta-conjunto', async (req, res) => {
+	const ofertasConjunto = await Oferta.find()
+	console.log(ofertasConjunto)
+	res.json(ofertasConjunto)
+})
 
 // agregar oferta de un mismo producto
 

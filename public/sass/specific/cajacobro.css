@@ -137,6 +137,13 @@ table {
 
 .filaDSup {
 
+	text-align: center;
+	color: #000;
+	background-color: #fff;
+	padding: .5rem 0;
+	border-top: solid 3px black;	
+	border-right: solid 3px black;	
+
 	
 }
 
@@ -232,5 +239,34 @@ table {
 
 }
 
+.scroll-ofertas {
+	height: calc(100% - 274px);
+	background-color: #323232;
+        overflow-x: hidden;
+        overflow-y: auto;
+	border-top: solid 3px #000;
+	padding-top: .5rem;
+}
+
+.scroll-ofertas li {
+	padding: .5rem 0;
+	margin-bottom: .5rem;
+	list-style: none;
+	text-align: center;
+	font-size: 1.4rem;
+	cursor: pointer;
+	background-color: #434343;
+
+
+
+}
+
+.scroll-ofertas li:hover {
+	background-color: #555;
+
+}
+#idEstacion {
+	display: none;
+}
 
 

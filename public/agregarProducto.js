@@ -115,6 +115,7 @@ btnAgregar.onclick = () => {
 			toPush.precioMinorista = prod.precioMinorista;
 			toPush.cantidadAgregada = prod.cantidadAgregada
 			toPush.impuestoPrecio = prod.impuestoPrecio
+			toPush.id = prod._id
 			
 				agregarArriba.push(toPush)
 			
@@ -145,7 +146,8 @@ row2.addEventListener("submit", async e => {
 			precio: producto[0].precioMinorista,
 			cantidadAgregada: 1,
 			agregado: true,
-			impuestoPrecio:  (producto[0].precioMinorista).toFixed(2) 
+			impuestoPrecio:  (producto[0].precioMinorista).toFixed(2),
+			_id: producto[0]._id
 	
 		})
 		let arrIndex = arrProductos.length - 1
