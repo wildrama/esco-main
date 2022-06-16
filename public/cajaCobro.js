@@ -24,7 +24,7 @@ textBuscar.focus()
 //Variables globales
 
 export let productosAgregados = [{nombre: "vacio", precio: 0, cantidadAgregada: 1, impuestoPrecio: 0, borrado: false}];
-let productosSeleccionados = []
+export let productosSeleccionados = []
 let cantidad;
 let index;
 let totalGlobal;
@@ -32,6 +32,30 @@ let vueltoGlobal;
 let ingresoDinero = 0;
 dineroIngresado.value = "0";
 //Funciones
+
+let ultimo = 0;
+
+export const agregarFiambre = (nombre, precio, id) => {
+	let fiambre = {
+		nombre: nombre,
+		precio, precio,
+		cantidadAgregada: 1,
+		impuestoPrecio: precio,
+		idArr: id,
+		borrado: false
+
+	}
+
+	productosAgregados.push(fiambre)
+	sumarConImpuesto()
+	console.log(productosAgregados)
+}
+
+
+
+
+
+
 
 export const eliminar = () => {
 		console.log(productosAgregados)
@@ -116,6 +140,91 @@ export const importar = () => {
 		const checkbox = document.createElement("input");
 		checkbox.setAttribute("type", "checkbox");
 		checkbox.classList.add("check");
+
+
+		const multiplicador = (x) => {
+			let index = ultimo;
+			console.log(index)
+			productosAgregados[index].cantidadAgregada = x;
+			document.getElementsByClassName(index)[0].childNodes[1].innerHTML = x;
+			document.getElementsByClassName(index)[0].childNodes[3].innerHTML = "$" + productosAgregados[index].impuestoPrecio * productosAgregados[index].cantidadAgregada;
+			console.log(productosAgregados[index].impuestoPrecio)
+			console.log(productosAgregados[index])
+			sumarConImpuesto()
+		textBuscar.blur()	
+			return
+
+		}
+	
+
+		function logKey(e) {
+ 			  let key = e.code.slice(5, 6);
+			switch(key) {
+				case "1":
+					multiplicador(1)
+					break;
+				case "2":
+					multiplicador(2)
+
+					return;
+
+				case "3":
+					multiplicador(3)
+
+					break;
+
+				case "4":
+					multiplicador(4)
+
+					break;
+
+				case "5":
+					multiplicador(5)
+
+					break;
+
+				case "6":
+					multiplicador(6)
+
+					break;
+
+				case "7":
+					multiplicador(7)
+
+					break;
+
+				case "8":
+					multiplicador(8)
+
+					break;
+
+				case "9":
+					multiplicador(9)
+
+					break;
+
+
+			}
+
+		}
+		let keyCan = true
+
+		document.addEventListener('keydown', (e) => {
+
+			if (keyCan) {
+			logKey(e);
+				keyCan = false
+				
+		}});
+		
+		setTimeout(() => {
+			document.removeEventListener('keydown', logKey)
+		document.getElementsByClassName(ultimo)[0].childNodes[1].style.color = "#fff"
+		}, 5000)
+
+		
+
+			
 		checkbox.addEventListener('change', ()  => {
 
 			console.log(checkbox.checked)
@@ -165,10 +274,11 @@ console.log(productosSeleccionados)
 		tr.style.display = "table-row"	
 		tablaCajaCobro.appendChild(tr)
 		tr.classList.add(productosAgregados.length - 1)
+		ultimo = productosAgregados.length - 1	
 		aAg.idArr = productosAgregados.length - 1;
 
 		tdPrecio.style.cursor = "pointer"
-
+		document.getElementsByClassName(ultimo)[0].childNodes[1].style.color = "yellow"
 		let yaNo = false;
 		tdPrecio.onclick = () => {
 			if (yaNo == false) {
@@ -228,7 +338,7 @@ const sumarTotal = () => {
 	
 }
 }
-const sumarConImpuesto = () => {
+export const sumarConImpuesto = () => {
 	let sum = 0.00; 
 
 	for (let i = 0; i < productosAgregados.length; i++) {
@@ -408,7 +518,7 @@ console.log(productosSeleccionados)
 
 
 		// esta?
-		
+		textBuscar.blur()	
 		let check = false;
 		productosAgregados.map(itemProducto => {
 			if (itemProducto.nombre == producto.nombre) {
@@ -428,7 +538,7 @@ console.log(productosSeleccionados)
 				productosAgregados.push({
 						nombre: producto.nombre, 
 						precio: producto.precioMinorista,
-						impuestoPrecio: (producto.precioMinorista + producto.impuestoAplicado * producto.precioMinorista / 100).toFixed(2),
+						impuestoPrecio: producto.precioMinorista,
 						marca: producto.marca,
 						cantidadAgregada: 1,
 						idArr: productosAgregados.length,
@@ -436,7 +546,8 @@ console.log(productosSeleccionados)
 					})
 				thCantidad.innerHTML = 1;
 				tablaCajaCobro.appendChild(tr)
-				tr.classList.add(productosAgregados.length - 1) 
+				tr.classList.add(productosAgregados.length - 1)
+				ultimo = productosAgregados.length - 1
 				sumarConImpuesto()
 
 				
@@ -447,7 +558,94 @@ console.log(productosSeleccionados)
 			index = productosAgregados.findIndex(() => productoArray.nombre == producto.nombre);
 		})
 	
+		
+		//
+		
+
+		const multiplicador = (x) => {
+			let index = ultimo;
+			console.log(index)
+			productosAgregados[index].cantidadAgregada = x;
+			document.getElementsByClassName(index)[0].childNodes[1].innerHTML = x;
+			document.getElementsByClassName(index)[0].childNodes[3].innerHTML = "$" + productosAgregados[index].impuestoPrecio * productosAgregados[index].cantidadAgregada;
+			console.log(productosAgregados[index].impuestoPrecio)
+			console.log(productosAgregados[index])
+			sumarConImpuesto()
+			return
+
+		}
 	
+
+		function logKey(e) {
+ 			  let key = e.code.slice(5, 6);
+			switch(key) {
+				case "1":
+					multiplicador(1)
+					break;
+				case "2":
+					multiplicador(2)
+
+					return;
+
+				case "3":
+					multiplicador(3)
+
+					break;
+
+				case "4":
+					multiplicador(4)
+
+					break;
+
+				case "5":
+					multiplicador(5)
+
+					break;
+
+				case "6":
+					multiplicador(6)
+
+					break;
+
+				case "7":
+					multiplicador(7)
+
+					break;
+
+				case "8":
+					multiplicador(8)
+
+					break;
+
+				case "9":
+					multiplicador(9)
+
+					break;
+
+
+			}
+
+		}
+		let keyCan = true
+		document.getElementsByClassName(ultimo)[0].childNodes[1].style.color = "yellow"
+
+		document.addEventListener('keydown', (e) => {
+			if (keyCan) {
+			logKey(e);
+				keyCan = false
+				
+		}});
+		
+		setTimeout(() => {
+			document.removeEventListener('keydown', logKey)	
+			document.getElementsByClassName(ultimo)[0].childNodes[1].style.color = "#fff"
+
+
+		}, 5000)
+
+		
+
+		//
 
 	} catch (error) {
 		if(error == "TypeError: producto is null") {
@@ -537,8 +735,8 @@ borrarInvisible.onclick = () => {
 	productosSeleccionados.map(item => {
 		for (let i = 0; i < productosAgregados.length; i++) {
 			if (productosAgregados[i].idArr == item) {
-				const domRow = document.getElementsByClassName(i)[0]
-				
+				const domRow = document.getElementsByClassName(i.toString())[0]
+				console.log(i)	
 				domRow.style.display = "none"
 
 

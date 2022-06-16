@@ -5,7 +5,6 @@
 
 
 
-
 textarea:focus, input:focus {
     outline: none;
 }
@@ -216,7 +215,7 @@ table {
 }
 
 
-/* Editor de precios en caja */
+/* Fiambreria */
 
 
 /* fixes */
@@ -230,4 +229,8 @@ table {
 	border: none;
 	border-radius: 15px;
 	padding: .5rem;
+
 }
+
+
+

@@ -145,7 +145,7 @@ row2.addEventListener("submit", async e => {
 			precio: producto[0].precioMinorista,
 			cantidadAgregada: 1,
 			agregado: true,
-			impuestoPrecio:  (producto[0].precioMinorista + producto[0].impuestoAplicado * producto[0].precioMinorista / 100).toFixed(2) 
+			impuestoPrecio:  (producto[0].precioMinorista).toFixed(2) 
 	
 		})
 		let arrIndex = arrProductos.length - 1
