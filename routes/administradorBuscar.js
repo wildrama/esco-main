@@ -18,7 +18,7 @@ router.get('/', isLoggedIn, isAdmin(roleADM),(req,res)=>{
 })
 
 
-router.post('/', isLoggedIn, async(req,res)=>{
+router.post('/',  async(req,res)=>{
     const query = req.body.buscar;
     console.log(query);
     try {
@@ -42,9 +42,10 @@ router.post('/', isLoggedIn, async(req,res)=>{
   
   router.post('/buscar-codigo', isLoggedIn, async (req, res) => {
     try {
+        
       const codigo = req.body.codigo;
       console.log(codigo);
-       const producto = await Producto.findOne({codigo: codigo });
+      const producto = await Producto.findOne({codigo: codigo });
       res.json(producto);    
     } catch (error) {
         res.send('error')
