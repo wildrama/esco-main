@@ -69,14 +69,13 @@ router.post('/saves-ventas', catchAsync(async(req,res)=>{
     await ventaEfectuada.save();
 
     const ventaID= ventaEfectuada._id;
-    const estacionDeCobroActualizada= await EstacionDeCobro.findByIdAndUpdate(estacionId,{ $inc: { dineroEnEstacion: dineroIngresadoEnCaja ,comprasRealizadas: 1 ,  },$push: { ventasRealizadasEnLaEstacion: ventaID  } });
+    const estacionDeCobroActualizada= await EstacionDeCobro.findByIdAndUpdate(estacionId,{ $inc: { dineroEnEstacion: dineroIngresadoEnCaja ,comprasRealizadas: 1 ,  },$push: { ventasRealizadasEnLaEstacion: ventaID  } }).exec();
 
-
-
+    const mensajeOK = 'Compra guardada correctamente'
 
     console.log(ventaEfectuada);
     console.log(estacionDeCobroActualizada);
-    res.json(ventaEfectuada,estacionDeCobroActualizada)
+    res.json(ventaEfectuada,estacionDeCobroActualizada,mensajeOK)
 }))
 
 router.get('/try-save', async(req,res)=>{
