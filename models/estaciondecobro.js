@@ -7,6 +7,11 @@ EstacionDeCobroSchema = new Schema({
     ubicacionDeEstacion:{
         type: String
     },
+    dineroDeInicio: {
+        type: Number,
+
+    }
+    ,
     dineroEnEstacion: {
         
         type: Number,
@@ -19,12 +24,15 @@ EstacionDeCobroSchema = new Schema({
    
     ingresosDeEfectivoManual: [
         {
-            type: Number
+            cantidad:Number,
+            fecha: Date
         }
     ],
     egresoDeEfectivoManual: [
         {
-            type: Number
+            cantidad:Number,
+            fecha: Date
+            
             
         }
     ],

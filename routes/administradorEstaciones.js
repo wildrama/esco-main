@@ -39,9 +39,9 @@ router.get('/nuevaestacion',  (req, res) => {
 
         // enviar formulario para la creacion de la estacion
   router.post('/nuevaestacion', catchAsync(async (req, res) => {
-   const dineroEnEstacion = req.body.dineroEnEstacion;
+   const dineroDeInicio = req.body.dineroEnEstacion;
    const ubicacionDeEstacion = req.body.ubicacionDeEstacion
-    const nuevaEstacion = new EstacionDeCobro({dineroEnEstacion: dineroEnEstacion,ubicacionDeEstacion:ubicacionDeEstacion});
+    const nuevaEstacion = new EstacionDeCobro({dineroDeInicio: dineroDeInicio,dineroEnEstacion: dineroDeInicio,ubicacionDeEstacion:ubicacionDeEstacion});
     await nuevaEstacion.save();
     
     req.flash('success', 'Estación de cobro creada');
@@ -49,7 +49,7 @@ router.get('/nuevaestacion',  (req, res) => {
  }))
 
 
-
+// subtotal1 Dinero de inicio- Subtotal2- dinero de ventas-  dinero que debe haber en caja: TOTAL
 //  agregar datos a la estación 
 
 router.get('/:id', catchAsync(async (req,res)=>{
@@ -93,38 +93,88 @@ req.flash('sucess', 'Estación eliminada correctamente');
   res.redirect('/administrador/estacionesdecobro');
 }))
 
-// Ingresar efectivo a la estación de cobro
-router.get('/:id/ingreso-efectivo', catchAsync(async(req,res)=>{
-  const estacionId = req.params.id;
+
+       // render formulario ingreso-efectivo-inicio
+
+router.get('/:id/ingreso-efectivo-inicio', async  (req, res) => {
+      const estacionDeCobroId = req.params.id;
+      const estacionDeCobro = await EstacionDeCobro.findById(estacionDeCobroId);
+ res.render('panelEstacionCobro/ingreso-efectivo-inicio',{estacionDeCobro});
+      });
+
+// post de ingreso efectivo-inicio
+router.post('/:id/ingreso-efectivo-inicio', catchAsync(async(req,res)=>{
  
-  dineroDeIngreso = req.body.dineroDeIngreso;
-
-  const estacionDeCobro = await EstacionDeCobro.findById(estacionId);
-  estacionDeCobro.ingresosDeEfectivoManual.push(dineroDeIngreso) 
+  const estacionId = req.params.id;
+  const cantidad = req.body.dineroDeIngresoInicio;
+ 
+ 
+  const estacionDeCobro = await EstacionDeCobro.findByIdAndUpdate(estacionId,{$set:{ dineroDeInicio: cantidad}, $inc:{dineroEnEstacion :cantidad }}).exec();
   
-  await estacionDeCobro.save()
 
-  req.flash('success', `Se ingreso ${dineroDeIngreso}`);
+  req.flash('success', `Se ingreso $${cantidad} al inicio de la caja`);
 
-res.redirect(`/administrador/estacionesdecobro/${estacionDeCobro._id} `)
+res.redirect(`/administrador/estacionesdecobro/${estacionDeCobro._id}`)
 }))
+
+// render de ingreso efectivo 
+router.get('/:id/ingreso-efectivo', async  (req, res) => {
+  const estacionDeCobroId = req.params.id;
+  const estacionDeCobro = await EstacionDeCobro.findById(estacionDeCobroId);
+res.render('panelEstacionCobro/ingreso-efectivo',{estacionDeCobro});
+  });
+// post de
+// Ingresar efectivo a la estación de cobro
+router.post('/:id/ingreso-efectivo', catchAsync(async(req,res)=>{
+ 
+  const estacionId = req.params.id;
+  const cantidad = req.body.dineroDeIngreso;
+  const fecha = Date.now();
+ 
+  const ingresoEfectivo = {
+    cantidad: cantidad,
+    fecha:fecha
+  }
+  const estacionDeCobro = await EstacionDeCobro.findByIdAndUpdate(estacionId,{$push:{ ingresosDeEfectivoManual: ingresoEfectivo},$inc:{dineroEnEstacion :cantidad }}).exec();
+  
+
+  req.flash('success', `Se ingreso $ ${cantidad}`);
+
+res.redirect(`/administrador/estacionesdecobro/${estacionDeCobro._id}`)
+}))
+// render de egreso efectivo 
+router.get('/:id/egreso-efectivo', async  (req, res) => {
+  const estacionDeCobroId = req.params.id;
+  const estacionDeCobro = await EstacionDeCobro.findById(estacionDeCobroId);
+res.render('panelEstacionCobro/egreso-efectivo',{estacionDeCobro});
+  });
+// post de
 // Retirar efectivo a la estación de cobro
 
-router.get('/:id/egreso-efectivo', catchAsync(async(req,res)=>{
+router.post('/:id/egreso-efectivo', catchAsync(async(req,res)=>{
   const estacionId = req.params.id;
-  dineroDeEgreso = req.body.dineroDeEgreso;
+  const cantidad = req.body.dineroDeEgreso;
+  const fecha = Date.now();
+ 
+  const egresoEfectivo = {
+    cantidad:cantidad,
+    fecha:fecha
+  }
+  const estacionDeCobro = await EstacionDeCobro.findByIdAndUpdate(estacionId,{$push:{ egresosDeEfectivoManual: egresoEfectivo},$inc:{dineroEnEstacion :-cantidad }}).exec();
 
-  const estacionDeCobro = await EstacionDeCobro.findById(estacionId);
-  estacionDeCobro.egresoDeEfectivoManual.push(dineroDeEgreso) 
-  await estacionDeCobro.save();
   
-  req.flash('success',`Se realizo un retiro de efectivo de ${dineroDeEgreso}`);
+  req.flash('success',`Se realizo un retiro de efectivo de $${cantidad}`);
 
-res.redirect(`/administrador/estacionesdecobro/${estacionDeCobro._id} `)
+res.redirect(`/administrador/estacionesdecobro/${estacionDeCobro._id}`)
 }))
 
 
 
+router.get('/:id/cierre-caja', async  (req, res) => {
+  const estacionDeCobroId = req.params.id;
+  const estacionDeCobro = await EstacionDeCobro.findById(estacionDeCobroId);
+res.render('panelEstacionCobro/cierre-caja',{estacionDeCobro});
+  });
 
 
 // historial de usuarios
@@ -137,3 +187,4 @@ res.render('panelEstacionCobro/estacion-historial',{estacionDeCobro})
 }))
 // agregar ofertas a la estación
 module.exports = router;
+

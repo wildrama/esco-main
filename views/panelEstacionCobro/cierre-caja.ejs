@@ -1,0 +1,29 @@
+<%- include('../partials/headerAdm.ejs'); %>
+  <%- include('../partials/flash.ejs'); %>
+
+    <div class="container p-md-4">
+      <a class="px-3 btn btn-success " href="/administrador/estacionesdecobro/<%= estacionDeCobro._id %>">
+        < Atras</a>
+
+          <div class="row  justify-content-center">
+            <div class="col-md-8 border border-dark p-lg-5 p-y-2">
+              <p class="lead px-md-3 text-center">
+                Cierre parcial de caja para : <%= estacionDeCobro.ubicacionDeEstacion %>
+              </p> 
+             
+              <!-- montos de las ventas + caja -->
+
+              <div class="card">
+                <div class="card-tittle">
+                    El dinero en caja en este momento es $<%= estacionDeCobro.dineroEnEstacion %> 
+                    Se ingreso en el inicio del ciclo $<%= estacionDeCobro.dineroDeInicio %> 
+                    Se realizaron <%= estacionDeCobro.cantidadDeVentasEnEstacionEnEfectivo %> ventas en efectivo
+                    Se realizaron <%= estacionDeCobro.cantidadDeVentasEnEstacionConTarjeta %> ventas con tarjeta/transferencia/otro
+                </div>
+              </div>
+            </div>
+
+          </div>
+    </div>
+
+    <%- include('../partials/footer.ejs'); %>

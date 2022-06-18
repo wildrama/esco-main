@@ -65,7 +65,7 @@ router.post('/saves-ventas', catchAsync(async(req,res)=>{
         estacionDeCobro: req.body.estacionDeCobroId
     }; 
     const ventaEfectuada = await new Venta(ventaRealizada)
-
+    
     await ventaEfectuada.save();
 
     const ventaID= ventaEfectuada._id;
