@@ -36,6 +36,9 @@ const roleCaja = 'CAJA';
     //     estacionDeCobro: "62966a1ba25b27a2c062578d"
     // });
 router.post('/saves-ventas', catchAsync(async(req,res)=>{
+    const estacionId = req.body.estacionDeCobroId;
+    const userActual = req.user.username
+     const dineroIngresadoEnCaja = req.body.dineroIngresadoEnCaja
 
     // guardar la venta
     // guardar el id de la venta en 'ventasRealizadasEnLaEstacion'
@@ -64,14 +67,17 @@ router.post('/saves-ventas', catchAsync(async(req,res)=>{
     const ventaEfectuada = await new Venta(ventaRealizada)
 
     await ventaEfectuada.save();
-    const estacionId = req.body.estacionDeCobroId;
+
     const ventaID= ventaEfectuada._id;
-    const agregarVentaALaEstacion= await EstacionDeCobro.findById(estacionId)
-    agregarVentaALaEstacion.ventasRealizadasEnLaEstacion.push(ventaID);
-    agregarVentaALaEstacion.save()
+    const estacionDeCobroActualizada= await EstacionDeCobro.findByIdAndUpdate({id:estacionId},{ $inc: { dineroEnEstacion: dineroIngresadoEnCaja ,comprasRealizadas: 1 ,  },$push: { ventasRealizadasEnLaEstacion: ventaID  } });
+
+
+   await estacionDeCobroActualizada.save()
+
+
     console.log(ventaEfectuada);
-    console.log({ventaEfectuada});
-    res.json(ventaEfectuada,agregarVentaALaEstacion)
+    console.log(estacionDeCobroActualizada);
+    res.json(ventaEfectuada,estacionDeCobroActualizada)
 }))
 
 router.get('/try-save', async(req,res)=>{

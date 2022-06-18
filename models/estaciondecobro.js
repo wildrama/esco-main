@@ -16,11 +16,7 @@ EstacionDeCobroSchema = new Schema({
     comprasRealizadas: {
         type: Number
     },
-    montosIngresadosDeCompras: [
-        {
-            type: Number
-        }
-    ],
+   
     ingresosDeEfectivoManual: [
         {
             type: Number
