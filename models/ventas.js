@@ -11,7 +11,7 @@ const ventasEfectuadasSchema = new Schema({
     dineroDeSalida: {
         type: Number
     },
-    productos: [
+    productosDeStock: [
         {
             valorDelProductoEnLaCompra:
             {
@@ -21,6 +21,19 @@ const ventasEfectuadasSchema = new Schema({
             {
                 type: Schema.Types.ObjectId,
                 ref: Producto
+            }
+        }
+    ]
+    ,
+    productosSinStock: [
+        {
+            valorDelProductoEnLaCompra:
+            {
+                type: Number
+            },
+            identificadorDeProducto:
+            {
+                type: String
             }
         }
     ]

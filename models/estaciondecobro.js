@@ -13,7 +13,7 @@ EstacionDeCobroSchema = new Schema({
         required: true
     },
     
-    cantComprasRealizadas: {
+    comprasRealizadas: {
         type: Number
     },
     montosIngresadosDeCompras: [
@@ -36,7 +36,7 @@ EstacionDeCobroSchema = new Schema({
         {
            nombreUser:String,
            
-            fechaDeLogeoEnEstación:Date
+            fechaDeLogeoEnEstación: Date
         
         }
        
