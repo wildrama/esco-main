@@ -69,7 +69,7 @@ router.post('/saves-ventas', catchAsync(async(req,res)=>{
     await ventaEfectuada.save();
 
     const ventaID= ventaEfectuada._id;
-    const estacionDeCobroActualizada= await EstacionDeCobro.findByIdAndUpdate({id:estacionId},{ $inc: { dineroEnEstacion: dineroIngresadoEnCaja ,comprasRealizadas: 1 ,  },$push: { ventasRealizadasEnLaEstacion: ventaID  } });
+    const estacionDeCobroActualizada= await EstacionDeCobro.findByIdAndUpdate(estacionId,{ $inc: { dineroEnEstacion: dineroIngresadoEnCaja ,comprasRealizadas: 1 ,  },$push: { ventasRealizadasEnLaEstacion: ventaID  } });
 
 
    await estacionDeCobroActualizada.save()
