@@ -436,7 +436,7 @@ const stringValorDelProducto = () => {
 	const venta = {
 		dineroIngresado: ingresoDinero,
 		dineroDeSalida: vueltoGlobal,
-		codigosDeBarra: [],
+		productos: ['adsfsadf'],
 		fechaDeEmision: new Date().toString(),
 		valorDelProducto: stringValorDelProducto(),
 		ticket: "SI/NO",

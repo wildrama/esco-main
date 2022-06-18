@@ -8,7 +8,7 @@ EstacionDeCobroSchema = new Schema({
         type: String
     },
     dineroEnEstacion: {
-
+        
         type: Number,
         required: true
     },
@@ -16,7 +16,7 @@ EstacionDeCobroSchema = new Schema({
     cantComprasRealizadas: {
         type: Number
     },
-    montosIngresados: [
+    montosIngresadosDeCompras: [
         {
             type: Number
         }
@@ -28,19 +28,25 @@ EstacionDeCobroSchema = new Schema({
     ],
     egresoDeEfectivoManual: [
         {
-            motivo: String,
-            cantidadDeEfectivoRetirado: Number
+            type: Number
+            
         }
     ],
     historialDeUsuarios:[
         {
-            type: String
+           nombreUser:String,
+           
+            fechaDeLogeoEnEstación:Date
+        
         }
+       
     ],
-    usuarioActual:{
-        type: Schema.Types.ObjectId,
-        ref: 'Usuario'
-    },
+
+  
+    // usuarioActual:{
+    //     type: Schema.Types.ObjectId,
+    //     ref: 'Usuario'
+    // },
     ventasRealizadasEnLaEstacion:[
         {
             type: Schema.Types.ObjectId,

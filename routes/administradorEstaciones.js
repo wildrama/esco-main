@@ -12,10 +12,11 @@ const roleCaja = 'CAJA';
 
 // isLoggedIn,isAdmin(roleADM),
 
-// mostrar las estaciones
+// mostrar las estaciones y ultimas ventas
 router.get('/', async(req, res) => {
 console.log(req.user.funcion)
   try {
+    
     const estacionesDeCobro = await EstacionDeCobro.find({});
 
     res.render('panelEstacionCobro/verTodasLasEstaciones', {estacionesDeCobro})
@@ -48,14 +49,14 @@ router.get('/nuevaestacion',  (req, res) => {
  }))
 
 
-//  agregar datos a la estación 
 
+//  agregar datos a la estación 
 
 router.get('/:id', catchAsync(async (req,res)=>{
   try {
-    const  {id}  = req.params;
-  
-    const estacionDeCobro = await EstacionDeCobro.findById(id);
+    const  id  = req.params.id;
+    const estacionDeCobro = await EstacionDeCobro.findById(id).populate("ventasRealizadasEnLaEstacion").exec()
+    console.log(estacionDeCobro)
     res.render('panelEstacionCobro/verEstacion', {estacionDeCobro})
   } catch (error) {
     res.render('errors', error)
@@ -70,16 +71,14 @@ router.put('/:id', catchAsync(async(req,res)=>{
 
 // mostrar el historial de ventas
 
-router.get('/:id/historia-ventas', catchAsync(async(req,res)=>{
-  const id = req.params;
+router.get('/:id/historial-ventas', catchAsync(async(req,res)=>{
+const id = req.params.id;
 
-  const historialVentasEstacion = await EstacionDeCobro.findById(id).populated("Venta","dineroIngresado productos").exec()
-  console.log({historialVentasEstacion});
-  console.log(historialVentasEstacion);
+const historialVentasEstacion = await EstacionDeCobro.findById(id).populate("ventasRealizadasEnLaEstacion").exec()
+console.log(historialVentasEstacion)
 
-  res.render('panelEstacionCobro/estacion-historial',{ historialVentasEstacion})
+res.render('panelEstacionCobro/estacion-historial')
 
-res.send('ok');
 }))
 // delete de estacion
 router.delete('/:id', catchAsync(async (req, res) => {
@@ -94,10 +93,47 @@ req.flash('sucess', 'Estación eliminada correctamente');
   res.redirect('/administrador/estacionesdecobro');
 }))
 
+// Ingresar efectivo a la estación de cobro
+router.get('/:id/ingreso-efectivo', catchAsync(async(req,res)=>{
+  const estacionId = req.params.id;
+ 
+  dineroDeIngreso = req.body.dineroDeIngreso;
 
-// editar mas info de la estación
-// ingreso de dinero
-// egreso de dinero
+  const estacionDeCobro = await EstacionDeCobro.findById(estacionId);
+  estacionDeCobro.ingresosDeEfectivoManual.push(dineroDeIngreso) 
+  
+  await estacionDeCobro.save()
 
+  req.flash('success', `Se ingreso ${dineroDeIngreso}`);
+
+res.redirect(`/administrador/estacionesdecobro/${estacionDeCobro._id} `)
+}))
+// Retirar efectivo a la estación de cobro
+
+router.get('/:id/egreso-efectivo', catchAsync(async(req,res)=>{
+  const estacionId = req.params.id;
+  dineroDeEgreso = req.body.dineroDeEgreso;
+
+  const estacionDeCobro = await EstacionDeCobro.findById(estacionId);
+  estacionDeCobro.egresoDeEfectivoManual.push(dineroDeEgreso) 
+  await estacionDeCobro.save();
+  
+  req.flash('success',`Se realizo un retiro de efectivo de ${dineroDeEgreso}`);
+
+res.redirect(`/administrador/estacionesdecobro/${estacionDeCobro._id} `)
+}))
+
+
+
+
+
+// historial de usuarios
+router.get('/:id/historial-usuario', catchAsync(async(req,res)=>{
+  const estacionId = req.params.id;
+  const estacionDeCobro = await EstacionDeCobro.findById(estacionId);
+  
+   dayUserInEstacion
+res.render('panelEstacionCobro/estacion-historial',{estacionDeCobro})
+}))
 // agregar ofertas a la estación
 module.exports = router;

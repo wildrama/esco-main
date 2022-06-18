@@ -47,3 +47,6 @@ const ventasEfectuadasSchema = new Schema({
 const Venta = mongoose.model('Venta', ventasEfectuadasSchema);
 
 module.exports = Venta
+
+
+// ACCIONES DURANTE LA VENTA Y GUARDAR VENTA. EL RESTO ISIIIII
