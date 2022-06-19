@@ -47,13 +47,11 @@ router.get('/administrador', async (req, res) => {
     const nombreUser = req.user.username;
 
         const fechaDeLogeoEnEstación = Date.now();
-        const log = {nombreUser,fechaDeLogeoEnEstación}
-       console.log(nombreUser + fechaDeLogeoEnEstación)
-        try {
+       try {
     
         
-        const checkearSiExisteCaja = await EstacionDeCobro.findByIdAndUpdate(estacionDeCobroId).exec();
-        checkearSiExisteCaja.historialDeUsuarios.push(log)
+        const checkearSiExisteCaja = await EstacionDeCobro.findByIdAndUpdate(estacionDeCobroId,{$push:{historialDeUsuarios:{nombreUser:nombreUser,fechaDeLogeoEnEstación:fechaDeLogeoEnEstación}}}).exec();
+        
         res.redirect(`/caja/${checkearSiExisteCaja._id}/inicio`);
         
     } catch (error) {
