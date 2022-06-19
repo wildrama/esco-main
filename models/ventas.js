@@ -43,7 +43,11 @@ const ventasEfectuadasSchema = new Schema({
         enum:['SI', 'NO'],
         required:true,
     },
-
+    tipoDePago:{
+        type: String,
+        enum:['EFECTIVO', 'OTRO'],
+        required:true,
+    },
     cantidadDeProductosTotales: {
         type: Number
     },
@@ -53,6 +57,9 @@ const ventasEfectuadasSchema = new Schema({
             ref: 'EstacionDeCobro'
         }
     ,
+    nombreDelUsuario:{
+        type:String
+    },
 
 
 }, { timestamps: true });

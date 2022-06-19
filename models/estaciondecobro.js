@@ -18,9 +18,13 @@ EstacionDeCobroSchema = new Schema({
         required: true
     },
     
-    comprasRealizadas: {
+    comprasRealizadasEnEfectivo: {
         type: Number
     },
+    comprasRealizadasEnOtro: {
+        type: Number
+    }
+    ,
    
     ingresosDeEfectivoManual: [
         {
@@ -37,10 +41,14 @@ EstacionDeCobroSchema = new Schema({
         }
     ],
     historialDeUsuarios:[
+        
         {
-           nombreUser:String,
-           
-            fechaDeLogeoEnEstación: Date
+           nombreUser:{
+            type:String
+           },
+            fechaDeLogeoEnEstación:{
+                type:Date
+            } 
         
         }
        

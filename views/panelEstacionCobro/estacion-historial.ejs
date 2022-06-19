@@ -3,27 +3,29 @@
 
 
 <div class="container p-md-4">
-    <a class="px-3 btn btn-success " href="/administrador/estacionesdecobro">< Atras</a>
+    <a class="px-3 btn btn-success " href="/administrador/estacionesdecobro/<%= estacionDeCobro._id %>">< Atras</a>
 
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="estacionDeTrabajo p-3">
 
               <h3 class="text-center">
-                Historial de usuarios para  
+                Historial de usuarios para <%= estacionDeCobro.ubicacionDeEstacion %>
               </h3>
 
     
-                   <!-- zoe -->
                 </div>
         </div>
         <div class="row justify-content-center">
-          <div class="col-6">
+          <div class="col-12">
+
+         
             <% estacionDeCobro.historialDeUsuarios.forEach(user => { %>
               <div class="card">
                 <div class="card-tittle d-flex justify-content-around">
-                  <p> <%= user %></p>  
-                  <p><%= dayUserInEstacion %> </p>
+                  <p> <%= user.nombreUser %></p>  
+                
+                  <p> <%= user.fechaDeLogeoEnEstación.toLocaleString() %></p>  
 
                 </div>
               </div>  

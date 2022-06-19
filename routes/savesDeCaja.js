@@ -37,9 +37,10 @@ const roleCaja = 'CAJA';
     // });
 router.post('/saves-ventas', catchAsync(async(req,res)=>{
     const estacionId = req.body.estacionDeCobroId;
-    const userActual = req.user.username
-     const dineroIngresadoEnCaja = req.body.dineroIngresadoEnCaja
-
+    // const userActual = req.user.username;
+    //  const dineroIngresadoEnCaja = req.body.dineroIngresadoEnCaja;
+    
+    
     // guardar la venta
     // guardar el id de la venta en 'ventasRealizadasEnLaEstacion'
     //actualizar la cantidad de ventas realizadas- cantidad de montos ingresados- dinero en caja actual-
@@ -61,21 +62,30 @@ router.post('/saves-ventas', catchAsync(async(req,res)=>{
             }
         ],
         ticketEntregado: req.body.ticket,
+        tipoDePago :req.body.tipoDePago,
         cantidadDeProductosTotales: req.body.cantidadDeProductosTotales,
-        estacionDeCobro: req.body.estacionDeCobroId
+        estacionDeCobro: req.body.estacionDeCobroId,
+        nombreDelUsuario: userActual
     }; 
     const ventaEfectuada = await new Venta(ventaRealizada)
     
     await ventaEfectuada.save();
 
     const ventaID= ventaEfectuada._id;
-    const estacionDeCobroActualizada= await EstacionDeCobro.findByIdAndUpdate(estacionId,{ $inc: { dineroEnEstacion: dineroIngresadoEnCaja ,comprasRealizadas: 1 ,  },$push: { ventasRealizadasEnLaEstacion: ventaID  } }).exec();
+    let estacionDeCobroActualizada2= await EstacionDeCobro.findByIdAndUpdate(estacionId,{ $inc: { dineroEnEstacion: dineroIngresadoEnCaja ,comprasRealizadasEnEfectivo: 1 ,  },$push: { ventasRealizadasEnLaEstacion: ventaID  } }).exec();
 
-    const mensajeOK = 'Compra guardada correctamente'
+    // if(req.body.tipoDePago !== 'EFECTIVO'){
+    //     let estacionDeCobroActualizada1= await EstacionDeCobro.findByIdAndUpdate(estacionId,{ $inc: { dineroEnEstacion: dineroIngresadoEnCaja ,comprasRealizadasEnOtro: 1 ,  },$push: { ventasRealizadasEnLaEstacion: ventaID  } }).exec();
+
+    //  }else{
+
+    //  }
+
+    const mensajeOK = 'Compra guardada correctamente';
 
     console.log(ventaEfectuada);
-    console.log(estacionDeCobroActualizada);
-    res.json(ventaEfectuada,estacionDeCobroActualizada,mensajeOK)
+    console.log(estacionDeCobroActualizada2);
+    res.json(ventaEfectuada,estacionDeCobroActualizada2,mensajeOK)
 }))
 
 router.get('/try-save', async(req,res)=>{

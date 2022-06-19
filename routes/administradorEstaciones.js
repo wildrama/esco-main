@@ -3,6 +3,7 @@ const router = express.Router();
 const catchAsync = require('../utils/catchAsync');
 const {isLoggedIn,isAdmin,isCaja} = require('../middleware');
 const EstacionDeCobro = require('../models/estaciondecobro');
+const Venta = require('../models/ventas');
 
 
 
@@ -56,7 +57,8 @@ router.get('/:id', catchAsync(async (req,res)=>{
   try {
     const  id  = req.params.id;
     const estacionDeCobro = await EstacionDeCobro.findById(id).populate("ventasRealizadasEnLaEstacion").exec()
-    console.log(estacionDeCobro)
+    // const ventasDeEstaEstacion = await Venta.find({estacionDeCobro:mongoose.Types.ObjectId(id)}).
+    console.log(estacionDeCobro.ventasRealizadasEnLaEstacion)
     res.render('panelEstacionCobro/verEstacion', {estacionDeCobro})
   } catch (error) {
     res.render('errors', error)
@@ -170,11 +172,31 @@ res.redirect(`/administrador/estacionesdecobro/${estacionDeCobro._id}`)
 
 
 
-router.get('/:id/cierre-caja', async  (req, res) => {
-  const estacionDeCobroId = req.params.id;
-  const estacionDeCobro = await EstacionDeCobro.findById(estacionDeCobroId);
-res.render('panelEstacionCobro/cierre-caja',{estacionDeCobro});
-  });
+// reiniciar el dia
+
+
+
+router.post('/:id/reset', catchAsync( async(req, res) => {
+    const estacionDeCobroId = req.params.id;
+    if(req.body.dineroDeInicio){
+      
+      const estacionDeCobro = await EstacionDeCobro.findByIdAndUpdate(estacionDeCobroId,{dineroDeInicio:req.body.dineroDeInicio,dineroEnEstacion:req.body.dineroDeInicio}).exec();
+
+      req.flash('success',`Se reseteo el dia correctamente`);
+
+      res.redirect(`/administrador/estacionesdecobro/${estacionDeCobro._id}`);
+    }else{
+      const estacionDeCobro1 = await EstacionDeCobro.findByIdAndUpdate(estacionDeCobroId,{dineroDeInicio:0,dineroEnEstacion:0}).exec();
+
+      req.flash('success',`Se reseteo el dia correctamente`);
+
+      res.redirect(`/administrador/estacionesdecobro/${estacionDeCobro1._id}`);
+    }
+
+
+    
+    }));
+
 
 
 // historial de usuarios
@@ -182,8 +204,38 @@ router.get('/:id/historial-usuario', catchAsync(async(req,res)=>{
   const estacionId = req.params.id;
   const estacionDeCobro = await EstacionDeCobro.findById(estacionId);
   
-   dayUserInEstacion
+   
 res.render('panelEstacionCobro/estacion-historial',{estacionDeCobro})
+}))
+
+
+router.get('/:id/cierre-caja', async  (req, res) => {
+  const estacionDeCobroId = req.params.id;
+  const estacionDeCobro = await EstacionDeCobro.findById(estacionDeCobroId);
+res.render('panelEstacionCobro/cierre-caja',{estacionDeCobro});
+  });
+
+
+// delete de estacion
+
+router.get('/:id/eliminar-caja', catchAsync(async  (req, res) => {
+  const estacionDeCobroId = req.params.id;
+  const estacionDeCobro = await EstacionDeCobro.findById(estacionDeCobroId);
+res.render('panelEstacionCobro/eliminar-caja',{estacionDeCobro});
+  }));
+
+
+
+router.delete('/:id/eliminar-caja', catchAsync(async (req, res) => {
+  const { id } = req.params;
+  const eliminarEstacion = await EstacionDeCobro.findByIdAndDelete(id);
+  if (!eliminarEstacion) {
+    req.flash('error', 'No se puede eliminar la estación');
+    return res.redirect('/administrador/estacionesdecobro');
+}
+req.flash('sucess', 'Estación eliminada correctamente');
+
+  res.redirect('/administrador/estacionesdecobro');
 }))
 // agregar ofertas a la estación
 module.exports = router;

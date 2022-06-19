@@ -30,30 +30,27 @@
                         href="/administrador/estacionesdecobro/<%= estacionDeCobro._id %>/egreso-efectivo">Egresos de
                         efectivo</a>
                     </li>
-                    <li class="nav-item">
-                      <a class="nav-link"
-                        href="/administrador/estacionesdecobro/<%= estacionDeCobro._id %>/cierre-caja-parcial">Cierre de caja parcial</a>
-                    </li>
+                  
                    
-                    <li class="nav-item">
-                      <a class="nav-link"
-                        href="/administrador/estacionesdecobro/<%= estacionDeCobro._id %>/resetear-caja">Reiniciar el dia</a>
-                    </li>
+                    
                     <li class="nav-item">
                       <a class="nav-link"
                     href="/administrador/estacionesdecobro/<%= estacionDeCobro._id%>/historial-usuario">Ver historial de
                     usuarios</a>
                     </li>
-                    <div class="col-12 ">
+                   
 
                       <li class="nav-item">
                         <a class="nav-link"
                           href="/administrador/estacionesdecobro/<%= estacionDeCobro._id %>/cierre-caja">Cierre de caja</a>
                       </li>
+                      
+                      <li class="nav-item">
+
                       <!-- Button trigger modal -->
                       <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                         data-bs-target="#exampleModal">
-                        Eliminar estación de cobro
+                        Resetear el dia
                       </button>
 
                       <!-- Modal -->
@@ -62,28 +59,37 @@
                         <div class="modal-dialog">
                           <div class="modal-content text-dark">
                             <div class="modal-header">
-                              <h5 class="modal-title" id="exampleModalLabel">Eliminar estación de cobro</h5>
+                              <h5 class="modal-title" id="exampleModalLabel">Restablecer dia de estación de cobro</h5>
                               <button type="button" class="btn-close" data-bs-dismiss="modal"
                                 aria-label="Cancelar"></button>
                             </div>
                             <div class="modal-body ">
-                              Si elimina una estación de cobro, se borra el contenido accesible a esa estación. Las
-                              ventas realizadas siguen siendo parte del sistema
+                              Luego de reiniciar el dia, los valores de la caja: Dinero para iniciar la caja y dinero en caja se restablecen a 0. <br> Por lo cual se debe volver a colocar manualmente el dinero disponible para el dia
+
                             </div>
                             <div class="modal-footer">
                               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                              <form class="d-inline px-2"
-                                action="/administrador/estacionesdecobro/<%= estacionDeCobro._id%>?_method=DELETE"
-                                method="post">
-                                <button class="btn btn-warning">Eliminar</button>
+                              <form class="d-flex px-2"
+                                action="/administrador/estacionesdecobro/<%= estacionDeCobro._id%>/reset"
+                                method="POST">
+                                <label for="ingDin">Colocar dinero de inicio si se desea</label>
+                                <input class="form-control" id="ingDin" placeholder="" type="number" name="dineroDeInicio">
+                                <button class="btn btn-warning">Restablecer</button>
+                               
+
                               </form>
                             </div>
                           </div>
                         </div>
                       </div>
 
+                    </li>
 
-                    </div>
+                    
+                    <li class="nav-item">
+                      <a class="nav-link"
+                        href="/administrador/estacionesdecobro/<%= estacionDeCobro._id %>/eliminar-caja">Eliminar Estacion de cobro</a>
+                    </li>
                   </ul> 
                   
                 
@@ -100,6 +106,20 @@
                    caja: <%= estacionDeCobro.dineroEnEstacion %>
                  </div>
 
+                 <div class="col-12">
+                  Ventas en efectivo:
+                   900-
+                    <span><b>
+                     $190000
+                    </b></span>
+               </div>
+               <div class="col-12">
+                Ventas en tarjeta/transferencia:
+                 100-
+                  <span><b>
+                   $9000
+                  </b></span>
+             </div>
                   </div>
                 </div>
               </div>
