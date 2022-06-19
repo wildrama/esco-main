@@ -54,12 +54,19 @@ router.get('/nuevaestacion',  (req, res) => {
 //  agregar datos a la estación 
 
 router.get('/:id', catchAsync(async (req,res)=>{
+let dineroParcialSumado = 0;
   try {
     const  id  = req.params.id;
     const estacionDeCobro = await EstacionDeCobro.findById(id).populate("ventasRealizadasEnLaEstacion").exec()
     // const ventasDeEstaEstacion = await Venta.find({estacionDeCobro:mongoose.Types.ObjectId(id)}).
-    console.log(estacionDeCobro.ventasRealizadasEnLaEstacion)
-    res.render('panelEstacionCobro/verEstacion', {estacionDeCobro})
+    console.log(estacionDeCobro)
+    let dineroTotal = 0;
+    let arrayVentas = estacionDeCobro.ventasRealizadasEnLaEstacion;
+    arrayVentas.map( datoVenta =>{
+      dineroTotal = dineroTotal + datoVenta.dineroIngresado;
+dineroParcialSumado = dineroTotal
+    })
+    res.render('panelEstacionCobro/verEstacion', {estacionDeCobro,dineroParcialSumado})
   } catch (error) {
     res.render('errors', error)
 
@@ -212,8 +219,11 @@ res.render('panelEstacionCobro/estacion-historial',{estacionDeCobro})
 router.get('/:id/cierre-caja', async  (req, res) => {
   const estacionDeCobroId = req.params.id;
   const estacionDeCobro = await EstacionDeCobro.findById(estacionDeCobroId);
-res.render('panelEstacionCobro/cierre-caja',{estacionDeCobro});
-  });
+  res.render('panelEstacionCobro/cierre-caja',{estacionDeCobro});
+  
+
+
+});
 
 
 // delete de estacion
