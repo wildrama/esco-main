@@ -71,7 +71,7 @@ router.get('/:id', catchAsync(async (req,res)=>{
     res.render('errors', error)
 
   }
-  
+
 }))
 
 router.put('/:id', catchAsync(async(req,res)=>{
@@ -211,7 +211,6 @@ router.get('/:id/historial-usuario', catchAsync(async(req,res)=>{
   const estacionId = req.params.id;
   const estacionDeCobro = await EstacionDeCobro.findById(estacionId);
   
-   dayUserInEstacion
 res.render('panelEstacionCobro/estacion-historial',{estacionDeCobro})
 }))
 
