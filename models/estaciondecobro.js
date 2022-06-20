@@ -9,15 +9,18 @@ EstacionDeCobroSchema = new Schema({
     },
     dineroDeInicio: {
         type: Number,
-
     }
     ,
-    dineroEnEstacion: {
-        
+    dineroEnEstacion: {  
         type: Number,
         required: true
     },
-    
+    dineroDeVentasEnEfectivo:{
+        type:Number
+    },
+    dineroDeVentasEnOtro:{
+        type:Number
+    },
     comprasRealizadasEnEfectivo: {
         type: Number
     },
@@ -25,7 +28,6 @@ EstacionDeCobroSchema = new Schema({
         type: Number
     }
     ,
-   
     ingresosDeEfectivoManual: [
         {
             cantidad:Number,
@@ -35,9 +37,7 @@ EstacionDeCobroSchema = new Schema({
     egresoDeEfectivoManual: [
         {
             cantidad:Number,
-            fecha: Date
-            
-            
+            fecha: Date          
         }
     ],
     historialDeUsuarios:[

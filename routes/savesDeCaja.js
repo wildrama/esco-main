@@ -22,19 +22,7 @@ const roleCaja = 'CAJA';
     //     ],
     //     estacionDeCobro: req.body.estacionDeCobro.id
     // }; 
-       // const ventaEfectuada = new Venta({
-    //     dineroIngresado : 300,
-    //     dineroDeSalida : 200,
-    //     productos:[
-    //         {
-    //             valorDelProductoEnLaCompra: 299,
-    //             identificadorDeProducto: "624488cac68a3c3a7b2df4ec"
-    //         }
-    //     ],
-    //     ticketEntregado: "SI",
-    //     cantidadDeProductosTotales: 4,
-    //     estacionDeCobro: "62966a1ba25b27a2c062578d"
-    // });
+     
 router.post('/saves-ventas', catchAsync(async(req,res)=>{
     const estacionId = req.body.estacionDeCobroId;
     // const userActual = req.user.username;
@@ -88,12 +76,52 @@ router.post('/saves-ventas', catchAsync(async(req,res)=>{
     res.json(ventaEfectuada,estacionDeCobroActualizada2,mensajeOK)
 }))
 
-router.get('/try-save', async(req,res)=>{
-    const datos = await EstacionDeCobro.find({});
-    console.log(datos);
-    res.json(datos);
-    // asdas
+router.get('/:id/try-save', async(req,res)=>{
+    const estacionId =req.params.id;
+
+    const ventaEfectuada = await new Venta({
+        dineroIngresado : 1030,
+        dineroDeSalida : 30,
+        productosDeStock:[
+            {
+                valorDelProductoEnLaCompra: 954852,
+                identificadorDeProducto: '624488cac68a3c3a7b2df4ec'
+            }
+        ],
+        productosSinStock:[],
+        ticketEntregado: "NO",
+        tipoDePago:'OTRO',  
+        cantidadDeProductosTotales: 9,
+        estacionDeCobro: estacionId,
+        nombreDelUsuario: 'ramiro'
+    });
+    await ventaEfectuada.save();
+
+    let ventaID= ventaEfectuada._id;
+        if(ventaEfectuada.tipoDePago =='OTRO'){
+  
+            // dineroEnEstacion: ventaEfectuada.dineroIngresado 
+   
+    let estacionDeCobroActualizada2= await EstacionDeCobro.findByIdAndUpdate(estacionId,{ $inc: { dineroDeVentasEnOtro:ventaEfectuada.dineroIngresado,comprasRealizadasEnOtro: '1'  },$push: { ventasRealizadasEnLaEstacion: ventaEfectuada._id } }).exec();
+    console.log('venta realizada:' + ventaID)
+    console.log(ventaEfectuada);
+
+    console.log('estacion actualizada123')
+    console.log(estacionDeCobroActualizada2)
+    res.send('ok PAGO EN TARJETA/TRANSFERENCIA');
+}else{
+
+    let estacionDeCobroActualizada1= await EstacionDeCobro.findByIdAndUpdate(estacionId,{ $inc: {dineroEnEstacion: ventaEfectuada.dineroIngresado,dineroDeVentasEnEfectivo:ventaEfectuada.dineroIngresado ,comprasRealizadasEnEfectivo: '1'   },$push: { ventasRealizadasEnLaEstacion: ventaEfectuada._id } }).exec();
+    console.log('venta realizada:' + ventaID)
+    console.log(ventaEfectuada);
+
+    console.log('estacion actualizada1')
+    console.log(estacionDeCobroActualizada1)
+    res.send('ok PAGO EN EFECTIVO');
+}
 })
+
+
 router.get('/p', async(req,res)=>{
     const datos = await Producto.find({});
     console.log(datos);

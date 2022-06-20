@@ -2,13 +2,13 @@
   <%- include('../partials/flash.ejs'); %>
 
     <div class="container px-4 px-md-2">
-      <a class="px-3 btn btn-success " href="/administrador/estacionesdecobro/<%= estacionDeCobro._id %>">
+      <a class="px-3 btn btn-success " href="/administrador/">
         < Atras</a>
 
           <div class="row  justify-content-center">
             <div class="col-md-8 border border-dark p-lg-5 p-y-2 ">
               <div class="lead px-md-3 text-center">
-                Cierre de caja para : <%= estacionDeCobro.ubicacionDeEstacion %> en el dia <span
+                Cierre de caja para :  en el dia <span
                     id="actualTime"></span>
               </div>
               <div id="actualTime" class="col-4 text-end lead px-md-3">
@@ -53,45 +53,7 @@
                 </div>
 
               </div>
-<div class="col-12 mb-3">
 
-      Se realizaron los siguientes retiros de efectivo de la caja:
-     
-
-      <div class="accordion" id="accordionExample2">
-        <div class="accordion-item">
-          <h2 class="accordion-header" id="headingOne">
-            <button class="accordion-button" type="button" data-bs-toggle="collapse"
-              data-bs-target="#collapseOne2" aria-expanded="true" aria-controls="collapseOne2">
-              Se realizaron los siguientes Egresos de efectivo de la caja:
-            </button>
-          </h2>
-          <div id="collapseOne2" class="accordion-collapse collapse show" aria-labelledby="headingOne"
-            data-bs-parent="#accordionExample2">
-            <div class="accordion-body">
-              <div class="row justify-content-between mb-3">
-                <div class="col-6 mb-3">Cantidad:</div>
-                <div class="col-6 mb-3">Fecha:</div>
-
-
-                <% for( let egresos of estacionDeCobro.egresoDeEfectivoManual ) { %>
-
-                  <div class="col-6">
-                    <%= egresos.cantidad %>
-                  </div>
-                  <div class="col-6">
-                    <%= egresos.fecha.toLocaleString() %>
-                  </div>
-
-                  <% } %>
-
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-</div>
 
               <div class="col-12 mb-3 px-1">
 
@@ -107,7 +69,25 @@
               </div>
 
 
-            
+              <% if(estacionDeCobro.egresoDeEfectivoManual[0]){ %>
+                <div class="col-12 mb-3">
+                  Se realizaron los siguientes retiros de efectivo de la caja:
+                  <ul>
+                    <% for( let retiros of estacionDeCobro.egresoDeEfectivoManual ) { %>
+                      <li class="d-flex justify-content-between">
+                        <div class="">Cantidad: <%= retiros.cantidad %>
+                        </div>
+                        <div class="">Fecha: <%= retiros.fecha.toLocaleString() %>
+                        </div>
+                      </li>
+                      <% } %>
+                        <li>
+
+                        </li>
+                  </ul>
+
+                </div>
+                <% } %>
                   <div class="col-12 mb-3 px-1">
                     Total de dinero recaudado en ventas en efectivo : <%= estacionDeCobro.dineroDeVentasEnEfectivo %>
                   </div>
@@ -120,10 +100,6 @@
                       <textarea class="form-control" name="comentarioDeCierre" id="comentarioDeCierre" rows="3"></textarea>
                     </div>
                   </div>
-
-                  <div class="form" action="/administrador/estacionesdecobro/<%= estacionDeCobro._id %>/cierre-caja/imprimir" method="POST">
-
-                  
                   <ul class="nav d-flex justify-content-around">
                     <li class="nav-item">
                       <a href="/administrador/estacionesdecobro/<%= estacionDeCobro._id %>">Cancelar</a>
@@ -136,12 +112,11 @@
                     </li>
                     
                   </ul>
-                </div>
             </div>
           </div>
     </div>
 
 
-    <script src="/postCierre.js"></script>
+    <script src="/ux.js"></script>
 
     <%- include('../partials/footer.ejs'); %>

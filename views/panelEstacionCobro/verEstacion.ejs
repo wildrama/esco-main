@@ -112,13 +112,11 @@
                    <div class="col-12">
                     Dinero en
                    caja: <%= estacionDeCobro.dineroEnEstacion %>
-                 </div>
-
+                 </div> 
+                 
                  <div class="col-12">
                   Ventas en efectivo:
-                    <span><b>
-                     <%= dineroParcialSumado%> 
-                    </b></span>
+                  
               
                <div class="col-12">
                 Ventas en tarjeta/transferencia:
@@ -156,6 +154,8 @@
                 <th scope="col">Cantidad de productos en la venta</th>
 
                 <th scope="col">Se entrego ticket</th>
+                <th scope="col">Tipo De Venta</th>
+
                 <th scope="col">Fecha</th>
 
 
@@ -178,11 +178,13 @@
                   <td>
                     <%= venta.cantidadDeProductosTotales %>
                   </td>
-
+                 
                   <td>
                     <%= venta.ticketEntregado %>
                   </td>
-
+                  <td>
+                    <%= venta.tipoDePago %>
+                  </td>
                   <td>
                     <%= venta.createdAt.toLocaleDateString() %>
                   </td> 

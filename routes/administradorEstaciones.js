@@ -4,6 +4,7 @@ const catchAsync = require('../utils/catchAsync');
 const {isLoggedIn,isAdmin,isCaja} = require('../middleware');
 const EstacionDeCobro = require('../models/estaciondecobro');
 const Venta = require('../models/ventas');
+// const CierreCaja = require('../models/cierresDeCaja');
 
 
 
@@ -54,21 +55,24 @@ router.get('/nuevaestacion',  (req, res) => {
 //  agregar datos a la estación 
 
 router.get('/:id', catchAsync(async (req,res)=>{
-  let dineroParcialSumado = 0;
   try {
-    const  id  = req.params.id;
-    const estacionDeCobro = await EstacionDeCobro.findById(id).populate("ventasRealizadasEnLaEstacion").exec()
-    // const ventasDeEstaEstacion = await Venta.find({estacionDeCobro:mongoose.Types.ObjectId(id)}).
+    const id = req.params.id;
+    const estacionDeCobro = await EstacionDeCobro.findById(id).populate('ventasRealizadasEnLaEstacion').exec()
+    // const ventasDeEstaEstacion = await Venta.find({estacionDeCobro:mongoose.Types.ObjectId(id)}). 
+    
+
     console.log(estacionDeCobro)
-    let dineroTotal = 0;
-    let arrayVentas = estacionDeCobro.ventasRealizadasEnLaEstacion;
-    arrayVentas.map( datoVenta =>{
-      dineroTotal = dineroTotal + datoVenta.dineroIngresado;
-    dineroParcialSumado = dineroTotal
-    })
-    res.render('panelEstacionCobro/verEstacion', {estacionDeCobro,dineroParcialSumado})
+    // let dineroTotal = 0;
+    // let arrayVentas = estacionDeCobro.ventasRealizadasEnLaEstacion;
+    // arrayVentas.map( datoVenta =>{
+    //   dineroTotal = dineroTotal + datoVenta.dineroIngresado;
+    // dineroParcialSumado = dineroTotal
+    // })
+    res.render('panelEstacionCobro/verEstacion', {estacionDeCobro})
   } catch (error) {
-    res.render('errors', error)
+    req.flash('error','No se puede ingresar a la caja')
+
+    res.redirect('/administrador/estacionesdecobro')
 
   }
 
@@ -169,7 +173,7 @@ router.post('/:id/egreso-efectivo', catchAsync(async(req,res)=>{
     cantidad:cantidad,
     fecha:fecha
   }
-  const estacionDeCobro = await EstacionDeCobro.findByIdAndUpdate(estacionId,{$push:{ egresosDeEfectivoManual: egresoEfectivo},$inc:{dineroEnEstacion :-cantidad }}).exec();
+  const estacionDeCobro = await EstacionDeCobro.findByIdAndUpdate(estacionId,{$push:{ egresoDeEfectivoManual: egresoEfectivo},$inc:{dineroEnEstacion :-cantidad }}).exec();
 
   
   req.flash('success',`Se realizo un retiro de efectivo de $${cantidad}`);
@@ -187,21 +191,19 @@ router.post('/:id/reset', catchAsync( async(req, res) => {
     const estacionDeCobroId = req.params.id;
     if(req.body.dineroDeInicio){
       
-      const estacionDeCobro = await EstacionDeCobro.findByIdAndUpdate(estacionDeCobroId,{dineroDeInicio:req.body.dineroDeInicio,dineroEnEstacion:req.body.dineroDeInicio}).exec();
+      const estacionDeCobro = await EstacionDeCobro.findByIdAndUpdate(estacionDeCobroId,{dineroDeInicio:req.body.dineroDeInicio,dineroEnEstacion:req.body.dineroDeInicio,dineroDeVentasEnEfectivo:0,dineroDeVentasEnOtro:0,comprasRealizadasEnEfectivo:0,comprasRealizadasEnOtro:0}).exec();
 
       req.flash('success',`Se reseteo el dia correctamente`);
 
       res.redirect(`/administrador/estacionesdecobro/${estacionDeCobro._id}`);
     }else{
-      const estacionDeCobro1 = await EstacionDeCobro.findByIdAndUpdate(estacionDeCobroId,{dineroDeInicio:0,dineroEnEstacion:0}).exec();
+      const estacionDeCobro1 = await EstacionDeCobro.findByIdAndUpdate(estacionDeCobroId,{dineroDeInicio:0,dineroEnEstacion:0,dineroDeVentasEnEfectivo:0,dineroDeVentasEnOtro:0,comprasRealizadasEnEfectivo:0,comprasRealizadasEnOtro:0}).exec();
 
       req.flash('success',`Se reseteo el dia correctamente`);
 
       res.redirect(`/administrador/estacionesdecobro/${estacionDeCobro1._id}`);
     }
-
-
-    
+  
     }));
 
 
@@ -214,12 +216,29 @@ router.get('/:id/historial-usuario', catchAsync(async(req,res)=>{
 res.render('panelEstacionCobro/estacion-historial',{estacionDeCobro})
 }))
 
+
 router.get('/:id/cierre-caja', async  (req, res) => {
   const estacionDeCobroId = req.params.id;
   const estacionDeCobro = await EstacionDeCobro.findById(estacionDeCobroId);
 res.render('panelEstacionCobro/cierre-caja',{estacionDeCobro});
   });
 
+  router.post('/:id/cierre-caja/guardar', async  (req, res) => {
+    const estacionDeCobroId = req.params.id;
+    if(req.body){
+      const cierreCajaGuardado = new CierreCaja(req.body)
+      const estacionDeCobro = await EstacionDeCobro.findById(estacionDeCobroId);
+      req.flash('success', 'Cierre realizado correctamente');
+
+    res.redirect(`/administrador/cierres-de-caja/${cierreCajaGuardado._id}`);
+    }else{
+      req.flash('error', 'No se pudo realizar el cierre');
+
+      res.redirect(`/administrador/estacionesdecobro/${estacionDeCobroId}/cierre-caja`);
+
+    }
+
+    });
 
 // delete de estacion
 
