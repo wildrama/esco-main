@@ -121,10 +121,13 @@
                     </div>
                   </div>
 
-                  <div class="form" action="/administrador/estacionesdecobro/<%= estacionDeCobro._id %>/cierre-caja/imprimir" method="POST">
 
-                  
-                  <ul class="nav d-flex justify-content-around">
+                  <form class="d-none" action="/administrador/estacionesdecobro/<%= estacionDeCobro._id %>/cierre-caja/guardar">
+
+                    <input type="number" name="" id="">
+
+
+                    <ul class="nav d-flex justify-content-around">
                     <li class="nav-item">
                       <a href="/administrador/estacionesdecobro/<%= estacionDeCobro._id %>">Cancelar</a>
                     </li>
@@ -132,10 +135,13 @@
                       <a href="/administrador/estacionesdecobro/<%= estacionDeCobro._id %>/cierre-caja/imprimir">Imprimir</a>
                     </li>
                     <li class="nav-item">
-                      <a href="/administrador/estacionesdecobro/<%= estacionDeCobro._id %>/cierre-caja/guardar">Auditar cierre</a>
+                      <button> Auditar Cierre</button>
                     </li>
                     
                   </ul>
+
+
+                </form>
                 </div>
             </div>
           </div>
