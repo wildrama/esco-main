@@ -64,14 +64,14 @@ router.get('/:id', catchAsync(async (req,res)=>{
     let arrayVentas = estacionDeCobro.ventasRealizadasEnLaEstacion;
     arrayVentas.map( datoVenta =>{
       dineroTotal = dineroTotal + datoVenta.dineroIngresado;
-dineroParcialSumado = dineroTotal
+    dineroParcialSumado = dineroTotal
     })
     res.render('panelEstacionCobro/verEstacion', {estacionDeCobro,dineroParcialSumado})
   } catch (error) {
     res.render('errors', error)
 
   }
-
+  
 }))
 
 router.put('/:id', catchAsync(async(req,res)=>{
