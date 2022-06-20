@@ -54,7 +54,7 @@ router.get('/nuevaestacion',  (req, res) => {
 //  agregar datos a la estación 
 
 router.get('/:id', catchAsync(async (req,res)=>{
-let dineroParcialSumado = 0;
+  let dineroParcialSumado = 0;
   try {
     const  id  = req.params.id;
     const estacionDeCobro = await EstacionDeCobro.findById(id).populate("ventasRealizadasEnLaEstacion").exec()
@@ -211,19 +211,15 @@ router.get('/:id/historial-usuario', catchAsync(async(req,res)=>{
   const estacionId = req.params.id;
   const estacionDeCobro = await EstacionDeCobro.findById(estacionId);
   
-   
+   dayUserInEstacion
 res.render('panelEstacionCobro/estacion-historial',{estacionDeCobro})
 }))
-
 
 router.get('/:id/cierre-caja', async  (req, res) => {
   const estacionDeCobroId = req.params.id;
   const estacionDeCobro = await EstacionDeCobro.findById(estacionDeCobroId);
-  res.render('panelEstacionCobro/cierre-caja',{estacionDeCobro});
-  
-
-
-});
+res.render('panelEstacionCobro/cierre-caja',{estacionDeCobro});
+  });
 
 
 // delete de estacion

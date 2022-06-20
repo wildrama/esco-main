@@ -48,7 +48,7 @@ router.get('/administrador', async (req, res) => {
 
         const fechaDeLogeoEnEstación = Date.now();
        try {
-    
+        
         
         const checkearSiExisteCaja = await EstacionDeCobro.findByIdAndUpdate(estacionDeCobroId,{$push:{historialDeUsuarios:{nombreUser:nombreUser,fechaDeLogeoEnEstación:fechaDeLogeoEnEstación}}}).exec();
         

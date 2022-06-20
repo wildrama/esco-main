@@ -6,9 +6,17 @@
 
           <div class="row  justify-content-center">
             <div class="col-md-8 border border-dark p-y-2">
-              <p class="lead px-md-3">
-                Panel de gestión para: <%= estacionDeCobro.ubicacionDeEstacion %>
-              </p> 
+              <div class="row justify-content-between">
+                <div class="col-6 lead px-md-3">
+                  Panel de gestión para: <%= estacionDeCobro.ubicacionDeEstacion %>
+                </div> 
+                <div id="actualTime" class="col-4 text-end lead px-md-3">
+
+
+                </div>
+
+              </div>
+               
               <div class="row p-3">
                 <div class="ACCIONES col-lg-6">
 
@@ -137,6 +145,7 @@
       <div class="row justify-content-center">
         <div  class="col-6">
           <h4 class="text-center">Ventas realizadas en la estación</h4>
+          
           <table class="table table-hover" >
 
             <thead>
@@ -175,7 +184,9 @@
                     <%= venta.ticketEntregado %>
                   </td>
 
-
+                  <td>
+                    <%= venta.createdAt.toLocaleDateString() %>
+                  </td> 
                 </tr>
                 <%} %>
 
@@ -195,5 +206,5 @@
 
     </div>
 
-+
+    <script src="/ux.js"></script>
     <%- include('../partials/footer.ejs'); %>
