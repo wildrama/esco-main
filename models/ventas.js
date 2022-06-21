@@ -11,7 +11,7 @@ const ventasEfectuadasSchema = new Schema({
     dineroDeSalida: {
         type: Number
     },
-    productos: [
+    productosDeStock: [
         {
             valorDelProductoEnLaCompra:
             {
@@ -25,12 +25,29 @@ const ventasEfectuadasSchema = new Schema({
         }
     ]
     ,
+    productosSinStock: [
+        {
+            valorDelProductoEnLaCompra:
+            {
+                type: Number
+            },
+            identificadorDeProducto:
+            {
+                type: String
+            }
+        }
+    ]
+    ,
     ticketEntregado: {
         type: String,
         enum:['SI', 'NO'],
         required:true,
     },
-
+    tipoDePago:{
+        type: String,
+        enum:['EFECTIVO', 'OTRO'],
+        required:true,
+    },
     cantidadDeProductosTotales: {
         type: Number
     },
@@ -40,6 +57,9 @@ const ventasEfectuadasSchema = new Schema({
             ref: 'EstacionDeCobro'
         }
     ,
+    nombreDelUsuario:{
+        type:String
+    },
 
 
 }, { timestamps: true });
@@ -47,3 +67,6 @@ const ventasEfectuadasSchema = new Schema({
 const Venta = mongoose.model('Venta', ventasEfectuadasSchema);
 
 module.exports = Venta
+
+
+// ACCIONES DURANTE LA VENTA Y GUARDAR VENTA. EL RESTO ISIIIII

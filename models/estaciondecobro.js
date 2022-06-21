@@ -7,40 +7,58 @@ EstacionDeCobroSchema = new Schema({
     ubicacionDeEstacion:{
         type: String
     },
-    dineroEnEstacion: {
-
+    dineroDeInicio: {
+        type: Number,
+    }
+    ,
+    dineroEnEstacion: {  
         type: Number,
         required: true
     },
-    
-    cantComprasRealizadas: {
+    dineroDeVentasEnEfectivo:{
+        type:Number
+    },
+    dineroDeVentasEnOtro:{
+        type:Number
+    },
+    comprasRealizadasEnEfectivo: {
         type: Number
     },
-    montosIngresados: [
-        {
-            type: Number
-        }
-    ],
+    comprasRealizadasEnOtro: {
+        type: Number
+    }
+    ,
     ingresosDeEfectivoManual: [
         {
-            type: Number
+            cantidad:Number,
+            fecha: Date
         }
     ],
     egresoDeEfectivoManual: [
         {
-            motivo: String,
-            cantidadDeEfectivoRetirado: Number
+            cantidad:Number,
+            fecha: Date          
         }
     ],
     historialDeUsuarios:[
+        
         {
-            type: String
+           nombreUser:{
+            type:String
+           },
+            fechaDeLogeoEnEstación:{
+                type:Date
+            } 
+        
         }
+       
     ],
-    usuarioActual:{
-        type: Schema.Types.ObjectId,
-        ref: 'Usuario'
-    },
+
+  
+    // usuarioActual:{
+    //     type: Schema.Types.ObjectId,
+    //     ref: 'Usuario'
+    // },
     ventasRealizadasEnLaEstacion:[
         {
             type: Schema.Types.ObjectId,

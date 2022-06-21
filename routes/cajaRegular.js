@@ -71,9 +71,9 @@ const estacionDeCobroId = req.query.idESTACION;
     const ofertasConjuntoParaEstacion = await Oferta.find({estacionesDeCobroParaLaOferta: mongoose.Types.ObjectId(estacionDeCobroId)}).exec();
 
     const ofertasIndividualesParaEstacion = await OfertaSingular.find({estacionesDeCobroParaLaOferta: mongoose.Types.ObjectId(estacionDeCobroId)}).exec();
-  
-    res.json({ofertasConjuntoParaEstacion,ofertasIndividualesParaEstacion});
     
+    res.json({ofertasConjuntoParaEstacion,ofertasIndividualesParaEstacion});
+      
   } catch (error) {
     res.json('NO SE PUEDE BUSCAR OFERTAS')
   }

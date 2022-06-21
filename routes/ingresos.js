@@ -44,9 +44,13 @@ router.get('/administrador', async (req, res) => {
 // post del ingreso del usuario
   router.post('/ingreso-caja/:id/login', passport.authenticate('local', { failureFlash: true, failureRedirect: '/ingreso-caja' }),async (req, res) => {
     const estacionDeCobroId = req.params.id;
+    const nombreUser = req.user.username;
 
+        const fechaDeLogeoEnEstación = Date.now();
        try {
-        const checkearSiExisteCaja = await EstacionDeCobro.findById(estacionDeCobroId)
+        
+        
+        const checkearSiExisteCaja = await EstacionDeCobro.findByIdAndUpdate(estacionDeCobroId,{$push:{historialDeUsuarios:{nombreUser:nombreUser,fechaDeLogeoEnEstación:fechaDeLogeoEnEstación}}}).exec();
         
         res.redirect(`/caja/${checkearSiExisteCaja._id}/inicio`);
         

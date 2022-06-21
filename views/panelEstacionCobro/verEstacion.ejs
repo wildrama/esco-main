@@ -1,73 +1,211 @@
 <%- include('../partials/headerAdm.ejs'); %>
-<%- include('../partials/flash.ejs'); %>
 
-<div class="container p-md-4">
-    <a class="px-3 btn btn-success " href="/administrador/estacionesdecobro">< Atras</a>
+    <div class="container p-md-4">
+      <a class="px-3 btn btn-success " href="/administrador/estacionesdecobro">
+        < Atras</a>
 
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <div class="estacionDeTrabajo p-3 text-light bg-dark">
-                <div class="ACCIONES border border-dark">
-                    
-                    <ul class="d-flex justify-content-around link-none">
-                    <li class="nav-item" >
-                        <a class="nav-link" href="/administrador/estacionesdecobro/<%= estacionDeCobro._id %>/historial-ventas">Historial de ventas</a>
+          <div class="row  justify-content-center">
+            <div class="col-md-8 border border-dark p-y-2">
+              <div class="row justify-content-between">
+                <div class="col-6 lead px-md-3">
+                  Panel de gestión para: <%= estacionDeCobro.ubicacionDeEstacion %>
+                </div> 
+                <div id="actualTime" class="col-4 text-end lead px-md-3">
 
-                    </li>
-                    <li class="nav-item" >                
-                            <a class="nav-link" href="/administrador/estacionesdecobro/<%= estacionDeCobro._id %>/ingreso-efectivo">Ingresos de efectivo</a>
-                    </li>
-                    <li class="nav-item" >      
-                                      <a class="nav-link" href="/administrador/estacionesdecobro/<%= estacionDeCobro._id %>/egreso-efectivo">Egresos </a>
-                    </li>   
-                </ul>
 
-                    <a class="nav-link" href="/administrador/estacionesdecobro/<%= estacionDeCobro._id%>/agregar-usuario">Agregar usuario a la caja</a>
-                   </div>
-                   <div class="ultimas-compras">
-                        <div class="row">
-                           <div class="col-12">
-                           <a href="/administrador/estacionesdecobro/<%= estacionDeCobro._id%>/dinero-en-caja"></a> Dinero en caja: <%= estacionDeCobro.dineroEnEstacion %>
-                           </div>
-                           <div class="col-12"> 
-                              
-
-                        <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-    Eliminar estación de cobro
-  </button>
-  
-  <!-- Modal -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content text-dark">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Eliminar estación de cobro</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cancelar"></button>
-        </div>
-        <div class="modal-body ">
-          Si elimina una estación de cobro, se borra el contenido accesible a esa estación. Las ventas realizadas siguen siendo parte del sistema
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-          <form class="d-inline px-2" action="/administrador/estacionesdecobro/<%= estacionDeCobro._id%>?_method=DELETE" method="post">
-            <button class="btn btn-warning">Eliminar</button>
-        </form>        </div>
-      </div>
-    </div>
-  </div>
-  
-
-                    </div>  
-                        
-                        </div>
-                   </div>
                 </div>
+
+              </div>
+               
+              <div class="row p-3">
+                <div class="ACCIONES col-lg-6">
+
+                  <ul class="  ">
+
+                    <li class="nav-item ">
+                      <a class="nav-link "
+                        href="/administrador/estacionesdecobro/<%= estacionDeCobro._id %>/ingreso-efectivo-inicio">Ingresos de
+                        efectivo para iniciar la caja</a>
+                    </li>
+
+                    <li class="nav-item">
+                      <a class="nav-link"
+                        href="/administrador/estacionesdecobro/<%= estacionDeCobro._id %>/ingreso-efectivo">Ingresos de
+                        efectivo</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link"
+                        href="/administrador/estacionesdecobro/<%= estacionDeCobro._id %>/egreso-efectivo">Egresos de
+                        efectivo</a>
+                    </li>
+                  
+                   
+                    
+                    <li class="nav-item">
+                      <a class="nav-link"
+                    href="/administrador/estacionesdecobro/<%= estacionDeCobro._id%>/historial-usuario">Ver historial de
+                    usuarios</a>
+                    </li>
+                   
+
+                      <li class="nav-item">
+                        <a class="nav-link"
+                          href="/administrador/estacionesdecobro/<%= estacionDeCobro._id %>/cierre-caja">Cierre de caja</a>
+                      </li>
+                      
+                      <li class="nav-item">
+
+                      <!-- Button trigger modal -->
+                      <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                        data-bs-target="#exampleModal">
+                        Resetear el dia
+                      </button>
+
+                      <!-- Modal -->
+                      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                          <div class="modal-content text-dark">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalLabel">Restablecer dia de estación de cobro</h5>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Cancelar"></button>
+                            </div>
+                            <div class="modal-body ">
+                              Luego de reiniciar el dia, los valores de la caja: Dinero para iniciar la caja y dinero en caja se restablecen a 0. <br> Por lo cual se debe volver a colocar manualmente el dinero disponible para el dia
+
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                              <form class="d-flex px-2"
+                                action="/administrador/estacionesdecobro/<%= estacionDeCobro._id%>/reset"
+                                method="POST">
+                                <label for="ingDin">Colocar dinero de inicio si se desea</label>
+                                <input class="form-control" id="ingDin" placeholder="" type="number" name="dineroDeInicio">
+                                <button class="btn btn-warning">Restablecer</button>
+                               
+
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                    </li>
+
+                    
+                    <li class="nav-item">
+                      <a class="nav-link"
+                        href="/administrador/estacionesdecobro/<%= estacionDeCobro._id %>/eliminar-caja">Eliminar Estacion de cobro</a>
+                    </li>
+                  </ul> 
+                  
+                
+                </div>
+                <div class="ultimas-compras col-lg-6">
+                  <div class="row">
+                    
+                      <h4>Información de caja</h4>
+                    <div class="col-12">
+                      Dinero de inicio del dia: <%= estacionDeCobro.dineroDeInicio %>
+                   </div>
+                   <div class="col-12">
+                    Dinero en
+                   caja: <%= estacionDeCobro.dineroEnEstacion %>
+                 </div> 
+                 
+                 <div class="col-12">
+                  Ventas en efectivo:
+                  
+              
+               <div class="col-12">
+                Ventas en tarjeta/transferencia:
+                 100-
+                  <span><b>
+                   $9000
+                  </b></span>
+             </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+    </div>
+
+    <div class="ultimas-compras">
+
+
+
+
+
+      <div class="row justify-content-center">
+        <div  class="col-6">
+          <h4 class="text-center">Ventas realizadas en la estación</h4>
+          
+          <table class="table table-hover" >
+
+            <thead>
+              <tr>
+                <th scope="col">Dinero ingresado</th>
+
+                <th scope="col">Dinero de salida</th>
+
+                <th scope="col">Cantidad de productos en la venta</th>
+
+                <th scope="col">Se entrego ticket</th>
+                <th scope="col">Tipo De Venta</th>
+
+                <th scope="col">Fecha</th>
+
+
+
+
+              </tr>
+            </thead>
+            <tbody style="overflow-y: scroll; height:400px;">
+              <% for (let venta of estacionDeCobro.ventasRealizadasEnLaEstacion){ %>
+                <tr>
+
+                  <td>
+                    <%= venta.dineroIngresado %>
+                  </td>
+                  <td>
+                    <%= venta.dineroDeSalida %>
+                  </td>
+
+
+                  <td>
+                    <%= venta.cantidadDeProductosTotales %>
+                  </td>
+                 
+                  <td>
+                    <%= venta.ticketEntregado %>
+                  </td>
+                  <td>
+                    <%= venta.tipoDePago %>
+                  </td>
+                  <td>
+                    <%= venta.createdAt.toLocaleDateString() %>
+                  </td> 
+                </tr>
+                <%} %>
+
+
+
+            </tbody>
+          </table>
         </div>
+      </div>
+
+
+
+
+
+
+
 
     </div>
-</div>
 
-
-
-<%- include('../partials/footer.ejs'); %>
+    <script src="/ux.js"></script>
+    <%- include('../partials/footer.ejs'); %>
