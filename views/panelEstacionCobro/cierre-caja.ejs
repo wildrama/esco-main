@@ -114,6 +114,8 @@
                   <div class="col-12 mb-3 px-1">
                     Total de dinero recaudado en ventas en tarjeta/transferencia : <%= estacionDeCobro.dineroDeVentasEnOtro %>
                   </div>
+                  <form class="d-none" action="/administrador/estacionesdecobro/<%= estacionDeCobro._id %>/cierre-caja/guardar">
+
                   <div class="col-12">
                     <div class="mb-3">
                       <label for="comentarioDeCierre" class="form-label">Agregar comentario</label>
@@ -122,11 +124,15 @@
                   </div>
 
 
-                  <form class="d-none" action="/administrador/estacionesdecobro/<%= estacionDeCobro._id %>/cierre-caja/guardar">
+                    <input type="number" name="dineroEnCaja" id="">
+                    <input type="number" name="dineroDeInicio" id="">
+                    <input type="number" name="cantidadTotalDeVentasEnEfectivo" id="">
+                    <input type="number" name="cantidadTotalDeVentasEnOtro" id="">
 
-                    <input type="number" name="" id="">
-
-
+                    <input type="number" name="dineroTotalDeVentasEnEfectivo" id="">
+                    <input type="number" name="dineroTotalDeVentasEnOtro" id="">
+                    <input type="number" name="estacionDeCobro" id="">
+                    
                     <ul class="nav d-flex justify-content-around">
                     <li class="nav-item">
                       <a href="/administrador/estacionesdecobro/<%= estacionDeCobro._id %>">Cancelar</a>

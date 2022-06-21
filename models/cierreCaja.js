@@ -23,7 +23,7 @@ const cierresDeCajaRealizados = new Schema({
     dineroTotalDeVentasEnOtro: {
         type: Number
     },
-    comentario:{
+    comentarioDeCierre:{
         type:String
     },
     estacionDeCobro: 
