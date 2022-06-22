@@ -993,8 +993,13 @@ cancelarCompra.onclick = () => {
 
 
 //datos a pushear 
+
+
+const productosDeStockArr = ()=>{
+	productosAgregados.map()
+}
 const tipoDePagoCheck = document.querySelector('#flexCheckDefault')
-let tipoDePagosTR = "";
+let tipoDePagosTR = "EFECTIVO";
 tipoDePagoCheck.addEventListener("change", (e) => {
 	if (e.target.checked) {
 	  tipoDePagosTR = 'OTRO';
@@ -1006,6 +1011,19 @@ tipoDePagoCheck.addEventListener("change", (e) => {
 	}
   });
   
+//   const printTag = document.querySelector('#prinTag')
+//   let ticketSINOSTR = "";
+//   tipoDePagoCheck.addEventListener("click", (e) => {
+// 	  if (e.target.checked) {
+// 		tipoDePagosTR = 'OTRO';
+// 		console.log(tipoDePagosTR)
+// 	  } else {
+// 		  tipoDePagosTR = 'EFECTIVO';
+// 		  console.log(tipoDePagosTR)
+  
+// 	  }
+// 	});
+
 finalizarCompra.onclick = async () => {
 
 	if (productosAgregados.length < 2) {
@@ -1074,12 +1092,25 @@ finalizarCompra.onclick = async () => {
 	// console.log(ventaRealizada)
 	console.log("LO QUE DICE LA PROPIEDAD valorDelProducto EN EL OBJETO:")
 	// console.log(ventaRealizada.valorDelProducto)
+
+	// set time out para el aler de venta finalizada
 	textoVentaFinalizada.innerHTML = "Venta efectuada correctamente"
+	
+	
 	console.log(res)
+
+	
+
+	textBuscar.style.backgroundColor = "#c4c4c4";
+	tablaCajaCobro.innerHTML = "";
+	productosAgregados = [{ nombre: "vacio", precio: 0, cantidadAgregada: 1, impuestoPrecio: 0 }]
+	totalGlobal = 0;
+	totalHTML.innerHTML = "TOTAL: $"
+	vueltoGlobal = 0;
+	dineroIngresado.value = "";
+	vuelto.innerHTML = "$"
 	textBuscar.focus()
-
-
-
+	
 }
 
 borrarInvisible.onclick = () => {

@@ -73,7 +73,8 @@ console.log(ventaEfectuada);
 
 console.log('estacion actualizada123')
 console.log(estacionDeCobroActualizada2)
-res.json('Pago en otro efectuado');
+req.flash('success','Compra finalizada correctamente')
+res.redirect(`/caja/${estacionDeCobroActualizada2._id}/cajaActiva`)
 }else{
 
 let estacionDeCobroActualizada1= await EstacionDeCobro.findByIdAndUpdate(estacionDeCobroId,{ $inc: {dineroEnEstacion: ventaEfectuada.dineroIngresado,dineroDeVentasEnEfectivo:ventaEfectuada.dineroIngresado ,comprasRealizadasEnEfectivo: '1'   },$push: { ventasRealizadasEnLaEstacion: ventaID } }).exec();
@@ -82,7 +83,8 @@ console.log(ventaEfectuada);
 
 console.log('estacion actualizada1')
 console.log(estacionDeCobroActualizada1)
-res.json('Pago en efectivo efectuado');
+req.flash('success','Compra finalizada correctamente')
+res.redirect(`/caja/${estacionDeCobroActualizada1._id}/cajaActiva`)
 }
 }))
 
