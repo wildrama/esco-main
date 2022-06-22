@@ -1088,13 +1088,21 @@ finalizarCompra.onclick = async () => {
 		nombreDelUsuario: idUsuario
 	})
 
+
+	textoVentaFinalizada.innerHTML = "Venta efectuada correctamente!"
+
+	function finalizarCompraTXT(){
+		textoVentaFinalizada.innerHTML = ""
+	}
+	  
+	  setTimeout(finalizarCompraTXT, 2000);
+
 	console.log("EL OBJETO QUE SE VA A IMPORTAR:")
 	// console.log(ventaRealizada)
 	console.log("LO QUE DICE LA PROPIEDAD valorDelProducto EN EL OBJETO:")
 	// console.log(ventaRealizada.valorDelProducto)
 
 	// set time out para el aler de venta finalizada
-	textoVentaFinalizada.innerHTML = "Venta efectuada correctamente"
 	
 	
 	console.log(res)
@@ -1109,6 +1117,7 @@ finalizarCompra.onclick = async () => {
 	vueltoGlobal = 0;
 	dineroIngresado.value = "";
 	vuelto.innerHTML = "$"
+
 	textBuscar.focus()
 	
 }
