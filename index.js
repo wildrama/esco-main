@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const port = 3011;
+const port = 3010;
 const mongoose = require('mongoose');
 
 const path = require('path');
