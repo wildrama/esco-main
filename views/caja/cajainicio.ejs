@@ -60,7 +60,29 @@
                  Usuario actual: <%= usuario.username %> 
             </div>
             <div class="col-12 mt-3 pb-3"> Fecha de hoy: <%= fechaActual %>   </div>
-          
+            
+
+            <form  action="/administrador/estacionesdecobro/<%= estacionDeCobro._id %>/egreso-efectivo" method="POST">
+                
+                
+              <div class="mb-3">
+                  <label for="dineroDeEgreso" class="form-label">Colocar el monto que se desea retirar de la estación</label>
+                  <input placeholder="" type="number" name="dineroDeEgreso" class="form-control" id="dineroDeEgreso2" required>
+                </div>
+
+                <div class="mb-3">
+                  <label for="comentarioDeEgreso" class="form-label">Agregar comentario</label>
+                  <textarea class="form-control" name="comentarioDeEgreso" id="comentarioDeEgreso2" rows="3"></textarea>
+                </div>
+                <!-- <div class="mb-3 form-check">
+                  <input type="checkbox" class="form-check-input" id="">
+                  <label class="form-check-label" for="">Check me out</label>
+                </div> -->
+             
+              <button type="submit" class="btn btn-primary">Retirar dinero a la estación</button>
+              
+
+      </form>
           </div>
         </div>
       </div>
