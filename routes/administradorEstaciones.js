@@ -4,7 +4,7 @@ const catchAsync = require('../utils/catchAsync');
 const { isLoggedIn, isAdmin, isCaja } = require('../middleware');
 const EstacionDeCobro = require('../models/estaciondecobro');
 const Venta = require('../models/ventas');
-// const CierreCaja = require('../models/cierresDeCaja');
+const CierreCaja = require('../models/cierreCaja');
 
 
 
@@ -61,7 +61,6 @@ router.get('/:id', catchAsync(async (req, res) => {
     // const ventasDeEstaEstacion = await Venta.find({estacionDeCobro:mongoose.Types.ObjectId(id)}). 
 
 
-    console.log(estacionDeCobro)
     // let dineroTotal = 0;
     // let arrayVentas = estacionDeCobro.ventasRealizadasEnLaEstacion;
     // arrayVentas.map( datoVenta =>{
@@ -143,10 +142,13 @@ router.post('/:id/ingreso-efectivo', catchAsync(async (req, res) => {
   const estacionId = req.params.id;
   const cantidad = req.body.dineroDeIngreso;
   const fecha = Date.now();
+  const comentarioDeIngreso = req.body.comentarioDeIngreso;
 
+  
   const ingresoEfectivo = {
     cantidad: cantidad,
-    fecha: fecha
+    fecha: fecha,
+    comentarioDeIngreso:comentarioDeIngreso
   }
   const estacionDeCobro = await EstacionDeCobro.findByIdAndUpdate(estacionId, { $push: { ingresosDeEfectivoManual: ingresoEfectivo }, $inc: { dineroEnEstacion: cantidad } }).exec();
 
@@ -167,11 +169,14 @@ router.get('/:id/egreso-efectivo', async (req, res) => {
 router.post('/:id/egreso-efectivo', catchAsync(async (req, res) => {
   const estacionId = req.params.id;
   const cantidad = req.body.dineroDeEgreso;
+  const comentarioDeEgreso = req.body.comentarioDeEgreso;
+
   const fecha = Date.now();
 
   const egresoEfectivo = {
     cantidad: cantidad,
-    fecha: fecha
+    fecha: fecha,
+    comentarioDeEgreso:comentarioDeEgreso
   }
   const estacionDeCobro = await EstacionDeCobro.findByIdAndUpdate(estacionId, { $push: { egresoDeEfectivoManual: egresoEfectivo }, $inc: { dineroEnEstacion: -cantidad } }).exec();
 
@@ -225,12 +230,13 @@ router.get('/:id/cierre-caja', async (req, res) => {
 
 router.post('/:id/cierre-caja/guardar', async (req, res) => {
   const estacionDeCobroId = req.params.id;
-  
+  console.log(req.body)
     const cierreCajaGuardado = new CierreCaja(req.body)
     const estacionDeCobro = await EstacionDeCobro.findById(estacionDeCobroId);
+    console.log(cierreCajaGuardado)
     req.flash('success', 'Cierre realizado correctamente');
 
-    res.redirect(`/administrador/cierres-de-caja/${cierreCajaGuardado._id}`);
+    res.redirect(`/administrador/estacionesdecobro/${estacionDeCobro._id}`);
  
 
 });

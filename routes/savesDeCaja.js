@@ -23,12 +23,12 @@ const roleCaja = 'CAJA';
     //     estacionDeCobro: req.body.estacionDeCobro.id
     // }; 
      
-router.post('/saves-ventas', catchAsync(async(req,res)=>{
-    const estacionId = req.body.estacionDeCobroId;
-    // const userActual = req.user.username;
+router.post('/save-venta', catchAsync(async(req,res)=>{
+    const userActual = req.user.username;
     //  const dineroIngresadoEnCaja = req.body.dineroIngresadoEnCaja;
-    
-    
+   const estacionDeCobroId = req.body.estacionDeCobro;
+
+    console.log(req.body)
     // guardar la venta
     // guardar el id de la venta en 'ventasRealizadasEnLaEstacion'
     //actualizar la cantidad de ventas realizadas- cantidad de montos ingresados- dinero en caja actual-
@@ -38,21 +38,21 @@ router.post('/saves-ventas', catchAsync(async(req,res)=>{
         productosDeStock:[
 
             {
-                valorDelProductoEnLaCompra: req.body.productoIndividual.precio,
-                identificadorDeProducto: req.body.productoIndividual.id
+                valorDelProductoEnLaCompra: req.body.valorDelProductoEnLaCompra,
+                identificadorDeProducto: req.body.identificadorDeProducto
             }
         ],
         productosSinStock:[
 
             {
-                valorDelProductoEnLaCompra: req.body.productoIndividual.precio,
-                identificadorDeProducto: req.body.productoIndividual.identificador
+                valorDelProductoEnLaCompra: req.body.valorDelProductoEnLaCompra,
+                identificadorDeProducto: req.body.identificadorDeProducto
             }
         ],
         ticketEntregado: req.body.ticket,
         tipoDePago :req.body.tipoDePago,
         cantidadDeProductosTotales: req.body.cantidadDeProductosTotales,
-        estacionDeCobro: req.body.estacionDeCobroId,
+        estacionDeCobro: req.body.estacionId,
         nombreDelUsuario: userActual
     }; 
     const ventaEfectuada = await new Venta(ventaRealizada)
@@ -60,20 +60,30 @@ router.post('/saves-ventas', catchAsync(async(req,res)=>{
     await ventaEfectuada.save();
 
     const ventaID= ventaEfectuada._id;
-    let estacionDeCobroActualizada2= await EstacionDeCobro.findByIdAndUpdate(estacionId,{ $inc: { dineroEnEstacion: dineroIngresadoEnCaja ,comprasRealizadasEnEfectivo: 1 ,  },$push: { ventasRealizadasEnLaEstacion: ventaID  } }).exec();
 
-    // if(req.body.tipoDePago !== 'EFECTIVO'){
-    //     let estacionDeCobroActualizada1= await EstacionDeCobro.findByIdAndUpdate(estacionId,{ $inc: { dineroEnEstacion: dineroIngresadoEnCaja ,comprasRealizadasEnOtro: 1 ,  },$push: { ventasRealizadasEnLaEstacion: ventaID  } }).exec();
 
-    //  }else{
 
-    //  }
+    if(ventaEfectuada.tipoDePago =='OTRO'){
+  
+        // dineroEnEstacion: ventaEfectuada.dineroIngresado 
 
-    const mensajeOK = 'Compra guardada correctamente';
+let estacionDeCobroActualizada2= await EstacionDeCobro.findByIdAndUpdate(estacionDeCobroId,{ $inc: { dineroDeVentasEnOtro:ventaEfectuada.dineroIngresado,comprasRealizadasEnOtro: '1'  },$push: { ventasRealizadasEnLaEstacion: ventaID } }).exec();
+console.log('venta realizada:' + ventaID)
+console.log(ventaEfectuada);
 
-    console.log(ventaEfectuada);
-    console.log(estacionDeCobroActualizada2);
-    res.json(ventaEfectuada,estacionDeCobroActualizada2,mensajeOK)
+console.log('estacion actualizada123')
+console.log(estacionDeCobroActualizada2)
+res.json('Pago en otro efectuado');
+}else{
+
+let estacionDeCobroActualizada1= await EstacionDeCobro.findByIdAndUpdate(estacionDeCobroId,{ $inc: {dineroEnEstacion: ventaEfectuada.dineroIngresado,dineroDeVentasEnEfectivo:ventaEfectuada.dineroIngresado ,comprasRealizadasEnEfectivo: '1'   },$push: { ventasRealizadasEnLaEstacion: ventaID } }).exec();
+console.log('venta realizada:' + ventaID)
+console.log(ventaEfectuada);
+
+console.log('estacion actualizada1')
+console.log(estacionDeCobroActualizada1)
+res.json('Pago en efectivo efectuado');
+}
 }))
 
 router.get('/:id/try-save', async(req,res)=>{

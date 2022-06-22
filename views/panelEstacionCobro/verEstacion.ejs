@@ -104,7 +104,7 @@
                 </div>
                 <div class="ultimas-compras col-lg-6">
                   <div class="row">
-                    
+
                       <h4>Información de caja</h4>
                     <div class="col-12">
                       Dinero de inicio del dia: <%= estacionDeCobro.dineroDeInicio %>
@@ -116,16 +116,19 @@
                  
                  <div class="col-12">
                   Ventas en efectivo:
-                  
-              
+                  <span><b>
+                    
+                  <%= estacionDeCobro.comprasRealizadasEnEfectivo %>
+                </b></span>
+              </div>
+
                <div class="col-12">
                 Ventas en tarjeta/transferencia:
-                 100-
                   <span><b>
-                   $9000
+                    <%= estacionDeCobro.comprasRealizadasEnOtro %>
+
                   </b></span>
              </div>
-                  </div>
                 </div>
               </div>
             </div>

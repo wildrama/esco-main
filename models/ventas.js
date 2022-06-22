@@ -15,7 +15,7 @@ const ventasEfectuadasSchema = new Schema({
         {
             valorDelProductoEnLaCompra:
             {
-                type: Number
+                type: String
             },
             identificadorDeProducto:
             {
@@ -29,7 +29,7 @@ const ventasEfectuadasSchema = new Schema({
         {
             valorDelProductoEnLaCompra:
             {
-                type: Number
+                type: String
             },
             identificadorDeProducto:
             {
@@ -59,8 +59,7 @@ const ventasEfectuadasSchema = new Schema({
     ,
     nombreDelUsuario:{
         type:String
-    },
-
+    }
 
 }, { timestamps: true });
 

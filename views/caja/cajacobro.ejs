@@ -125,10 +125,20 @@
 
 				</div>
 				<div class="row">
+					<input class="d-none" type="text" value="<%= estacionDeCobro._id %> " name="inputEstacionDeCobroID" id="inputEstacionDeCobroID">
+					<input class="d-none" type="text" value="<%= usuarioID %> " name="inputUsuarioID" id="inputUsuarioID">
 
 					<button id="finalizarCompra" class="finalizarCompra">Finalizar compra</button>
-
-				</div>
+					<div class="form-check">
+						<input class="form-check-input" name="tipoDePagoCheck" type="checkbox" value="OTRO" id="flexCheckDefault">
+						<label class="form-check-label" for="flexCheckDefault">
+						 Compra En TARJETA/TRANSFERENCIA
+						</label>
+					  </div>	
+					  
+					  
+					<p class="lead" id="textoVentaFinalizada"></p>
+						</div>
 			</div>
 
 		</div>

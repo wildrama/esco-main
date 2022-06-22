@@ -31,13 +31,16 @@ EstacionDeCobroSchema = new Schema({
     ingresosDeEfectivoManual: [
         {
             cantidad:Number,
-            fecha: Date
+            fecha: Date,
+            comentarioDeIngreso:String
         }
     ],
     egresoDeEfectivoManual: [
         {
             cantidad:Number,
-            fecha: Date          
+            fecha: Date,
+            comentarioDeEgreso:String
+   
         }
     ],
     historialDeUsuarios:[

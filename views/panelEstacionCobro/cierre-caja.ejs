@@ -30,18 +30,24 @@
                       data-bs-parent="#accordionExample">
                       <div class="accordion-body">
                         <div class="row justify-content-between mb-3">
-                          <div class="col-6 mb-3">Cantidad:</div>
-                          <div class="col-6 mb-3">Fecha:</div>
+                          <div class="col-4 mb-3">Cantidad:</div>
+                          <div class="col-4 mb-3">Comentario :</div>
+          
+                          <div class="col-4 mb-3">Fecha:</div>
 
 
                           <% for( let ingresos of estacionDeCobro.ingresosDeEfectivoManual ) { %>
 
-                            <div class="col-6">
+                            <div class="col-4">
                               <%= ingresos.cantidad %>
                             </div>
-                            <div class="col-6">
+                            <div class="col-4">
+                              <%= ingresos.comentarioDeIngreso %>
+                            </div>
+                            <div class="col-4">
                               <%= ingresos.fecha.toLocaleString() %>
                             </div>
+                           
 
                             <% } %>
 
@@ -70,19 +76,24 @@
             data-bs-parent="#accordionExample2">
             <div class="accordion-body">
               <div class="row justify-content-between mb-3">
-                <div class="col-6 mb-3">Cantidad:</div>
-                <div class="col-6 mb-3">Fecha:</div>
+                <div class="col-4 mb-3">Cantidad:</div>
+                <div class="col-4 mb-3">Comentario :</div>
+
+                <div class="col-4 mb-3">Fecha:</div>
 
 
                 <% for( let egresos of estacionDeCobro.egresoDeEfectivoManual ) { %>
 
-                  <div class="col-6">
+                  <div class="col-4">
                     <%= egresos.cantidad %>
                   </div>
-                  <div class="col-6">
+                  <div class="col-4">
+                    <%= egresos.comentarioDeEgreso %>
+                  </div>
+                  <div class="col-4">
                     <%= egresos.fecha.toLocaleString() %>
                   </div>
-
+                  
                   <% } %>
 
               </div>
@@ -114,25 +125,26 @@
                   <div class="col-12 mb-3 px-1">
                     Total de dinero recaudado en ventas en tarjeta/transferencia : <%= estacionDeCobro.dineroDeVentasEnOtro %>
                   </div>
-                  <form class="d-none" action="/administrador/estacionesdecobro/<%= estacionDeCobro._id %>/cierre-caja/guardar">
+                  <form  class="" action="/administrador/estacionesdecobro/<%= estacionDeCobro._id %>/cierre-caja/guardar" method="POST">
 
                   <div class="col-12">
                     <div class="mb-3">
+                      
+
+                    <input class="d-none" type="number" value="<%= estacionDeCobro.dineroEnEstacion %>" name="dineroEnCaja" id="">
+                    <input class="d-none" type="number" value="<%= estacionDeCobro.dineroDeInicio %>" name="dineroDeInicio" id="">
+                    <input class="d-none" type="number" value="<%= estacionDeCobro.comprasRealizadasEnEfectivo %>" name="cantidadTotalDeVentasEnEfectivo" id="">
+                    <input class="d-none" type="number" value="<%= estacionDeCobro.comprasRealizadasEnOtro %>" name="cantidadTotalDeVentasEnOtro" id="">
+
+                    <input class="d-none" type="number" value="<%= estacionDeCobro.dineroTotalDeVentasEnEfectivo %>" name="dineroTotalDeVentasEnEfectivo" id="">
+                    <input class="d-none" type="number" value="<%= estacionDeCobro.dineroDeVentasEnOtro %>" name="dineroTotalDeVentasEnOtro" id="">
+                    <input class="d-none" type="number" value="<%= estacionDeCobro._id %>" name="estacionDeCobro" id="">
+                    
                       <label for="comentarioDeCierre" class="form-label">Agregar comentario</label>
                       <textarea class="form-control" name="comentarioDeCierre" id="comentarioDeCierre" rows="3"></textarea>
                     </div>
                   </div>
 
-
-                    <input type="number" name="dineroEnCaja" id="">
-                    <input type="number" name="dineroDeInicio" id="">
-                    <input type="number" name="cantidadTotalDeVentasEnEfectivo" id="">
-                    <input type="number" name="cantidadTotalDeVentasEnOtro" id="">
-
-                    <input type="number" name="dineroTotalDeVentasEnEfectivo" id="">
-                    <input type="number" name="dineroTotalDeVentasEnOtro" id="">
-                    <input type="number" name="estacionDeCobro" id="">
-                    
                     <ul class="nav d-flex justify-content-around">
                     <li class="nav-item">
                       <a href="/administrador/estacionesdecobro/<%= estacionDeCobro._id %>">Cancelar</a>
