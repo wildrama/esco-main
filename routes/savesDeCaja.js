@@ -27,7 +27,7 @@ router.post('/save-venta', catchAsync(async(req,res)=>{
     const userActual = req.user.username;
     //  const dineroIngresadoEnCaja = req.body.dineroIngresadoEnCaja;
    const estacionDeCobroId = req.body.estacionDeCobro;
-
+    
     console.log(req.body)
     // guardar la venta
     // guardar el id de la venta en 'ventasRealizadasEnLaEstacion'
