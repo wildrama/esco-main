@@ -84,7 +84,7 @@ console.log(ventaEfectuada);
 console.log('estacion actualizada1')
 console.log(estacionDeCobroActualizada1)
 req.flash('success','Compra finalizada correctamente')
-res.redirect(`/caja/${estacionDeCobroActualizada1._id}/cajaActiva`)
+res.json('COMPRA FINALIZADA')
 }
 }))
 
