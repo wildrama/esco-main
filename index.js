@@ -151,5 +151,5 @@ app.use(function (err, req, res, next) {
 }); 
 
 // endapp
-app.listen(port, () => console.log(`SISTEMA DE GESTION ESCOSOSA ${port}!`))
+app.listen(port, () => console.log(`SISTEMA DE GESTION ESCOSOSA v.0.0.0.0 ${port}!`))
 
