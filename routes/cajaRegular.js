@@ -35,11 +35,11 @@ router.get('/:id/inicio',isLoggedIn, catchAsync( async (req, res) => {
 // ir a la caja y llevar las ofertas
 router.get('/:id/cajaActiva', isLoggedIn,catchAsync( async (req, res) => {
   
-  const estacionDeCobroId = req.params.id;
-  const usuarioID = req.user.id;
-  const tipoUsuario =req.user.funcion;
-  console.log('TIPO:'+tipoUsuario)
+
   try {
+    const estacionDeCobroId = req.params.id;
+    const usuarioID = req.user.id;
+    const tipoUsuario =req.user.funcion;
 
     const estacionDeCobro = await EstacionDeCobro.findById(estacionDeCobroId);
     // const ofertasConjuntoParaEstacion = await Oferta.find({})
