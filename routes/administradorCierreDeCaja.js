@@ -18,9 +18,9 @@ router.get('/', async (req, res) => {
   console.log(req.user.funcion)
   try {
 console.log('cierresTODOS:')
-    const cierresDeCaja = await CierreCaja.find({dineroEnCaja:1800})
+    const cierresDeCaja = await CierreCaja.find().populate('estacionDeCobro');
 console.log(cierresDeCaja)
-    // res.render('panelCierres/verTodosLosCierres', { cierresDeCaja })
+    res.render('panelCierres/verTodosLosCierres', { cierresDeCaja })
   } catch (error) {
     console.log(error)
     req.flash('error','No es posible acceder a los cierres, porfavor Intenta denuevo')

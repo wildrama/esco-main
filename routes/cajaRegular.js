@@ -37,6 +37,8 @@ router.get('/:id/cajaActiva', isLoggedIn,catchAsync( async (req, res) => {
   
   const estacionDeCobroId = req.params.id;
   const usuarioID = req.user.id;
+  const tipoUsuario =req.user.funcion;
+  console.log('TIPO:'+tipoUsuario)
   try {
 
     const estacionDeCobro = await EstacionDeCobro.findById(estacionDeCobroId);
@@ -45,14 +47,14 @@ router.get('/:id/cajaActiva', isLoggedIn,catchAsync( async (req, res) => {
 
     const ofertasIndividualesParaEstacion = await OfertaSingular.find({estacionesDeCobroParaLaOferta: mongoose.Types.ObjectId(estacionDeCobroId)}).exec();
    console.log('estacion actual');
-   console.log(estacionDeCobro)
+  //  console.log(estacionDeCobro)
     
     console.log('ofertasConjunto:')
-   console.log(ofertasConjuntoParaEstacion)
+  //  console.log(ofertasConjuntoParaEstacion)
 
     console.log('ofertasIndividuales:')
-   console.log(ofertasIndividualesParaEstacion)
-    res.render('caja/cajacobro',{ofertasIndividualesParaEstacion,ofertasConjuntoParaEstacion,usuarioID,estacionDeCobro});
+  //  console.log(ofertasIndividualesParaEstacion)
+    res.render('caja/cajacobro',{ofertasIndividualesParaEstacion,ofertasConjuntoParaEstacion,usuarioID,estacionDeCobro,tipoUsuario});
   } catch (error) {
     req.flash('error','Intenta de nuevo');
     res.redirect(`/caja/${estacionDeCobroId}/inicio`)

@@ -4,6 +4,7 @@ const catchAsync = require('../utils/catchAsync');
 const { isLoggedIn, isAdmin, isCaja } = require('../middleware');
 const EstacionDeCobro = require('../models/estaciondecobro');
 const Venta = require('../models/ventas');
+const CierreCaja = require('../models/cierrecaja');
 
 
 
@@ -85,7 +86,7 @@ router.put('/:id', catchAsync(async (req, res) => {
 router.get('/:id/historial-ventas', catchAsync(async (req, res) => {
   const id = req.params.id;
 
-  const historialVentasEstacion = await EstacionDeCobro.findById(id).populate("ventasRealizadasEnLaEstacion").exec()
+  const historialVentasEstacion = await EstacionDeCobro.findById(id).populate("ventasRealizadasEnLaEstacion").sort({ createdAt: -1 }).exec()
   console.log(historialVentasEstacion)
 
   res.render('panelEstacionCobro/estacion-historial')
@@ -231,11 +232,13 @@ router.post('/:id/cierre-caja/guardar', async (req, res) => {
   const estacionDeCobroId = req.params.id;
   console.log(req.body)
     const cierreCajaGuardado = new CierreCaja(req.body)
-    const estacionDeCobro = await EstacionDeCobro.findById(estacionDeCobroId);
+    await cierreCajaGuardado.save();
+
+    // const estacionDeCobro = await EstacionDeCobro.findById(estacionDeCobroId);
     console.log(cierreCajaGuardado)
     req.flash('success', 'Cierre realizado correctamente');
 
-    res.redirect(`/administrador/estacionesdecobro/${estacionDeCobro._id}`);
+    res.redirect(`/administrador/estacionesdecobro/${estacionDeCobroId}`);
  
 
 });

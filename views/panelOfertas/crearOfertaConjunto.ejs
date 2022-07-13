@@ -1,12 +1,14 @@
 <%- include('../partials/headerAdm.ejs'); %>
 
 <div class="container">
+  <a class="px-3 btn btn-success " href="/administrador/ofertas">
+    < Atras</a>
     <div class="row">
       <div class="col-12">
         <h2>Crear oferta de conjunto</h2>
 
         <p class="lead px-md-3 px-lg-4">
-          Instrucción
+          
         </p>
       </div>
     </div>
@@ -15,7 +17,7 @@
       
         <div class="col-6">
             <div class=" border border-dark p-xl-3" id="contenedorDeOfertaConjunto">
-              <form id="searchBarcodeCodigo">
+              <form class="d-none" id="searchBarcodeCodigo">
 
               <div class="row mb-3">
                   <p class="text-muted px-md-3">Funcionalidad para descontar la venta de los productos agregados a la oferta del stock</p>
@@ -37,14 +39,7 @@
                     </div>
                   
                   </form>
-                  <div class="resultBusquedaCodigo px-2">
-                    <ul id="resultadoDeBusquedaPorCodigo" class="ul">
-                      <li>
-                      Producto.nombre                             
-                      </li>
-                    
-                    </ul>
-                  </div>
+                 
               </div>
               <form action="/administrador/ofertas/agregar-oferta-conjunto" method="post">
 
@@ -80,7 +75,7 @@
                       <option value="<%= estacionDeCobro._id %>"><%= estacionDeCobro.ubicacionDeEstacion %> </option>
                     <% } %>
 
-                  
+                      
                   </select>
                 </div>
                 

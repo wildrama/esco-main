@@ -26,11 +26,11 @@
                                   <p class="lead">Cajera: <%= estacion.usuarioActual %>   </p>
                                 
                               <% } %>
-                              <% if(estacion.isActive == 'SI'){ %>
+                              <!-- <% if(estacion.isActive == 'SI'){ %>
                                   Estado: Activa 
                                   <% } else {%>
                                           Estado: Inactiva
-                                      <% } %> 
+                                      <% } %>  -->
                             <a class="btn btn-outline-secondary" href="/administrador/estacionesdecobro/<%= estacion._id %>">Ingresar a la estación de cobro</a>
                               </div>
                     </div>
@@ -40,21 +40,15 @@
         <% } %>
    
 
-      <div class="col-4 ">
+      <!-- <div class="col-4 ">
         <div class="row border border-dark p-3">
             <div class="col-4">
                 <img class="img-fluid p-3"  src="/imgs/estaciondecobro.png" alt="">
             </div>
-            <div class="col-8">
-                <div class="container">
-                    <p class="lead">Ubicación:</p>
-                    <p class="lead">Cajera: </p>
-                    <p class="lead text-muted">Activa: [O]----I</p>
-                      </div>
-            </div>
+          
         </div>
 
-    </div>
+    </div> -->
 
     </div>
 

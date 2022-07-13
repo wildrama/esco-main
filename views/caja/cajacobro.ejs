@@ -95,7 +95,9 @@
 				<div class="btnContainer mt-4">
 					<div id="callFiambreria" class="btnFunc">Agregar Producto Fiambrería</div>
 					<div id="cancelarCompra" class="btnFunc">Cancelar Compra</div>
+					<% if(tipoUsuario == 'ADMINISTRADOR'){ %> 
 					<div id="cambiarPrecio" class="btnFunc">Cambiar Precio</div>
+					<% } %> 
 					<div id="imprimirTicketA" class="btnFunc">Imprimir Ticket-A</div>
 					<div id="eliminarProductos" class="btnFunc">Eliminar Producto</div>
 					<div id="agregarProducto" class="btnFunc">Agregar prod. a la lista</div>

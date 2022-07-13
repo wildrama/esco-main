@@ -58,9 +58,9 @@ window.onload = async () => {
 
 }
 
-switchCodigo.addEventListener("click", async e => {
-	e.preventDefault();
-})
+// switchCodigo.addEventListener("click", async e => {
+// 	e.preventDefault();
+// })
 
 
 //JsBarcode("#code128", "1234567890123");

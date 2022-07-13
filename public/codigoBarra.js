@@ -7,7 +7,6 @@ router.get('/', (req, res) => {
 	
 })
 
-module.exports = router;
 
 router.post('/pedir', async (req, res) => {
 	try {
@@ -18,3 +17,4 @@ router.post('/pedir', async (req, res) => {
 	}
 
 })
+module.exports = router;

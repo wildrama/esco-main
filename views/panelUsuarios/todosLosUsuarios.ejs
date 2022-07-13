@@ -13,7 +13,7 @@
                     <div class="card-body">
                       <h5 class="card-title"> <%= usuario.username %> </h5>
                         <p class="card-text"> <%= usuario.funcion %> </p>
-                        <p><%= usuario.createdAt %> </p>
+
                         <form action="/administrador/userpanel/<%= usuario._id %>?_method=DELETE" method="post">
                           <button class="btn btn-warning">Eliminar</button>
                       </form>
