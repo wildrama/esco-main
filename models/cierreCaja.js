@@ -38,7 +38,6 @@ const cierresDeCajaRealizados = new Schema({
 
 const CierreCaja = mongoose.model('CierreCaja', cierresDeCajaRealizados);
 
-module.exports = CierreCaja
+module.exports = CierreCaja;
 
 
-// ACCIONES DURANTE LA VENTA Y GUARDAR VENTA. EL RESTO ISIIIII

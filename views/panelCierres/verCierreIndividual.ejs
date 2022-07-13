@@ -8,11 +8,11 @@
           <div class="row  justify-content-center">
             <div class="col-md-8 border border-dark p-lg-5 p-y-2 ">
               <div class="lead px-md-3 text-center">
-                Cierre de caja para :  en el dia <span
+                Cierre de caja de <b><%= cierreDeCajaRealizadoIndividual.estacionDeCobro.ubicacionDeEstacion %> </b> <span
                     id="actualTime"></span>
               </div>
               <div id="actualTime" class="col-4 text-end lead px-md-3">
-
+               <%= cierreDeCajaRealizadoIndividual.createdAt %>  
 
               </div>
               <!-- montos de las ventas + caja -->
@@ -26,7 +26,7 @@
                         Se realizaron los siguientes ingresos de efectivo de la caja:
                       </button>
                     </h2>
-                    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                    <!-- <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
                       data-bs-parent="#accordionExample">
                       <div class="accordion-body">
                         <div class="row justify-content-between mb-3">
@@ -47,7 +47,7 @@
 
                         </div>
                       </div>
-                    </div>
+                    </div> -->
                   </div>
 
                 </div>
@@ -57,23 +57,23 @@
 
               <div class="col-12 mb-3 px-1">
 
-                El dinero en caja en este momento es: $<%= estacionDeCobro.dineroEnEstacion %>
+                 Dinero en caja al momento del cierre: $<%= cierreDeCajaRealizadoIndividual.dineroEnEstacion %>
 
               </div>
 
-              <div class="col-12 mb-3 px-1"> Se ingreso en el inicio del ciclo de la estación $<%= estacionDeCobro.dineroDeInicio %>
+              <div class="col-12 mb-3 px-1"> Se ingreso en el inicio del ciclo de la estación $<%= cierreDeCajaRealizadoIndividual.dineroDeInicio %>
               </div>
-              <div class="col-12 mb-3 px-1"> Se realizaron <span><%= estacionDeCobro.comprasRealizadasEnEfectivo %></span>  ventas en efectivo
+              <div class="col-12 mb-3 px-1"> Se realizaron <span><%= cierreDeCajaRealizadoIndividual.comprasRealizadasEnEfectivo %></span>  ventas en efectivo
               </div>
-              <div class="col-12 mb-3 px-1"> Se realizaron <span><%= estacionDeCobro.comprasRealizadasEnOtro %></span> ventas con tarjeta/transferencia/otro
+              <div class="col-12 mb-3 px-1"> Se realizaron <span><%= cierreDeCajaRealizadoIndividual.comprasRealizadasEnOtro %></span> ventas con tarjeta/transferencia/otro
               </div>
 
 
-              <% if(estacionDeCobro.egresoDeEfectivoManual[0]){ %>
+              <% if(cierreDeCajaRealizadoIndividual.egresoDeEfectivoManual[0]){ %>
                 <div class="col-12 mb-3">
                   Se realizaron los siguientes retiros de efectivo de la caja:
                   <ul>
-                    <% for( let retiros of estacionDeCobro.egresoDeEfectivoManual ) { %>
+                    <% for( let retiros of cierreDeCajaRealizadoIndividual.egresoDeEfectivoManual ) { %>
                       <li class="d-flex justify-content-between">
                         <div class="">Cantidad: <%= retiros.cantidad %>
                         </div>
@@ -89,10 +89,10 @@
                 </div>
                 <% } %>
                   <div class="col-12 mb-3 px-1">
-                    Total de dinero recaudado en ventas en efectivo : <%= estacionDeCobro.dineroDeVentasEnEfectivo %>
+                    Total de dinero recaudado en ventas en efectivo : <%= cierreDeCajaRealizadoIndividual.dineroDeVentasEnEfectivo %>
                   </div>
                   <div class="col-12 mb-3 px-1">
-                    Total de dinero recaudado en ventas en tarjeta/transferencia : <%= estacionDeCobro.dineroDeVentasEnOtro %>
+                    Total de dinero recaudado en ventas en tarjeta/transferencia : <%= cierreDeCajaRealizadoIndividual.dineroDeVentasEnOtro %>
                   </div>
                   <div class="col-12">
                     <div class="mb-3">
@@ -102,13 +102,13 @@
                   </div>
                   <ul class="nav d-flex justify-content-around">
                     <li class="nav-item">
-                      <a href="/administrador/estacionesdecobro/<%= estacionDeCobro._id %>">Cancelar</a>
+                      <a href="/administrador/estacionesdecobro/<%= cierreDeCajaRealizadoIndividual._id %>">Cancelar</a>
                     </li>
                     <li class="nav-item">
-                      <a href="/administrador/estacionesdecobro/<%= estacionDeCobro._id %>/cierre-caja/imprimir">Imprimir</a>
+                      <a href="/administrador/estacionesdecobro/<%= cierreDeCajaRealizadoIndividual._id %>/cierre-caja/imprimir">Imprimir</a>
                     </li>
                     <li class="nav-item">
-                      <a href="/administrador/estacionesdecobro/<%= estacionDeCobro._id %>/cierre-caja/guardar">Auditar cierre</a>
+                      <a href="/administrador/estacionesdecobro/<%= cierreDeCajaRealizadoIndividual._id %>/cierre-caja/guardar">Auditar cierre</a>
                     </li>
                     
                   </ul>

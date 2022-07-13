@@ -139,7 +139,7 @@ window.onload = async () => {
 
 
 				}
-				ulOfertas.appendChild(li)
+				ul.appendChild(li)
 
 			})
 		}
@@ -176,6 +176,7 @@ export const agregarFiambre = (nombre, precio, id) => {
 
 	productosAgregados.push(fiambre)
 	sumarConImpuesto()
+
 	console.log(productosAgregados)
 }
 
@@ -232,9 +233,11 @@ export const importar = () => {
 		let check = false;
 		const tr = document.createElement("tr");
 		sumarConImpuesto()
+	
 		productosAgregados.map(prod => {
 
 			sumarConImpuesto()
+	
 			if (prod.nombre == aAg.nombre || (prod.nombre == aAg.nombre && prod.borrado == true)) {
 				check = true;
 				prod.cantidadAgregada = prod.cantidadAgregada + 1;
