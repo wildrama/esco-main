@@ -11,8 +11,27 @@ const categoriaInterna = document.getElementById("categoriaInterna")
 const presentacion = document.getElementById("presentacion")
 const impuestoAplicado = document.getElementById("impuestoAplicado")
 
+// document.getElementById("myForm").onkeypress = function(e) {
+//     var key = e.charCode || e.keyCode || 0;     
+//     if (key == 13) {
+//       alert("No Enter!");
+//       e.preventDefault();
+//     }
+//   } 
 
-
+  var inputs = document.querySelectorAll("input,select");
+  for (var i = 0 ; i < inputs.length; i++) {
+	 inputs[i].addEventListener("keypress", function(e){
+		if (e.which == 13) {
+		   e.preventDefault();
+		   var nextInput = document.querySelectorAll('[tabIndex="' + (this.tabIndex + 1) + '"]');
+		   if (nextInput.length === 0) {
+			  nextInput = document.querySelectorAll('[tabIndex="1"]');
+		   }
+		   nextInput[0].focus();
+		}
+	 })
+  }
 
 btnCargaStock.addEventListener("click", e => {
 	e.preventDefault();

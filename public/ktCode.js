@@ -1,6 +1,7 @@
 const switchCodigo = document.getElementById("switchCodigo");
 const codigoProducto = document.getElementsByClassName("codigoProducto")
 const bodyx = document.getElementsByTagName("body")
+const input1 = document.querySelector('#primerInput')
 
 const alertar = (mensaje, color) => {
 	const pop = document.createElement("div")
@@ -38,13 +39,14 @@ window.onload = async () => {
 		nuevoCodigo = "5555" + nuevoCodigo + "555"
 		switchCodigo.addEventListener("click", e => {
 			codigoProducto[0].value = nuevoCodigo	
+			input1.focus();
 		})
 		
 		codigoProducto[0].addEventListener("input", e => {
 			
 			codigos.map(codigo => {
 				if (codigo.codigo == e.target.value) {
-					codigoProducto[0].value = ""
+					// codigoProducto[0].value = ""
 					alertar("Ese código ya se encuentra en uso", "alert-danger")
 					
 				}

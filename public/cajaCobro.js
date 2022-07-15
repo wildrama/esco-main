@@ -36,6 +36,8 @@ let totalGlobal;
 let vueltoGlobal;
 let ingresoDinero = 0;
 dineroIngresado.value = "0";
+
+
 //Funciones
 
 let ultimo = 0;
@@ -135,7 +137,7 @@ window.onload = async () => {
 					console.log(productosAgregados)
 
 					sumarConImpuesto()
-
+					textBuscar.focus()
 
 
 				}
@@ -151,14 +153,26 @@ window.onload = async () => {
 
 }
 
+dineroIngresado.addEventListener('click', function(e){
+	dineroIngresado.value = "";
+});
+
+// window.addEventListener('keyPress',function(e){
+// 	e.f12
+// })
 
 
 
 
-
-
-
-
+hotkeys('f2', function (event, handler){
+	switch (handler.key) {
+	  case 'f2': textBuscar.focus() ;
+		break;
+  
+  
+	  default: textBuscar.focus();
+	}
+  });
 
 
 
@@ -176,7 +190,7 @@ export const agregarFiambre = (nombre, precio, id) => {
 
 	productosAgregados.push(fiambre)
 	sumarConImpuesto()
-
+	textBuscar.focus()
 	console.log(productosAgregados)
 }
 
@@ -205,6 +219,7 @@ export const eliminar = () => {
 
 				productosAgregados[i].cantidadAgregada = 0;
 				sumarConImpuesto()
+				textBuscar.focus()
 
 			}
 		}
@@ -233,7 +248,8 @@ export const importar = () => {
 		let check = false;
 		const tr = document.createElement("tr");
 		sumarConImpuesto()
-	
+		textBuscar.focus()
+
 		productosAgregados.map(prod => {
 
 			sumarConImpuesto()
@@ -319,6 +335,8 @@ export const importar = () => {
 
 
 								sumarConImpuesto()
+								textBuscar.focus()
+
 							}
 						}
 					})
@@ -356,93 +374,7 @@ export const importar = () => {
 			checkbox.classList.add("check");
 
 
-			const multiplicador = (x) => {
-				let index = ultimo;
-				console.log(index)
-				productosAgregados[index].cantidadAgregada = x;
-				document.getElementsByClassName(index)[0].childNodes[1].innerHTML = x;
-				document.getElementsByClassName(index)[0].childNodes[3].innerHTML = "$" + productosAgregados[index].impuestoPrecio * productosAgregados[index].cantidadAgregada;
-				console.log(productosAgregados[index].impuestoPrecio)
-				console.log(productosAgregados[index])
-
-
-
-
-				sumarConImpuesto()
-				textBuscar.blur()
-				return
-
-			}
-
-
-			function logKey(e) {
-				let key = e.code.slice(5, 6);
-				switch (key) {
-					case "1":
-						multiplicador(1)
-						break;
-					case "2":
-						multiplicador(2)
-
-						return;
-
-					case "3":
-						multiplicador(3)
-
-						break;
-
-					case "4":
-						multiplicador(4)
-
-						break;
-
-					case "5":
-						multiplicador(5)
-
-						break;
-
-					case "6":
-						multiplicador(6)
-
-						break;
-
-					case "7":
-						multiplicador(7)
-
-						break;
-
-					case "8":
-						multiplicador(8)
-
-						break;
-
-					case "9":
-						multiplicador(9)
-
-						break;
-
-
-				}
-
-			}
-			let keyCan = true
-
-			document.addEventListener('keydown', (e) => {
-
-				if (keyCan) {
-					logKey(e);
-					keyCan = false
-
-				}
-			});
-
-			setTimeout(() => {
-				document.removeEventListener('keydown', logKey)
-				document.getElementsByClassName(ultimo)[0].childNodes[1].style.color = "#fff"
-			}, 5000)
-
-
-
+		
 
 			checkbox.addEventListener('change', () => {
 
@@ -464,6 +396,8 @@ export const importar = () => {
 					borrarInvisible.style.visibility = "hidden"
 				}
 				console.log(productosSeleccionados)
+				textBuscar.focus()
+
 			})
 
 			tdNombre.innerHTML = aAg.nombre
@@ -566,7 +500,8 @@ export const sumarConImpuesto = () => {
 
 		totalGlobal = sum.toFixed(2);
 		totalHTML.innerHTML = "TOTAL: $" + sum.toFixed(2);
-		vuelto.innerHTML = "$" + (ingresoDinero - totalGlobal).toFixed(2)
+		vuelto.innerHTML = "$" + (ingresoDinero - totalGlobal).toFixed(2);
+		
 	}
 
 }
@@ -755,6 +690,7 @@ cajaCobroForm.addEventListener('submit', async e => {
 				trEspecifico[0].childNodes[3].innerHTML = "$" + (itemProducto.cantidadAgregada * itemProducto.impuestoPrecio).toFixed(2)
 				trEspecifico[0].style.display = "table-row"
 				sumarConImpuesto()
+				textBuscar.focus()
 
 				ofertasIndividuales.map(oferta => {
 
@@ -825,6 +761,8 @@ cajaCobroForm.addEventListener('submit', async e => {
 
 
 								sumarConImpuesto()
+								textBuscar.focus()
+
 							}
 						}
 					})
@@ -851,6 +789,7 @@ cajaCobroForm.addEventListener('submit', async e => {
 			ultimo = productosAgregados.length - 1
 			sumarConImpuesto()
 			console.log(productosAgregados)
+			textBuscar.focus()
 
 
 
@@ -864,108 +803,96 @@ cajaCobroForm.addEventListener('submit', async e => {
 		//
 
 
-		const multiplicador = (x) => {
-			let index = ultimo;
-			console.log(index)
-			productosAgregados[index].cantidadAgregada = x;
-			document.getElementsByClassName(index)[0].childNodes[1].innerHTML = x;
-			document.getElementsByClassName(index)[0].childNodes[3].innerHTML = "$" + productosAgregados[index].impuestoPrecio * productosAgregados[index].cantidadAgregada;
-			console.log(productosAgregados[index].impuestoPrecio)
-			console.log(productosAgregados[index])
+		// const multiplicador = (x) => {
+		// 	let index = ultimo;
+		// 	console.log(index)
+		// 	productosAgregados[index].cantidadAgregada = x;
+		// 	document.getElementsByClassName(index)[0].childNodes[1].innerHTML = x;
+		// 	document.getElementsByClassName(index)[0].childNodes[3].innerHTML = "$" + productosAgregados[index].impuestoPrecio * productosAgregados[index].cantidadAgregada;
+		// 	console.log(productosAgregados[index].impuestoPrecio)
+		// 	console.log(productosAgregados[index])
 
 
-			ofertasIndividuales.map(oferta => {
+		// 	ofertasIndividuales.map(oferta => {
 
-				productosAgregados.map(producto => {
-					if (producto.id == oferta.productoEnOferta) {
-						if (producto.cantidadAgregada == oferta.cantidadDeUnidadesNecesarias) {
-							producto.impuestoPrecio = oferta.precioOferta / oferta.cantidadDeUnidadesNecesarias
-							document.getElementsByClassName(producto.idArr)[0].childNodes[2].innerHTML = "$" + oferta.precioOferta
+		// 		productosAgregados.map(producto => {
+		// 			if (producto.id == oferta.productoEnOferta) {
+		// 				if (producto.cantidadAgregada == oferta.cantidadDeUnidadesNecesarias) {
+		// 					producto.impuestoPrecio = oferta.precioOferta / oferta.cantidadDeUnidadesNecesarias
+		// 					document.getElementsByClassName(producto.idArr)[0].childNodes[2].innerHTML = "$" + oferta.precioOferta
 
-							document.getElementsByClassName(producto.idArr)[0].childNodes[3].innerHTML = "$" + oferta.precioOferta
-							sumarConImpuesto()
-						}
-					}
-				})
-			})
-
-
+		// 					document.getElementsByClassName(producto.idArr)[0].childNodes[3].innerHTML = "$" + oferta.precioOferta
+		// 					sumarConImpuesto()
+		// 				}
+		// 			}
+		// 		})
+		// 	})
 
 
 
-			sumarConImpuesto()
-			return
-
-		}
 
 
-		function logKey(e) {
-			let key = e.code.slice(5, 6);
-			switch (key) {
-				case "1":
-					multiplicador(1)
-					break;
-				case "2":
-					multiplicador(2)
+		// 	sumarConImpuesto()
+		// 	return
 
-					return;
-
-				case "3":
-					multiplicador(3)
-
-					break;
-
-				case "4":
-					multiplicador(4)
-
-					break;
-
-				case "5":
-					multiplicador(5)
-
-					break;
-
-				case "6":
-					multiplicador(6)
-
-					break;
-
-				case "7":
-					multiplicador(7)
-
-					break;
-
-				case "8":
-					multiplicador(8)
-
-					break;
-
-				case "9":
-					multiplicador(9)
-
-					break;
+		// }
 
 
-			}
+		// function logKey(e) {
+		// 	let key = e.code.slice(5, 6);
+		// 	switch (key) {
+		// 		case "1":
+		// 			multiplicador(1)
+		// 			break;
+		// 		case "2":
+		// 			multiplicador(2)
 
-		}
-		let keyCan = true
-		document.getElementsByClassName(ultimo)[0].childNodes[1].style.color = "yellow"
+		// 			return;
 
-		document.addEventListener('keydown', (e) => {
-			if (keyCan) {
-				logKey(e);
-				keyCan = false
+		// 		case "3":
+		// 			multiplicador(3)
 
-			}
-		});
+		// 			break;
 
-		setTimeout(() => {
-			document.removeEventListener('keydown', logKey)
-			document.getElementsByClassName(ultimo)[0].childNodes[1].style.color = "#fff"
+		// 		case "4":
+		// 			multiplicador(4)
+
+		// 			break;
+
+		// 		case "5":
+		// 			multiplicador(5)
+
+		// 			break;
+
+		// 		case "6":
+		// 			multiplicador(6)
+
+		// 			break;
+
+		// 		case "7":
+		// 			multiplicador(7)
+
+		// 			break;
+
+		// 		case "8":
+		// 			multiplicador(8)
+
+		// 			break;
+
+		// 		case "9":
+		// 			multiplicador(9)
+
+		// 			break;
 
 
-		}, 5000)
+		// 	}
+
+		// }
+		
+
+		
+
+	
 
 
 
@@ -973,6 +900,8 @@ cajaCobroForm.addEventListener('submit', async e => {
 
 	} catch (error) {
 		if (error == "TypeError: producto is null") {
+			textBuscar.focus()
+
 			textBuscar.value = "";
 			textBuscar.style.backgroundColor = "#ffd6db";
 		}

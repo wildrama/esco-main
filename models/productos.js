@@ -46,7 +46,6 @@ const productSchema = new Schema({
   },
   precioMayorista: {
     type: Number,
-    required: true
   },
   precioCosto: {
     type: Number,
@@ -66,5 +65,5 @@ const productSchema = new Schema({
 
 const Producto = mongoose.model('Producto', productSchema);
 
-module.exports = Producto
+module.exports = Producto;
 
