@@ -71,6 +71,10 @@ const alerP = document.querySelector('#alerP');
     
         } catch (error) {
       console.error(error);
+      inputBuscar.value="";
+
+      inputBuscar.focus();
+        
       alerP.classList.remove('d-none')
       setTimeout(() => {
         alerP.classList.add('d-none')
