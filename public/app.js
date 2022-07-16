@@ -18,10 +18,9 @@ const keyCodes = () => {
 
   const inputBuscar = document.querySelector('#inputBuscar');
   const buscarcodigo = document.querySelector('#buscarcodigo');
-
+const alerP = document.querySelector('#alerP');
   
   const tableBody = document.querySelector('.tableBody');
-
   formSearch.addEventListener('submit', async function(event){
     event.preventDefault();
     const query_buscar = inputBuscar.value;
@@ -63,15 +62,19 @@ const keyCodes = () => {
         tr.append(td0,td1,td2,td3,accion1)
         tableBody.append(tr);
 
-      
+        inputBuscar.value="";
 
-
-
-
+      inputBuscar.focus();
+        
+        
      
     
         } catch (error) {
       console.error(error);
+      alerP.classList.remove('d-none')
+      setTimeout(() => {
+        alerP.classList.add('d-none')
+      }, 3000)
     }
    
   })
