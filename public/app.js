@@ -28,12 +28,11 @@ const alerP = document.querySelector('#alerP');
     try {
       const query_buscar = inputBuscar.value;
       console.log(query_buscar)
-      const res = await axios.post('/administrador/buscar/buscar-codigo', {codigo: query_buscar }); 
+      const res = await axios.post('/administrador/buscar', {codigo: query_buscar }); 
       const producto = res.data;
-      
 
-      console.log(res.data)
-      if(producto){
+
+      console.log(res)  
         const td0 = document.createElement('td');
         const td1 = document.createElement('td');
   
@@ -67,10 +66,6 @@ const alerP = document.querySelector('#alerP');
 
       inputBuscar.focus();
  
-      }
-     
-      inputBuscar.value="";
-
     
         } catch (error) {
 
