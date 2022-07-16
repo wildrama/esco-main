@@ -21,18 +21,19 @@ const keyCodes = () => {
 const alerP = document.querySelector('#alerP');
   
   const tableBody = document.querySelector('.tableBody');
+
   formSearch.addEventListener('submit', async function(event){
     event.preventDefault();
-    const query_buscar = inputBuscar.value;
-    console.log(query_buscar)
+ 
     try {
-      
-      const res = await axios.post('/administrador/buscar', {codigo: query_buscar }); 
+      const query_buscar = inputBuscar.value;
+      console.log(query_buscar)
+      const res = await axios.post('/administrador/buscar/buscar-codigo', {codigo: query_buscar }); 
       const producto = res.data;
       
 
-    
-
+      console.log(res.data)
+      if(producto){
         const td0 = document.createElement('td');
         const td1 = document.createElement('td');
   
@@ -65,20 +66,23 @@ const alerP = document.querySelector('#alerP');
         inputBuscar.value="";
 
       inputBuscar.focus();
-        
-        
+ 
+      }
      
-    
-        } catch (error) {
-      console.error(error);
       inputBuscar.value="";
 
-      inputBuscar.focus();
+    
+        } catch (error) {
+
+   
+          inputBuscar.value="";
+
+       inputBuscar.focus();
         
-      alerP.classList.remove('d-none')
-      setTimeout(() => {
+          alerP.classList.remove('d-none')
+          setTimeout(() => {
         alerP.classList.add('d-none')
-      }, 3000)
+            }, 3000)
     }
    
   })

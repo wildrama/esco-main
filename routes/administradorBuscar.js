@@ -22,7 +22,7 @@ router.post('/',  async(req,res)=>{
     try {
       const codigo = req.body.codigo;
       
-      console.log(codigo);
+     
       const producto = await Producto.findOne({codigo: codigo });
       res.json(producto);    
     } catch (error) {
