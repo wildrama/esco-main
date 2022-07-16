@@ -31,13 +31,12 @@ router.post('/',  async(req,res)=>{
     
   })
   
-  router.post('/buscar-codigo', isLoggedIn, async (req, res) => {
+  router.post('/buscar-codigo', isLoggedIn,catchAsync( async (req, res) => {
     try {
         
       const codigo = req.body.codigo;
       console.log(codigo);
       const producto = await Producto.findOne({codigo: codigo });
-      console.log(producto) ;
       res.json(producto);   
     } catch (error) {
       console.log(error) ;
@@ -47,7 +46,7 @@ router.post('/',  async(req,res)=>{
     } 
     
 
-  })
+  }))
   
   
 router.post('/mixto', isLoggedIn, async(req,res)=>{
