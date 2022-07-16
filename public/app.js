@@ -22,17 +22,17 @@ const keyCodes = () => {
   
   const tableBody = document.querySelector('.tableBody');
 
-  formSearch.addEventListener('keyup', async function(event){
+  formSearch.addEventListener('submit', async function(event){
     event.preventDefault();
-    const query_buscar = event.target.value;
+    const query_buscar = inputBuscar.value;
+    console.log(query_buscar)
     try {
       
-      const res = await axios.post('/administrador/buscar', {buscar: query_buscar }); 
-      const productos = res.data;
+      const res = await axios.post('/administrador/buscar', {codigo: query_buscar }); 
+      const producto = res.data;
       
-      console.log(productos);  
 
-      for (let producto of productos){
+    
 
         const td0 = document.createElement('td');
         const td1 = document.createElement('td');
@@ -52,7 +52,7 @@ const keyCodes = () => {
         const imgButton1 = document.createElement('img');
         const accion2 = document.createElement('a');
 
-          accion1.href =`/administrador/productos/${producto._id}/edit`;
+          accion1.href =`/administrador/productos/${producto._id}/upstockprecio`;
           imgButton1.classList.add('editButton')
             imgButton1.src='/imgs/png/contract.png'
         td1.textContent= producto.precioMinorista;
@@ -62,9 +62,8 @@ const keyCodes = () => {
         accion1.append(imgButton1);
         tr.append(td0,td1,td2,td3,accion1)
         tableBody.append(tr);
-        console.log(producto);  
 
-      }
+      
 
 
 
@@ -129,33 +128,33 @@ const keyCodes = () => {
   //   }
    
   // })
-  const agregarPeeroducto = (producto)=>{
-      const td0 = document.createElement('td');
-      const td1 = document.createElement('td');
+  // const agregarPeeroducto = (producto)=>{
+  //     const td0 = document.createElement('td');
+  //     const td1 = document.createElement('td');
 
-      const td2 = document.createElement('td');
+  //     const td2 = document.createElement('td');
 
-      const td3 = document.createElement('td');
+  //     const td3 = document.createElement('td');
 
-      const td4 = document.createElement('td');
+  //     const td4 = document.createElement('td');
 
-      const tr = document.createElement('tr');
+  //     const tr = document.createElement('tr');
 
-      const ul = document.createElement('ul');
-      const li = document.createElement('li');
-      const li2 = document.createElement('li');
-      const accion1 = document.createElement('a');
-      const accion2 = document.createElement('a');
+  //     const ul = document.createElement('ul');
+  //     const li = document.createElement('li');
+  //     const li2 = document.createElement('li');
+  //     const accion1 = document.createElement('a');
+  //     const accion2 = document.createElement('a');
 
-      td0.textContent= producto.precioMinorista;
-      td1.textContent= producto.nombre;
-      td2.textContent= producto.marca;
-      td3.textContent= producto.cantidad;
+  //     td0.textContent= producto.precioMinorista;
+  //     td1.textContent= producto.nombre;
+  //     td2.textContent= producto.marca;
+  //     td3.textContent= producto.cantidad;
 
-      tr.append(td0,td1,td2,td3)
-      tableBody.append(tr);
+  //     tr.append(td0,td1,td2,td3)
+  //     tableBody.append(tr);
   
-    }
+  //   }
 
     
   

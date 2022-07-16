@@ -19,25 +19,16 @@ router.get('/', isLoggedIn, isAdmin(roleADM),(req,res)=>{
 
 
 router.post('/',  async(req,res)=>{
-    const query = req.body.buscar;
-    console.log(query);
     try {
-  
-        const productos = await Producto.find({
-           $or:[
-             {nombre:{$regex: query}},
-             {marca:{$regex: query}},
-            
-           ]
-             });
-  
-  
-             console.log(productos);
-             res.json(productos)
-  
+      const codigo = req.body.codigo;
+      
+      console.log(codigo);
+      const producto = await Producto.findOne({codigo: codigo });
+      res.json(producto);    
     } catch (error) {
         res.send('error')
-    }
+    } 
+    
   })
   
   router.post('/buscar-codigo', isLoggedIn, async (req, res) => {
