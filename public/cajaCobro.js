@@ -1003,13 +1003,13 @@ finalizarCompra.onclick = async () => {
 		dineroDeSalida: vueltoGlobal,
 		productosDeStock: [
 			{
-				valorDelProductoEnLaCompra: stringValorDelProducto(),
+				valorDelProductoEnLaCompra: 'stringValorDelProducto()',
 				identificadorDeProducto: '624488cac68a3c3a7b2df4ec'
 			}
 		],
 		productosSinStock: [
 			{
-				valorDelProductoEnLaCompra: stringValorDelProducto(),
+				valorDelProductoEnLaCompra: 'stringValorDelProducto()',
 				identificadorDeProducto: 'SinSTOCK'
 			}
 		],
