@@ -15,11 +15,12 @@ const roleCaja = 'CAJA';
 
 // mostrar los Cierres
 router.get('/', async (req, res) => {
-  console.log(req.user.funcion)
   try {
-console.log('cierresTODOS:')
-    const cierresDeCaja = await CierreCaja.find().populate('estacionDeCobro');
-console.log(cierresDeCaja)
+    console.log(req.user.funcion)
+
+  console.log('cierresTODOS:')
+    const cierresDeCaja = await CierreCaja.find({}).populate('estacionDeCobro');
+  console.log(cierresDeCaja)
     res.render('panelCierres/verTodosLosCierres', { cierresDeCaja })
   } catch (error) {
     console.log(error)
