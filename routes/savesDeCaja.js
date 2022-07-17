@@ -64,7 +64,7 @@ router.post('/save-venta', catchAsync(async(req,res)=>{
 
 
     if(ventaEfectuada.tipoDePago =='OTRO'){
-  
+        // dinero en estacion:  dinerodeventas de ingreso - dinero de egresos
         // dineroEnEstacion: ventaEfectuada.dineroIngresado 
 
 let estacionDeCobroActualizada2= await EstacionDeCobro.findByIdAndUpdate(estacionDeCobroId,{ $inc: { dineroDeVentasEnOtro:ventaEfectuada.dineroIngresado,comprasRealizadasEnOtro: '1'  },$push: { ventasRealizadasEnLaEstacion: ventaID } }).exec();
@@ -77,7 +77,7 @@ req.flash('success','Compra finalizada correctamente')
 res.redirect(`/caja/${estacionDeCobroActualizada2._id}/cajaActiva`)
 }else{
 
-let estacionDeCobroActualizada1= await EstacionDeCobro.findByIdAndUpdate(estacionDeCobroId,{ $inc: {dineroEnEstacion: ventaEfectuada.dineroIngresado,dineroDeVentasEnEfectivo:ventaEfectuada.dineroIngresado ,comprasRealizadasEnEfectivo: '1'   },$push: { ventasRealizadasEnLaEstacion: ventaID } }).exec();
+let estacionDeCobroActualizada1= await EstacionDeCobro.findByIdAndUpdate(estacionDeCobroId,{ $inc: {dineroEnEstacion: ventaEfectuada.dineroIngresado - ventaEfectuada.dineroDeSalida,dineroDeVentasEnEfectivo:ventaEfectuada.dineroIngresado ,comprasRealizadasEnEfectivo: '1'   },$push: { ventasRealizadasEnLaEstacion: ventaID } }).exec();
 console.log('venta realizada:' + ventaID)
 console.log(ventaEfectuada);
 

@@ -25,11 +25,11 @@ const rolecAJA= 'CAJA';
 // inicio de la estacion
 router.get('/:id/inicio',isLoggedIn, catchAsync( async (req, res) => {
   const estacionDeCobroId = req.params.id;
-  const usuario = req.user
+  const usuario = req.user;
   const estacionDeCobro = await EstacionDeCobro.findById(estacionDeCobroId);
   const fechaActual = new Date().toLocaleDateString();
   res.render('caja/cajainicio',{estacionDeCobro,usuario,fechaActual});
-
+  
 }));
 
 // ir a la caja y llevar las ofertas

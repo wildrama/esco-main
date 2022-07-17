@@ -27,7 +27,7 @@ router.get('/', async (req, res) => {
     req.flash('error','No es posible acceder a los cierres, porfavor Intenta denuevo')
     res.redirect('/administrador')
   }
-
+  
 });
 
 
